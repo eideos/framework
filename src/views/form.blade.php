@@ -5,6 +5,9 @@
     @foreach ($maint as $tab => $tabData)
     <li class="nav-item">
         <a class="nav-link{{$first?" active":""}}" id="{{$tab}}-tab" data-toggle="tab" href="#{{$tab}}" role="tab" aria-controls="home" aria-selected={{$first}}>
+            @if(isset($tabData['icon']))
+            <i class="fas fa-{{$tabData['icon']}}"></i>
+            @endif
             {{$tabData["label"]}}
             <span class="badge badge-danger"></span>
         </a>

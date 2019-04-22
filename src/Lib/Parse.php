@@ -99,7 +99,7 @@ class Parse {
         $xmlStr = $this->importFiles($xmlStr);
 
         $attributes = array(
-            'tab' => array('id', 'label'),
+            'tab' => array('id', 'label', 'icon'),
             'importcolumn' => array('index', 'name', 'label', 'presentation'),
             'maintfield' => array('name', 'label', 'presentation', 'params', 'class', 'isvisible', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'autocomplete', 'placeholder', 'rows', 'cols', 'model', 'displayField', 'listen', 'listenCallback', 'multiple'),
             'table' => array('id', 'paginate', 'title', 'label', 'popup', 'columns', 'blocks', 'model', 'order', 'orderby', 'assoc', 'multiple', 'total', 'directedit', 'cols', 'readonly', 'relation', 'width'),
