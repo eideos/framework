@@ -1,5 +1,8 @@
 {
     "name": "eideos/framework",
+    "keywords": ["framework", "eideos", "php", "laravel"],
+    "license": "MIT",
+    "homepage": "https://www.eideos.com",
     "authors": [
         {
             "name": "Eideos SAS",
