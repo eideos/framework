@@ -1,9 +1,9 @@
 {
-    "name": "eideos/framework",
+    "name": "eideos/framework-ofus",
     "authors": [
         {
-            "name": "Eideos",
-            "email": "eideos@gmail.com"
+            "name": "Eideos SAS",
+            "email": "eideos.sas@gmail.com"
         }
     ],
     "require": {
