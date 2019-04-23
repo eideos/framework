@@ -13,6 +13,8 @@ function bloqueoHearthbeat() {
 function bloqueoRegistroActualizar(time) {
     $.getJSON(APP_URL + "blocks/ajax_check_status/" + MODEL + "/" + MODEL_ID, function (jdata) {
         if (jdata.status == 'expired') {
+            $("#cancelButton").click();
+            return;
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 url: "/blocks/ajax_free/" + MODEL + "/" + MODEL_ID,

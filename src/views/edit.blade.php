@@ -52,7 +52,7 @@
                 <span class="text">{{env('LABEL_VOLVER', 'Volver')}}</span>
               </a>
               @else
-              <a href="{{url("/" . $url)}}?_last=1" id="cancelButton" class="btn btn-light btn-icon-split">
+            <a href="{{url("/" . $url)}}?_last=1&_free={{$id}}" id="cancelButton" class="btn btn-light btn-icon-split">
                 <span class="icon text-white">
                   <i class="fas fa-chevron-left"></i>
                 </span>
