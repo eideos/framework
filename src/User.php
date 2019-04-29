@@ -6,7 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class User extends Authenticatable implements Auditable {
+class User extends Authenticatable implements Auditable
+{
 
     use Notifiable;
     use \OwenIt\Auditing\Auditable;
@@ -36,21 +37,37 @@ class User extends Authenticatable implements Auditable {
     ];
     public $appends = ['fullname', 'tmp_roles'];
 
-    public function getTmpRolesAttribute()
+    public function __construct(array $attributes = [])
     {
-      return $this->roles->pluck('name')->implode(", ");
+        parent::__construct($attributes);
+
+        if (function_exists('get_custom_model_properties')) {
+            $attributes = get_custom_model_properties(get_class($this));
+            if (!empty($attributes)) {
+                foreach ($attributes as $attribute => $value) {
+                    $this->{$attribute} = $value;
+                }
+            }
+        }
     }
 
-    public function getFullnameAttribute() {
+    public function getTmpRolesAttribute()
+    {
+        return $this->roles->pluck('name')->implode(", ");
+    }
+
+    public function getFullnameAttribute()
+    {
         return $this->firstname . " " . $this->lastname;
     }
 
-    public function blocks() {
+    public function blocks()
+    {
         return $this->hasMany('Eideos\Framework\Block', 'user_id');
     }
 
-    public function roles() {
+    public function roles()
+    {
         return $this->belongsToMany('Eideos\Framework\Role', 'roles_users', 'user_id');
     }
-
 }
