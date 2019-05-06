@@ -2,6 +2,8 @@
 
 namespace Eideos\Framework\Presentations;
 
+use Eideos\Framework\Lib\Presentation;
+
 class pst_tags extends Presentation
 {
     public $js_initial = "tags_init";
