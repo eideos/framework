@@ -26,6 +26,7 @@ class Presentation {
     public $js_initial;
     public $js_totext = "presentation_totext";
     public $js_tovalue = "presentation_tovalue";
+    public $js_topopup = "presentation_topopup";
 
     public function __construct($params) {
         foreach ($params as $key => $value) {
