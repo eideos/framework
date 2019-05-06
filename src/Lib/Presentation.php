@@ -12,7 +12,6 @@ class Presentation {
     protected $rows = 2;
     protected $readonly = false;
     protected $isNumeric = false;
-    protected $isvisible = true;
     protected $search = true;
     protected $searchfield = false;
     protected $initialvalue;
@@ -22,6 +21,7 @@ class Presentation {
     protected $list = false;
     protected $tableModel;
     protected $rowNumber;
+    public $isvisible = true;
     public $isvisibletable = true;
     public $js_initial;
     public $js_totext = "presentation_totext";
@@ -88,7 +88,7 @@ class Presentation {
 
     public function getDatabaseValue() {
         if (isset($this->value)) {
-            return is_array($this->value) ? explode(",", $this->value) : $this->value;
+            return is_array($this->value) ? implode(",", $this->value) : $this->value;
         }
         return null;
     }

@@ -14,7 +14,7 @@
         <thead>
             <tr>
                 @foreach ($fields as $field)
-                <th style={{!($field->isvisibletable) ? 'display:none':''}}>{{$field->getLabel()}}</th>
+                <th style={{!$field->getIsVisible() || !$field->isvisibletable ? 'display:none':''}}>{{$field->getLabel()}}</th>
                 @endforeach
                 @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["delete"]) || $actions["delete"]))
                 <th class="delete">Acciones</th>
@@ -30,7 +30,7 @@
         @endif
         @foreach($row as $field)
         @if (is_object($field))
-        <td style={{!($field->isvisibletable) ? 'display:none':''}}>
+        <td style={{!$field->getIsVisible() || !$field->isvisibletable ? 'display:none':''}}>
             <div class="mt-1">
                 @include($field->getViewFieldPath(), $field->getViewVars())
             </div>

@@ -54,9 +54,13 @@
       if (typeof tableInits == "undefined") {
       tableInits = [];
       }
+      if (typeof tableActions == "undefined") {
+        tableActions = [];
+      }
       tableFields['{{$model}}'] = @json($fields);
       tableRules['{{$model}}'] = @json(isset($tables_rules[$model])?$tables_rules[$model]["validator"]->toArray():[]);
       tableInits['{{$model}}'] = @json($form_inits['tables'][$model] ?? []);
+      tableActions['{{$model}}'] = @json($actions ?? []);
       });
   </script>
 </form>
