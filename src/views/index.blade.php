@@ -19,9 +19,9 @@
     <strong><i class="fas fa-check-circle"></i> Correcto:</strong> {{ \Session::get('success') }}
 </div>
 @endif
-@if (\Session::has('error'))
+@if (\Session::has('danger'))
 <div class="alert alert-danger">
-    <strong><i class="fas fa-exclamation-circle"></i> Error:</strong> {{ \Session::get('error') }}
+    <strong><i class="fas fa-exclamation-circle"></i> Error:</strong> {{ \Session::get('danger') }}
 </div>
 @endif
 
