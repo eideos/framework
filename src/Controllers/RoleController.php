@@ -26,6 +26,7 @@ class RoleController extends AppController {
             ["label" => "Administración del Sistema"],
             ["label" => "Roles"],
         ];
+        $this->bladeVars["deleteMessage"] = "¿Está seguro que desea eliminar el rol #name ?";
         $this->slfile = "Role.RoleSL";
         return parent::index($request);
     }

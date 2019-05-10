@@ -31,6 +31,7 @@ class ButtonController extends AppController {
             ["label" => "Administración del Sistema"],
             ["label" => "Botones"],
         ];
+        $this->bladeVars["deleteMessage"] = "¿Está seguro que desea eliminar el botón #name ?";
         $this->slfile = "Button.ButtonSL";
         return parent::index($request);
     }

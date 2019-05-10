@@ -27,6 +27,7 @@ class RightController extends AppController {
             ["label" => "Administración del Sistema"],
             ["label" => "Derechos"],
         ];
+        $this->bladeVars["deleteMessage"] = "¿Está seguro que desea eliminar el derecho #name ?";
         $this->slfile = "Right.RightSL";
         return parent::index($request);
     }
