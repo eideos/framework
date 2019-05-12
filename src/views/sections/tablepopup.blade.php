@@ -6,7 +6,7 @@
           <span class="icon text-white">
             <i class="fas fa-plus"></i>
           </span>
-          <span class="text">Agregar Fila</span>
+          <span class="text">{{env('LABEL_TABLEPOPUP_ADD', 'Agregar Fila')}}</span>
         </a>
         @endif
     </h5>
