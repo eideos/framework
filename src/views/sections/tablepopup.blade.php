@@ -10,7 +10,7 @@
         </a>
         @endif
     </h5>
-    <table class="table table-sm table-striped asociada" data-model="{{$model}}">
+    <table class="table table-sm table-striped asociada" data-model="{{$model}}" data-assoc="{{$assoc??0}}">
         <thead>
             <tr>
                 @foreach ($fields as $field)

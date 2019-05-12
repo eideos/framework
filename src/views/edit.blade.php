@@ -14,8 +14,7 @@
 
 @if ($errors->any())
 <div class="alert alert-danger">
-  <strong><i class="fas fa-exclamation-circle"></i> Alerta:</strong>
-  Por favor corrige los errores del formulario.
+  <strong><i class="fas fa-exclamation-circle"></i> Error:</strong> Por favor corrige los errores del formulario.
 </div>
 @endif
 
