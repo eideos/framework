@@ -159,6 +159,14 @@ class AbstractMenu
         if (isset($menuItem["label"])) {
             $html .= '<span>' . $menuItem["label"] . '</span>';
         }
+        if (isset($menuItem["counts"]) && !empty($menuItem["counts"])) {
+            foreach($menuItem["counts"] as $color => $count) {
+                if(isset($count['callback']) && function_exists($count['callback'])) {
+                    $cant = call_user_func($count['callback']);
+                    $html .= '&nbsp;<span class="badge badge-pill badge-' . $color . '" data-toggle="tooltip" title="' . (isset($count['label']) ? $count['label'] : $cant). '">' . $cant .'</span>';
+                }
+            }
+        }        
         $html .= '</a>';
         if (isset($menuItem["items"])) {
             $html .= $this->RenderSubMenu($menuItem["items"], $menuId, $active);
