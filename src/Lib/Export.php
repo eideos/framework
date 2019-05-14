@@ -26,9 +26,11 @@ class Export implements FromQuery, WithHeadings, WithMapping
 
     public function map($modelBuilder): array
     {
+        return [];
     }
 
     public function headings(): array
     {
+        return [];
     }
 }
