@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Presentations;
+namespace Eideos\Framework\Presentations;
 
 use Eideos\Framework\Lib\Presentation;
 
@@ -10,7 +10,7 @@ class pst_daterange extends Presentation {
     public $js_initial = "daterange_init";
 
     public function getJsIncludes() {
-        return ["vendor/framework/js/daterange.js"];
+        return ["vendor/framework/js/presentation/daterange.js"];
     }
 
     public function getViewVars() {
