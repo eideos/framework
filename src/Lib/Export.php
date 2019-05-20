@@ -12,7 +12,7 @@ class Export implements FromQuery, WithHeadings, WithMapping
 {
     use Exportable;
 
-    private $modelBuilder;
+    protected $modelBuilder;
 
     public function __construct(Builder $modelBuilder = null)
     {

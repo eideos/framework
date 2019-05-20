@@ -34,7 +34,13 @@ class pst_daterange extends Presentation {
 
     public function loadDatabaseValue() {
         if (isset($this->value)) {
-            return implode(",", $this->value);
+            if (is_array($this->value)) {
+                foreach ($this->value as $part) {
+                    if (!is_null($part)) {
+                        return implode(",", $this->value);
+                    }
+                }
+            }
         }
         return null;
     }
