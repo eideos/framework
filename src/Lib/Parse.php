@@ -358,7 +358,7 @@ class Parse {
                                                 $atable['actions']["update"] = true;
                                                 break;
                                             case "D":
-                                                $atable['actions']["update"] = true;
+                                                $atable['actions']["delete"] = true;
                                                 break;
                                         }
                                     }

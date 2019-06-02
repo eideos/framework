@@ -5,10 +5,10 @@
     @if(!isset($table)||!$table)
     <label for="{{$name}}">{{$label}}</label>
     @endif
-    <div>
+    <div class="mt-2">
         @foreach ($options as $key => $option)
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="{{$name}}[]" value="{{$key}}" {{in_array($key, old($name, $values??''))?'checked="checked"':''}} data-validation-name="{{get_validation_field_name($name)}}" id="{{$name.$key}}">
+            <input class="form-check-input" type="checkbox" name="{{$name}}[]" value="{{$key}}" {{in_array($key, $values)?'checked="checked"':''}} data-validation-name="{{get_validation_field_name($name)}}" id="{{$name.$key}}">
             <label class="form-check-label" for="{{$name.$key}}">{!! $option !!}</label>
         </div>
         @endforeach
