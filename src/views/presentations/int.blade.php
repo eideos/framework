@@ -13,6 +13,7 @@
            name="{{$name}}"
            data-validation-name="{{get_validation_field_name($name)}}"
            value="{{old($name, $value??$initialvalue??'')}}"
+           @if(!empty($placeholder)) placeholder="{{$placeholder}}" @endif
            @if(isset($readonly)&&$readonly) disabled @endif
            class="form-control {{isset($table)&&$table?'form-control-sm':''}} {{is_required_field($name,$required_fields??[])?'required':''}} {{$errors->has(get_validation_field_name($name))?'is-invalid':''}} {{$class??''}}"
            />
