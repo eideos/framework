@@ -48,8 +48,8 @@
                     </a>
                     @if(class_exists(str_replace(["Controller","\\Http"],["Export", ""],$controller)))
                     <div id="export" style="display: none;"></div>
-                    <a href="javascript:void(0);" class="btn btn-light btn-sm" onclick="exportClick('xls')">
-                        <i class="fa fa-file-excel" data-toggle="tooltip" data-placement="top" title="Descargar XLS" ></i>
+                    <a href="javascript:void(0);" class="btn btn-light btn-sm" onclick="exportClick('xlsx')">
+                        <i class="fa fa-file-excel" data-toggle="tooltip" data-placement="top" title="Descargar Excel" ></i>
                     </a>
                     <a href="javascript:void(0);" class="btn btn-light btn-sm" onclick="exportClick('csv')">
                         <i class="fa fa-file-export" data-toggle="tooltip" data-placement="top" title="Descargar CSV" ></i>
