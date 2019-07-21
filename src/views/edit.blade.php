@@ -74,7 +74,7 @@
 @foreach ($maint as $tab => $tabData)
       @foreach ($tabData["blocks"] as $keyBlock => $block)
             @if (in_array($block["type"], ["table", "tablepopup"]))
-                @include('framework::sections.tableadd', array_merge($block, [
+              @includeFirst(['sections.tableadd', 'framework::sections.tableadd'], array_merge($block, [
                 'readonly' => $readonly ?? false,
                 'actions' => $block["actions"] ?? ["add"=>true, "update"=>true, "delete"=>true],
                 ]))
