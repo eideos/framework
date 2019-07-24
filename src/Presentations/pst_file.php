@@ -31,7 +31,12 @@ class pst_file extends Presentation {
             if (!empty($this->value)) {
                 foreach ($this->value as $file) {
                     if (is_object($file)) {
-                        $array[] = $file->storeAs(snake_case(str_plural($this->name)), $file->getClientOriginalName());
+                        $params =  $this->getJsParams();
+                        if (isset($params["public"]) && $params["public"]) {
+                            $array[] = $file->storeAs(snake_case(str_plural($this->name)), $file->getClientOriginalName(), 'public');
+                        } else {
+                            $array[] = $file->storeAs(snake_case(str_plural($this->name)), $file->getClientOriginalName());
+                        }
                     } else {
                         $array[] = $file;
                     }
