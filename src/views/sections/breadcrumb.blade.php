@@ -1,4 +1,4 @@
-@if (isset($breadcrumb))
+@if (isset($breadcrumb)&& !empty($breadcrumb))
 <ol class="breadcrumb">
     @foreach ($breadcrumb as $item)
     <li class="breadcrumb-item {{isset($item["active"]) && $item["active"] ? "active" : ""}}">
