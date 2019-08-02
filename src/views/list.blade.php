@@ -35,15 +35,15 @@
                 @foreach ($data['actions'] as $action)
                 @if ((!isset($action["global"]) || !$action["global"]) && is_authorized($action['controller'] ?? $controller,$action["action"]) && (!isset($action["displayFunction"]) || !function_exists($action["displayFunction"]) || $action["displayFunction"]($row)))
                 @if (!isset($action["post"]) || !$action["post"])
-                <a href="{{fmw_action($action['controller'] ?? $controller, $action['action'], $row['__id'])}}" class="btn btn-circle btn-sm {{$action['class']??'btn-secondary'}} float-left mr-1" {{(isset($action['blank']) && $action['blank']=="true" ? 'target="blank"' : '')}}>
-                    <i class="fa fa-{{$action['icon']}}" data-toggle="tooltip" data-placement="top" title="{{$action['label']}}"></i>
+                <a href="{{fmw_action($action['controller'] ?? $controller, $action['action'], $row['__id'])}}" data-toggle="tooltip" data-placement="top" title="{{$action['label']}}" class="btn btn-circle btn-sm {{$action['class']??'btn-secondary'}} float-left mr-1" {{(isset($action['blank']) && $action['blank']=="true" ? 'target="blank"' : '')}}>
+                    <i class="fa fa-{{$action['icon']}}"></i>
                 </a>
                 @else
                 <form action="{{fmw_action($action['controller'] ?? $controller, $action['action'], $row['__id'])}}" method="post">
                     @csrf
                     <input name="_method" type="hidden" value="{{$action['method']??'DELETE'}}">
-                    <button class="btn btn-circle btn-sm {{$action['class']??'btn-danger'}} float-left mr-1" type="submit">
-                        <i class="fa fa-{{$action['icon']??'trash'}}" data-toggle="tooltip" data-placement="top" title="{{$action['label']}}"></i>
+                    <button type="submit" class="btn btn-circle btn-sm {{$action['class']??'btn-danger'}} float-left mr-1" data-toggle="tooltip" data-placement="top" title="{{$action['label']}}">
+                        <i class="fa fa-{{$action['icon']??'trash'}}"></i>
                     </button>
                 </form>
                 @endif
