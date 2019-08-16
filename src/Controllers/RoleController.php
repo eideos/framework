@@ -5,7 +5,8 @@ namespace Eideos\Framework\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppController;
 
-class RoleController extends AppController {
+class RoleController extends AppController
+{
 
     protected $model = "Eideos\Framework\Role";
     protected $url = "roles";
@@ -19,7 +20,8 @@ class RoleController extends AppController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $this->bladeVars["title"] = "Roles";
         $this->bladeVars["breadcrumb"] = [
             ["label" => "Administración"],
@@ -27,7 +29,9 @@ class RoleController extends AppController {
             ["label" => "Roles"],
         ];
         $this->bladeVars["deleteMessage"] = "¿Está seguro que desea eliminar el rol #name ?";
-        $this->slfile = "Role.RoleSL";
+        if (!isset($this->slfile) || empty($this->slfile)) {
+            $this->slfile = "Role.RoleSL";
+        }
         return parent::index($request);
     }
 
@@ -36,7 +40,8 @@ class RoleController extends AppController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
         $this->bladeVars["title"] = "Nuevo Rol";
         $this->bladeVars["breadcrumb"] = [
             ["label" => "Administración"],
@@ -44,7 +49,9 @@ class RoleController extends AppController {
             ["label" => "Roles", "url" => "/roles"],
             ["label" => "Nuevo Rol", "active" => true],
         ];
-        $this->maintfile = "Role.RoleMaint";
+        if (!isset($this->maintfile) || empty($this->maintfile)) {
+            $this->maintfile = "Role.RoleMaint";
+        }
         return parent::create();
     }
 
@@ -54,7 +61,8 @@ class RoleController extends AppController {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id) {
+    public function edit(Request $request, $id)
+    {
         unset($this->rules['password']);
         $this->bladeVars["title"] = "Modificar Rol";
         $this->bladeVars["breadcrumb"] = [
@@ -63,7 +71,9 @@ class RoleController extends AppController {
             ["label" => "Roles", "url" => "/roles"],
             ["label" => "Modificar Rol", "active" => true],
         ];
-        $this->maintfile = "Role.RoleMaint";
+        if (!isset($this->maintfile) || empty($this->maintfile)) {
+            $this->maintfile = "Role.RoleMaint";
+        }
         return parent::edit($request, $id);
     }
 
@@ -73,7 +83,8 @@ class RoleController extends AppController {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id) {
+    public function show(Request $request, $id)
+    {
         $this->bladeVars["title"] = "Visualizar Rol";
         $this->bladeVars["breadcrumb"] = [
             ["label" => "Administración"],
@@ -81,19 +92,24 @@ class RoleController extends AppController {
             ["label" => "Roles", "url" => "/roles"],
             ["label" => "Visualizar Rol", "active" => true],
         ];
-        $this->maintfile = "Role.RoleMaint";
+        if (!isset($this->maintfile) || empty($this->maintfile)) {
+            $this->maintfile = "Role.RoleMaint";
+        }
         return parent::show($request, $id);
     }
 
-    public function destroy(Request $request, $id) {
+    public function destroy(Request $request, $id)
+    {
         $this->successMessage = 'Rol eliminado correctamente.';
         $this->errorMessage = 'El Rol no pudo eliminarse ya que tiene registros asociados.';
         return parent::destroy($id);
     }
 
-    public function export(Request $request, $type) {
-        $this->slfile = "Role.RoleSL";
+    public function export(Request $request, $type)
+    {
+        if (!isset($this->slfile) || empty($this->slfile)) {
+            $this->slfile = "Role.RoleSL";
+        }
         return parent::export($request, $type);
     }
-
 }
