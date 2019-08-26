@@ -13,5 +13,6 @@
     <script src="{{ asset('/js/app.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
       var APP_URL = "{{ env('APP_URL', '/') }}";
+      var USER = @json(Auth::user());
     </script>
   </head>
