@@ -5,7 +5,8 @@ namespace Eideos\Framework\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppController;
 
-class RightController extends AppController {
+class RightController extends AppController
+{
 
     protected $model = "Eideos\Framework\Right";
     protected $url = "rights";
@@ -20,7 +21,8 @@ class RightController extends AppController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $this->bladeVars["title"] = "Derechos";
         $this->bladeVars["breadcrumb"] = [
             ["label" => "Administración"],
@@ -28,7 +30,9 @@ class RightController extends AppController {
             ["label" => "Derechos"],
         ];
         $this->bladeVars["deleteMessage"] = "¿Está seguro que desea eliminar el derecho #name ?";
-        $this->slfile = "Right.RightSL";
+        if (!isset($this->slfile) || empty($this->slfile)) {
+            $this->slfile = "Right.RightSL";
+        }
         return parent::index($request);
     }
 
@@ -37,7 +41,8 @@ class RightController extends AppController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
         $this->bladeVars["title"] = "Nuevo Rol";
         $this->bladeVars["breadcrumb"] = [
             ["label" => "Administración"],
@@ -45,7 +50,9 @@ class RightController extends AppController {
             ["label" => "Derechos", "url" => "/rights"],
             ["label" => "Nuevo Rol", "active" => true],
         ];
-        $this->maintfile = "Right.RightMaint";
+        if (!isset($this->maintfile) || empty($this->maintfile)) {
+            $this->maintfile = "Right.RightMaint";
+        }
         return parent::create();
     }
 
@@ -55,7 +62,8 @@ class RightController extends AppController {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id) {
+    public function edit(Request $request, $id)
+    {
         unset($this->rules['password']);
         $this->bladeVars["title"] = "Modificar Rol";
         $this->bladeVars["breadcrumb"] = [
@@ -64,7 +72,9 @@ class RightController extends AppController {
             ["label" => "Derechos", "url" => "/rights"],
             ["label" => "Modificar Derecho", "active" => true],
         ];
-        $this->maintfile = "Right.RightMaint";
+        if (!isset($this->maintfile) || empty($this->maintfile)) {
+            $this->maintfile = "Right.RightMaint";
+        }
         return parent::edit($request, $id);
     }
 
@@ -74,7 +84,8 @@ class RightController extends AppController {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id) {
+    public function show(Request $request, $id)
+    {
         $this->bladeVars["title"] = "Visualizar Derecho";
         $this->bladeVars["breadcrumb"] = [
             ["label" => "Administración"],
@@ -82,19 +93,24 @@ class RightController extends AppController {
             ["label" => "Derechos", "url" => "/rights"],
             ["label" => "Visualizar Derecho", "active" => true],
         ];
-        $this->maintfile = "Right.RightMaint";
+        if (!isset($this->maintfile) || empty($this->maintfile)) {
+            $this->maintfile = "Right.RightMaint";
+        }
         return parent::show($request, $id);
     }
 
-    public function destroy(Request $request, $id) {
+    public function destroy(Request $request, $id)
+    {
         $this->successMessage = 'Derecho eliminado correctamente.';
         $this->errorMessage = 'El Derecho no pudo eliminarse ya que tiene registros asociados.';
         return parent::destroy($id);
     }
 
-    public function export(Request $request, $type) {
-        $this->slfile = "Right.RightSL";
+    public function export(Request $request, $type)
+    {
+        if (!isset($this->slfile) || empty($this->slfile)) {
+            $this->slfile = "Right.RightSL";
+        }
         return parent::export($request, $type);
     }
-
 }
