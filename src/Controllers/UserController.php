@@ -106,7 +106,7 @@ class UserController extends AppController
     {
         $this->successMessage = 'Usuario eliminado correctamente.';
         $this->errorMessage = 'El Usuario no pudo eliminarse ya que tiene registros asociados.';
-        return parent::destroy($id);
+        return parent::destroy($request, $id);
     }
 
     public function export(Request $request, $type)
