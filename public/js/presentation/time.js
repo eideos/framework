@@ -3,7 +3,7 @@ function time_init(field, params) {
       field.timepicker({
           uiLibrary: 'bootstrap4',
           locale: 'es-es',
-          format: 'H:MM'
+          format: params.format || 'H:MM'
       });
     }
 }
