@@ -27,7 +27,9 @@
                 @endforeach
             </td>
             @else
-            <td>@include($row[$listfield->getName()]->getViewFieldPath(), $row[$listfield->getName()]->getViewVars())</td>
+            <td class="{{$listfield['class']??''}}">
+                @include($row[$listfield->getName()]->getViewFieldPath(), $row[$listfield->getName()]->getViewVars())
+            </td>
             @endif
             @endforeach
             @if (isset($data["actions"]) && count($data["actions"]))
