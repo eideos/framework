@@ -27,7 +27,7 @@
                 @endforeach
             </td>
             @else
-            <td class="{{$listfield['class']??''}}">
+            <td>
                 @include($row[$listfield->getName()]->getViewFieldPath(), $row[$listfield->getName()]->getViewVars())
             </td>
             @endif

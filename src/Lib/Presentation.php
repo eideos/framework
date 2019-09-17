@@ -10,6 +10,7 @@ class Presentation {
     protected $params = [];
     protected $cols = 12;
     protected $rows = 2;
+    protected $class = "";
     protected $readonly = false;
     protected $isNumeric = false;
     protected $search = true;
@@ -63,6 +64,7 @@ class Presentation {
             "name" => $this->getName(),
             "label" => $this->label,
             "cols" => $this->cols,
+            "class" => $this->class,
             "rows" => $this->rows,
             "value" => $this->getValue(),
             "helperValue" => $this->getHelperValue(),
