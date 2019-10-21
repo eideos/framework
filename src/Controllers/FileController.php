@@ -37,9 +37,13 @@ class FileController extends Controller {
         return response()->download($download_path);
     }
 
-    public function download_file($storagePath) {
+    public function download_file($storagePath)
+    {
         if (!empty($storagePath)) {
             $download_path = storage_path('app' . DIRECTORY_SEPARATOR . base64_decode($storagePath));
+            if (!file_exists($download_path)) {
+                $download_path = storage_path('app' . DIRECTORY_SEPARATOR . 'public' . base64_decode($storagePath));
+            }
             if (file_exists($download_path)) {
                 return response()->download($download_path);
             }
