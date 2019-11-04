@@ -9,9 +9,17 @@ class pst_file extends Presentation {
     protected $view = "framework::presentations.file";
     protected $multiple = false;
     public $js_initial = "file_init";
+    public $js_tovalue = "file_tovalue";
+    public $js_topopup = "file_topopup";
 
     public function loadRequestValue() {
         return request($this->name . '_file') ?? [];
+    }
+    public function getViewFieldPath() {
+        if ($this->list) {
+            return "framework::presentations.file_list";
+        }
+        return parent::getViewFieldPath();
     }
 
     public function getDatabaseValue() {
@@ -62,16 +70,6 @@ class pst_file extends Presentation {
         return array_merge(parent::getViewVars(), [
             "multiple" => $this->multiple ?? false,
         ]);
-    }
-
-    public function getViewFieldPath() {
-        if ($this->list) {
-            return "framework::presentations.file_list";
-        }
-        if ($this->readonly) {
-            return "framework::presentations.file_readonly";
-        }
-        return parent::getViewFieldPath();
     }
 
 }
