@@ -2,25 +2,29 @@
 
 namespace Eideos\Framework\Lib;
 
-class Parse {
+class Parse
+{
 
     private $path;
     private $model;
     private $file;
     private $dataPath;
 
-    public function __construct($path) {
+    public function __construct($path)
+    {
         $this->path = $path;
         $this->dataPath = self::getDataPath();
         list($this->model, $this->file) = explode(".", $path);
         $this->parseXML();
     }
 
-    private static function getDataPath() {
+    private static function getDataPath()
+    {
         return app_path() . DIRECTORY_SEPARATOR . "Data" . DIRECTORY_SEPARATOR;
     }
 
-    public static function getData($path) {
+    public static function getData($path)
+    {
         list($xmlfilename, $className) = explode(".", $path);
         $parse = new Parse($path);
         include_once(self::getDataPath() . $xmlfilename . DIRECTORY_SEPARATOR . $className . ".php");
@@ -32,23 +36,24 @@ class Parse {
                 $data['data'][$key] = $dataarray;
             }
         }
-//        if (isset($data['conditions'])) {
-//            foreach ($data['conditions'] as $campo => $valores) {
-//                if (is_array($valores)) {
-//                    foreach ($valores as $key => $valor) {
-//                        $valores[$key] = replaceGlobalVars($valor);
-//                    }
-//                } else {
-//                    $valores = replaceGlobalVars($valores);
-//                }
-//                $data['conditions'][$campo] = $valores;
-//            }
-//        }
+        //        if (isset($data['conditions'])) {
+        //            foreach ($data['conditions'] as $campo => $valores) {
+        //                if (is_array($valores)) {
+        //                    foreach ($valores as $key => $valor) {
+        //                        $valores[$key] = replaceGlobalVars($valor);
+        //                    }
+        //                } else {
+        //                    $valores = replaceGlobalVars($valores);
+        //                }
+        //                $data['conditions'][$campo] = $valores;
+        //            }
+        //        }
 
         return $data;
     }
 
-    public static function getDataImportar($path) {
+    public static function getDataImportar($path)
+    {
         $class_name = substr($path, stripos($path, "/") + 1);
         if (!class_exists($class_name)) {
             App::import('Data', $path);
@@ -57,7 +62,8 @@ class Parse {
         return $obj->getDataImportar();
     }
 
-    private function importFiles($xmlStr) {
+    private function importFiles($xmlStr)
+    {
         $imports = null;
         $replaced = [];
         preg_match_all('/<import file=\"(.+?).xml\"\s?\/>/', $xmlStr, $imports);
@@ -79,23 +85,24 @@ class Parse {
         return $xmlStr;
     }
 
-    private function parseXML() {
-// Si no estoy en modo DEBUG no parseo el XML
+    private function parseXML()
+    {
+        // Si no estoy en modo DEBUG no parseo el XML
         if (!config('app.debug')) {
             return;
         }
 
         $xmlFile = $this->dataPath . $this->model . ".xml";
 
-// Si no encontro el archivo retorna
+        // Si no encontro el archivo retorna
         if (!file_exists($xmlFile)) {
             return;
         }
 
-// Obtengo el string del archivo general
+        // Obtengo el string del archivo general
         $xmlStr = file_get_contents($xmlFile);
 
-// Reemplazo los imports por el string de cada uno de ellos
+        // Reemplazo los imports por el string de cada uno de ellos
         $xmlStr = $this->importFiles($xmlStr);
 
         $attributes = array(
@@ -105,9 +112,9 @@ class Parse {
             'table' => array('id', 'paginate', 'title', 'label', 'popup', 'columns', 'blocks', 'model', 'order', 'orderby', 'assoc', 'multiple', 'total', 'directedit', 'cols', 'readonly', 'relation', 'width', 'icon', 'button'),
             'tableaction' => array('op', 'displayFunction'),
             'files' => array('id', 'paginate', 'title', 'order', 'orderby', 'blocks', 'model', 'allowedTypes', 'descEnabled', 'readonly'),
-            'tablefield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'isvisibletable', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'placeholder', 'total', 'model', 'rows', 'cols', 'displayField', 'uniqueInTable', 'listen', 'listenCallback', 'multiple'),
+            'tablefield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'isvisibletable', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'placeholder', 'total', 'model', 'rows', 'cols', 'displayField', 'uniqueInTable', 'listen', 'listenCallback', 'multiple', 'class'),
             'searchfield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'readonly', 'size', 'note', 'initialvalue', 'autocomplete', 'placeholder', 'rows', 'cols', 'model', 'displayField'),
-            'listfield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'directedit', 'skip-export', 'split-on-export', 'model', 'displayField', 'search'),
+            'listfield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'directedit', 'skip-export', 'split-on-export', 'model', 'displayField', 'search', 'class'),
             'slactions' => array('op', 'action', 'controller', 'params', 'icon', 'label', 'next', 'post', 'global', 'displayFunction', 'class', 'method', 'blank'),
             'fieldset' => array('id', 'label', 'columns', 'blocks', 'cols', 'readonly', 'icon'),
         );
@@ -127,7 +134,7 @@ class Parse {
                 $data = array("title" => $title);
                 $data['info'] = isset($sl['info']) ? $this->getCastedValue((string) $sl['info']) : "";
                 $data['warning'] = isset($sl['warning']) ? $this->getCastedValue((string) $sl['warning']) : "";
-// Agrego procesado de js en s&l
+                // Agrego procesado de js en s&l
                 if (isset($sl->jsinclude)) {
                     foreach ($sl->jsinclude as $jsinclude) {
                         $data['jsincludes'][] = (string) $jsinclude['file'];
@@ -432,13 +439,14 @@ class Parse {
         }
     }
 
-    private function writeFile($file, $data, $import = null) {
+    private function writeFile($file, $data, $import = null)
+    {
         $class = substr($file, 0, strpos($file, ".php"));
 
         $php = "<?php\n";
         $php .= "\n";
         $php .= "/* GENERADO AUTOMATICAMENTE */\n";
-//$php.= "/* " . date("d/m/Y H:i:s") . " */\n";
+        //$php.= "/* " . date("d/m/Y H:i:s") . " */\n";
         $php .= "\n";
         $php .= "namespace App\Data;\n";
         $php .= "\n";
@@ -467,7 +475,8 @@ class Parse {
         }
     }
 
-    private function getCastedValue($var) {
+    private function getCastedValue($var)
+    {
         if (is_object($var)) {
             $var = (string) $var;
         }
@@ -482,5 +491,4 @@ class Parse {
         }
         return str_replace("\\", "__", $var);
     }
-
 }
