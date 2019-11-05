@@ -58,7 +58,7 @@ class User extends Authenticatable implements Auditable
 
     public function getFullnameAttribute()
     {
-        return $this->firstname . " " . $this->lastname;
+        return $this->firstname ?? "" . " " . $this->lastname ?? "";
     }
 
     public function blocks()
