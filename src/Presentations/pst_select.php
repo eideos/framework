@@ -97,6 +97,16 @@ class pst_select extends Presentation {
         return null;
     }
 
+    public function getSearchBarValue($search = "") {
+        $values = [];
+        foreach ($this->getOptions() as $value => $display) {
+            if (strstr(strtolower($display), strtolower($search)) !== false) {
+                $values[] = $value;
+            }
+        }
+        return " IN ('" . implode("','", $values) . "')";
+    }
+
     public function getDisplayField() {
         return $this->displayField ?? "id";
         /*

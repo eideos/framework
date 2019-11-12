@@ -46,7 +46,7 @@ class pst_selectarray extends Presentation {
                 $values[] = $value;
             }
         }
-        return empty($values) ? "" : " IN ('" . implode("','", $values) . "')";
+        return " IN ('" . implode("','", $values) . "')";
     }
 
 }
