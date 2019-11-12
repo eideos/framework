@@ -7,60 +7,60 @@ use Illuminate\Support\Facades\Route;
 class AbstractMenu
 {
     protected $menu = [
-      "sections" => [
-          [
-            "header" => "",
-            "items" => [
-              "inicio" => [
-                  "label" => "Inicio",
-                  "icon" => "home",
-                  "url" => "/"
-              ],
-              "admin" => [
-                  "label" => "Administración",
-                  "icon" => "cog",
-                  "items" => [
-                        "users" => [
-                            "label" => "Usuarios",
-                            "controller" => "Eideos\Framework\Controllers\UserController",
-                            "action" => "index",
-                            "active_actions" => ["create", "edit", "show"],
+        "sections" => [
+            [
+                "header" => "",
+                "items" => [
+                    "inicio" => [
+                        "label" => "Inicio",
+                        "icon" => "home",
+                        "url" => "/"
+                    ],
+                    "admin" => [
+                        "label" => "Administración",
+                        "icon" => "cog",
+                        "items" => [
+                            "users" => [
+                                "label" => "Usuarios",
+                                "controller" => "Eideos\Framework\Controllers\UserController",
+                                "action" => "index",
+                                "active_actions" => ["create", "edit", "show"],
+                            ],
+                            "roles" => [
+                                "label" => "Roles",
+                                "controller" => "Eideos\Framework\Controllers\RoleController",
+                                "action" => "index",
+                                "active_actions" => ["create", "edit", "show"],
+                            ],
+                            "rights" => [
+                                "label" => "Derechos",
+                                "controller" => "Eideos\Framework\Controllers\RightController",
+                                "action" => "index",
+                                "active_actions" => ["create", "edit", "show"],
+                            ],
+                            "buttons" => [
+                                "label" => "Botones",
+                                "controller" => "Eideos\Framework\Controllers\ButtonController",
+                                "action" => "index",
+                                "active_actions" => ["create", "edit", "show"],
+                            ],
+                            "blocks" => [
+                                "label" => "Bloqueos",
+                                "controller" => "Eideos\Framework\Controllers\BlockController",
+                                "action" => "index",
+                                "active_actions" => ["show"],
+                            ],
+                            "audits" => [
+                                "label" => "Auditoría",
+                                "controller" => "Eideos\Framework\Controllers\AuditController",
+                                "action" => "index",
+                                "active_actions" => ["show"],
+                            ],
                         ],
-                        "roles" => [
-                            "label" => "Roles",
-                            "controller" => "Eideos\Framework\Controllers\RoleController",
-                            "action" => "index",
-                            "active_actions" => ["create", "edit", "show"],
-                        ],
-                        "rights" => [
-                            "label" => "Derechos",
-                            "controller" => "Eideos\Framework\Controllers\RightController",
-                            "action" => "index",
-                            "active_actions" => ["create", "edit", "show"],
-                        ],
-                        "buttons" => [
-                            "label" => "Botones",
-                            "controller" => "Eideos\Framework\Controllers\ButtonController",
-                            "action" => "index",
-                            "active_actions" => ["create", "edit", "show"],
-                        ],
-                      "blocks" => [
-                          "label" => "Bloqueos",
-                          "controller" => "Eideos\Framework\Controllers\BlockController",
-                          "action" => "index",
-                          "active_actions" => ["show"],
-                      ],
-                      "audits" => [
-                          "label" => "Auditoría",
-                          "controller" => "Eideos\Framework\Controllers\AuditController",
-                          "action" => "index",
-                          "active_actions" => ["show"],
-                      ],
-                  ],
-              ],
+                    ],
+                ],
             ],
-          ],
-      ],
+        ],
     ];
     protected $data;
     protected $url;
@@ -119,7 +119,7 @@ class AbstractMenu
             return $html;
         }
         if (!empty($menuSection['header'])) {
-            $html .= '<div class="sidebar-heading">'.$menuSection['header'].'</div>';
+            $html .= '<div class="sidebar-heading">' . $menuSection['header'] . '</div>';
         }
         foreach ($menuSection["items"] as $menuId => $menuItem) {
             $html .= $this->RenderItem($menuItem, $menuId);
@@ -142,10 +142,10 @@ class AbstractMenu
         }
 
         $active = $this->isActiveItem($menuItem);
-        $html .= '<li class="nav-item '.($active ? 'active' : '').'">';
+        $html .= '<li class="nav-item ' . ($active ? 'active' : '') . '">';
         $html .= '<a class="nav-link ' . ($active ? '' : 'collapsed') . '"';
         if (isset($menuItem["items"])) {
-            $html .= ' href="#" data-toggle="collapse" data-target="#' . $menuId . '" '.($active ? 'aria-expanded="true"' : '').' aria-controls="' . $menuId . '">';
+            $html .= ' href="#" data-toggle="collapse" data-target="#' . $menuId . '" ' . ($active ? 'aria-expanded="true"' : '') . ' aria-controls="' . $menuId . '">';
         } else {
             $html .= ' href="' . $this->getUrl($menuItem) . '">';
         }
@@ -160,13 +160,19 @@ class AbstractMenu
             $html .= '<span>' . $menuItem["label"] . '</span>';
         }
         if (isset($menuItem["counts"]) && !empty($menuItem["counts"])) {
-            foreach($menuItem["counts"] as $color => $count) {
-                if(isset($count['callback']) && function_exists($count['callback'])) {
+            foreach ($menuItem["counts"] as $color => $count) {
+                if (isset($count['callback']) && function_exists($count['callback'])) {
                     $cant = call_user_func($count['callback']);
-                    $html .= '&nbsp;<span class="badge badge-pill badge-' . $color . '" data-toggle="tooltip" title="' . (isset($count['label']) ? $count['label'] : $cant). '">' . $cant .'</span>';
+                    if ($cant == 0) {
+                        if ((isset($count['show_blank']) && $count['show_blank']) || !isset($count['show_blank'])) {
+                            $html .= '&nbsp;<span class="badge badge-pill badge-' . $color . '" data-toggle="tooltip" title="' . (isset($count['label']) ? $count['label'] : $cant) . '">' . $cant . '</span>';
+                        }
+                    } else {
+                        $html .= '&nbsp;<span class="badge badge-pill badge-' . $color . '" data-toggle="tooltip" title="' . (isset($count['label']) ? $count['label'] : $cant) . '">' . $cant . '</span>';
+                    }
                 }
             }
-        }        
+        }
         $html .= '</a>';
         if (isset($menuItem["items"])) {
             $html .= $this->RenderSubMenu($menuItem["items"], $menuId, $active);
@@ -178,16 +184,16 @@ class AbstractMenu
     public function RenderSubMenu($menuItems, $parentMenuId, $active)
     {
         $html = "";
-        $html .= '<div id="'.$parentMenuId.'" class="collapse '.($active ? 'show' : '').'" aria-labelledby="heading'.$parentMenuId.'" data-parent="#accordionSidebar">';
+        $html .= '<div id="' . $parentMenuId . '" class="collapse ' . ($active ? 'show' : '') . '" aria-labelledby="heading' . $parentMenuId . '" data-parent="#accordionSidebar">';
         $html .= '<div class="bg-white py-2 collapse-inner rounded">';
         foreach ($menuItems as $menuItem) {
             if (!$this->isAuthorizedItem($menuItem)) {
                 return $html;
             }
             if (!empty($menuItem['header'])) {
-                $html .= '<h6 class="collapse-header">'.$menuItem['header'].'</h6>';
+                $html .= '<h6 class="collapse-header">' . $menuItem['header'] . '</h6>';
             }
-            $html .= '<a class="collapse-item '.($this->isActiveItem($menuItem)?'active':'').'" href="' . $this->getUrl($menuItem) . '">'.$menuItem['label'].'</a>';
+            $html .= '<a class="collapse-item ' . ($this->isActiveItem($menuItem) ? 'active' : '') . '" href="' . $this->getUrl($menuItem) . '">' . $menuItem['label'] . '</a>';
         }
         $html .= '</div>';
         $html .= '</div>';
