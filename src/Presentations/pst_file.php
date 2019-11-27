@@ -8,10 +8,18 @@ class pst_file extends Presentation {
 
     protected $view = "framework::presentations.file";
     protected $multiple = false;
+    public $language = "en";
     public $js_initial = "file_init";
     public $js_tovalue = "file_tovalue";
     public $js_topopup = "file_topopup";
 
+    public function __construct($params) {
+        parent::__construct($params);
+        $file_params = json_decode($params["params"], true);
+        d($params);
+        d($file_params);
+        $this->language = $file_params['language'] ?? 'en';
+    }
     public function loadRequestValue() {
         return request($this->name . '_file') ?? [];
     }
@@ -63,6 +71,7 @@ class pst_file extends Presentation {
         return array_merge(parent::getJsParams(), [
             "name" => $this->getName() . '_file' . (isset($this->multiple) && $this->multiple ? "[]" : ""),
             "multiple" => $this->multiple ?? false,
+            "language" => $this->language ?? 'en',
         ]);
     }
 

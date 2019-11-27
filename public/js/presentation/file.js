@@ -1,5 +1,9 @@
 function file_init(field, params) {
   field = $("[name='" + params.name + "']");
+  var language = "en"
+  if(!empty(params.language)){
+    language = params.language;
+  }
   field.fileinput({
     showPreview: true,
     showDelete: true,
@@ -9,6 +13,7 @@ function file_init(field, params) {
     showCaption: false,
     browseLabel: '',
     removeLabel: '',
+    language: language,
     layoutTemplates: {
       main2: '{preview} {remove} {browse}'
     }
