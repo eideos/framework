@@ -15,8 +15,10 @@ class pst_file extends Presentation {
 
     public function __construct($params) {
         parent::__construct($params);
-        $file_params = json_decode($params["params"], true);
-        $this->language = $file_params['language'] ?? 'en';
+        if(isset($params["params"])){
+            $file_params = json_decode($params["params"], true);
+            $this->language = $file_params['language'] ?? 'en';
+        }
     }
     public function loadRequestValue() {
         return request($this->name . '_file') ?? [];
