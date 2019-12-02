@@ -104,7 +104,10 @@ class pst_select extends Presentation {
                 $values[] = $value;
             }
         }
-        return " IN ('" . implode("','", $values) . "')";
+        if(!empty($values)){
+            return " IN ('" . implode("','", $values) . "')";
+        }
+        return '';   
     }
 
     public function getDisplayField() {
