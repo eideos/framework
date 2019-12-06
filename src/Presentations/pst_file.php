@@ -23,6 +23,9 @@ class pst_file extends Presentation
             $this->language = $file_params['language'] ?? 'en';
             if (isset($file_params['file_types']) && !is_null($file_params['file_types'])) {
                 $this->file_types = explode(",", $file_params['file_types']) ?? [];
+                if (!is_array($this->file_types)) {
+                    $this->file_types = [$this->file_types];
+                }
             }
         }
     }
@@ -83,6 +86,7 @@ class pst_file extends Presentation
             "name" => $this->getName() . '_file' . (isset($this->multiple) && $this->multiple ? "[]" : ""),
             "multiple" => $this->multiple ?? false,
             "language" => $this->language ?? 'en',
+            "file_types" => $this->file_types
         ]);
     }
 
