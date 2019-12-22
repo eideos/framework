@@ -8,7 +8,7 @@ function googlemaps_init(field, params) {
     zoom: 3,
     center: new google.maps.LatLng(-42, -63),
     mapTypeId: google.maps.MapTypeId.ROADMAP
-  });
+  };
 }
 
 function googlemaps_totext(field, params) {
@@ -19,7 +19,7 @@ function googlemaps_totext(field, params) {
 function GOOGLEMAP(field, params, myOptions) {
   var self = this;
   this.field = field;
-  this.params = $.parseJSON(params);
+  this.params = params; //this.params = $.parseJSON(params);
   this.options = myOptions;
   this.id = this.field.attr("name");
   this.table = (this.field.parents(".asociada_add").length > 0);
