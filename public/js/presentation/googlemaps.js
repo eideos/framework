@@ -4,11 +4,11 @@ function googlemaps_init(field, params) {
   if (!document.getElementById('mapa' + field.attr("name"))) {
     return;
   }
-  googlemap[field.attr("name")] = new GOOGLEMAP(field, params), {
+  googlemap[field.attr("name")] = new GOOGLEMAP(field, params, {
     zoom: 3,
     center: new google.maps.LatLng(-42, -63),
     mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
+  });
 }
 
 function googlemaps_totext(field, params) {
@@ -27,27 +27,27 @@ function GOOGLEMAP(field, params, myOptions) {
   this.geocoder = null;
   this.map = null;
   this.results = null;
-  this.initialize = function() {
+  this.initialize = function () {
     this.geocoder = new google.maps.Geocoder();
     this.map = new google.maps.Map(document.getElementById("mapa" + this.id), this.options);
     google.maps.event.trigger(this.map, 'resize');
     $("#gmap_geolocate_" + this.id).show();
     $("#gmap_restart_" + this.id).hide();
   };
-  this.geolocate = function() {
+  this.geolocate = function () {
     var address = this.generateAddress();
     this.results = null;
     this.geocoder.geocode({
       'address': address
     }, this.checkResult);
   };
-  this.checkGeo = function() {
+  this.checkGeo = function () {
     if (!empty(this.field.val())) {
       var geo = this.field.val().split(",");
       var latlng = new google.maps.LatLng(geo[0], geo[1]);
       this.geocoder.geocode({
         'latLng': latlng
-      }, function(results, status) {
+      }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           self.map.setCenter(results[0].geometry.location);
           var marker = new google.maps.Marker({
@@ -68,7 +68,7 @@ function GOOGLEMAP(field, params, myOptions) {
       });
     }
   };
-  this.checkResult = function(results, status) {
+  this.checkResult = function (results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
       if (results.length == 0) {
         swal('Alerta', 'La geolocalización no trajo resultados.', 'info');
@@ -82,7 +82,7 @@ function GOOGLEMAP(field, params, myOptions) {
       swal('Error', 'Error al geolocalizar (' + status + ')', 'error');
     }
   };
-  this.displayResults = function() {
+  this.displayResults = function () {
     var html = "";
     html += '<div id="googlemap-select-result">';
     for (var index in this.results) {
@@ -98,14 +98,14 @@ function GOOGLEMAP(field, params, myOptions) {
         main: {
           label: "Continuar",
           className: "btn-primary",
-          callback: function() {
+          callback: function () {
             googlemap[self.id].selectStoredResult();
           }
         }
       }
     });
   };
-  this.selectStoredResult = function() {
+  this.selectStoredResult = function () {
     if ($("[name=" + this.id + "Result]:checked").length == 0) {
       swal('Error', 'Seleccione uno de los resultados de la georeferenciación', 'error');
       return;
@@ -113,7 +113,7 @@ function GOOGLEMAP(field, params, myOptions) {
     var index = $("[name=" + this.id + "Result]:checked").val();
     this.markResult(this.results[index]);
   };
-  this.markResult = function(result) {
+  this.markResult = function (result) {
     self.map.setCenter(result.geometry.location);
     var marker = new google.maps.Marker({
       map: self.map,
@@ -129,7 +129,7 @@ function GOOGLEMAP(field, params, myOptions) {
     $("#gmap_geolocate_" + self.id).hide();
     $("#gmap_restart_" + self.id).show();
   };
-  this.generateAddress = function() {
+  this.generateAddress = function () {
     var string = "";
     if (!empty(this.params.calle_altura) && !empty($("[name='" + this.params.calle_altura + "']").val())) {
       string += " " + $("[name='" + this.params.calle_altura + "']").val() + ", ";
@@ -155,7 +155,7 @@ function GOOGLEMAP(field, params, myOptions) {
     }
     return $.trim(string);
   };
-  this.disableFields = function(valores_localizados) {
+  this.disableFields = function (valores_localizados) {
     if (!empty(valores_localizados)) {
       for (var i in this.params) {
         if ($("[name='" + this.params[i] + "']").length) {
@@ -171,32 +171,38 @@ function GOOGLEMAP(field, params, myOptions) {
               break;
             case "provincia":
               if (!empty(valores_localizados.provincia)) {
-                $("[name='" + this.params[i] + "']").val(valores_localizados.provincia).siblings('span').text(valores_localizados.provincia);
+                $("[name='" + this.params[i] + "_ro']").val(valores_localizados.provincia);
+                $("[name='" + this.params[i] + "_ro']").val(valores_localizados.provincia);
               }
               break;
             case "ciudad":
               if (!empty(valores_localizados.ciudad)) {
-                $("[name='" + this.params[i] + "']").val(valores_localizados.ciudad).siblings('span').text(valores_localizados.ciudad);
+                $("[name='" + this.params[i] + "_ro']").val(valores_localizados.ciudad);
+                $("[name='" + this.params[i] + "_ro']").val(valores_localizados.ciudad);
               }
               break;
             case "barrio":
               if (!empty(valores_localizados.barrio)) {
-                $("[name='" + this.params[i] + "']").val(valores_localizados.barrio).siblings('span').text(valores_localizados.barrio);
+                $("[name='" + this.params[i] + "']").val(valores_localizados.barrio);
+                $("[name='" + this.params[i] + "_ro']").val(valores_localizados.barrio);
               }
               break;
             case "comuna":
               if (!empty(valores_localizados.comuna)) {
-                $("[name='" + this.params[i] + "']").val(valores_localizados.comuna).siblings('span').text(valores_localizados.comuna);
+                $("[name='" + this.params[i] + "']").val(valores_localizados.comuna);
+                $("[name='" + this.params[i] + "_ro']").val(valores_localizados.comuna);
               }
               break;
             case "calle":
               if (!empty(valores_localizados.calle)) {
-                $("[name='" + this.params[i] + "']").val(valores_localizados.calle).siblings('span').text(valores_localizados.calle);
+                $("[name='" + this.params[i] + "']").val(valores_localizados.calle);
+                $("[name='" + this.params[i] + "_ro']").val(valores_localizados.calle);
               }
               break;
             case "codigo_postal":
               if (!empty(valores_localizados.codigo_postal)) {
-                $("[name='" + this.params[i] + "']").val(valores_localizados.codigo_postal).siblings('span').text(valores_localizados.codigo_postal);
+                $("[name='" + this.params[i] + "']").val(valores_localizados.codigo_postal);
+                $("[name='" + this.params[i] + "_ro']").val(valores_localizados.codigo_postal);
               }
               break;
             case "altura":
@@ -212,7 +218,7 @@ function GOOGLEMAP(field, params, myOptions) {
       }
     }
   };
-  this.restart = function() {
+  this.restart = function () {
     this.map.setCenter(this.options.center);
     this.map.setZoom(this.options.zoom);
     this.deleteOverlays();
@@ -228,7 +234,7 @@ function GOOGLEMAP(field, params, myOptions) {
     $("#gmap_restart_" + this.id).hide();
     $("#gmap_geolocate_" + this.id).show();
   };
-  this.deleteOverlays = function() {
+  this.deleteOverlays = function () {
     if (this.markersArray) {
       for (var i in this.markersArray) {
         this.markersArray[i].setMap(null);
@@ -236,7 +242,7 @@ function GOOGLEMAP(field, params, myOptions) {
       this.markersArray.length = 0;
     }
   };
-  this.parseGoogleAddressComponents = function(address_components) {
+  this.parseGoogleAddressComponents = function (address_components) {
     var datos_dir_google = {
       "pais": "",
       "pais_iso": "",
@@ -248,7 +254,7 @@ function GOOGLEMAP(field, params, myOptions) {
       "altura": "",
       "codigo_postal": ""
     };
-    $.each(address_components, function(k, v) {
+    $.each(address_components, function (k, v) {
       if ($.inArray("route", v.types) != -1) {
         datos_dir_google["calle"] = v.long_name;
         return true;

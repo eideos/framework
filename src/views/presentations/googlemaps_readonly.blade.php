@@ -2,6 +2,8 @@
     <input type="hidden" name="{{$name}}" value="{{old($name, $value??$initialvalue??'')}}" />
     <label for="{{$name}}">{{$label}}</label>
     @if (!empty($value))
-    <img src="http://maps.google.com/maps/api/staticmap?key={{env('GOOGLEMAPS_KEY', '')}}&center={{$value}}&zoom=16&size=400x300&maptype=roadmap&markers={{$value}}&sensor=false" />
+    <div>
+        <img src="http://maps.google.com/maps/api/staticmap?key={{env('GOOGLEMAPS_KEY', '')}}&center={{$value}}&zoom=16&size=400x300&maptype=roadmap&markers={{$value}}" />
+    </div>
     @endif
 </div>
