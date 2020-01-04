@@ -20,7 +20,7 @@
             @if(is_array($listfield) && isset($listfield['fields']))
             <td>
                 @foreach ($listfield['fields'] as $field)
-                @if (count($listfield['fields']) > 1 && !empty($row[$field->getName()]->getViewVars()['value']??""))
+                @if (count($listfield['fields']) > 1 && !is_null($row[$field->getName()]->getViewVars()['value']))
                 <small class="text-muted">{{$field->getLabel()}}</small>
                 @endif
                 @include($row[$field->getName()]->getViewFieldPath(), $row[$field->getName()]->getViewVars())
