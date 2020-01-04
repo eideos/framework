@@ -31,7 +31,9 @@
                 @endif
                 <div class="row">
                     @foreach ($block["fields"] as $maintfield)
-                    @include($maintfield->getViewFieldPath(), ((isset($block["readonly"]) && $block["readonly"]) ?  array_merge($maintfield->getViewVars(), ["readonly" => true]) : $maintfield->getViewVars()))
+                        @if(is_null($maintfield->actions) || in_array($op, explode("|", $maintfield->actions))) 
+                            @include($maintfield->getViewFieldPath(), ((isset($block["readonly"]) && $block["readonly"]) ?  array_merge($maintfield->getViewVars(), ["readonly" => true]) : $maintfield->getViewVars()))
+                        @endif
                     @endforeach
                 </div>
                 @elseif (in_array($block["type"], ["table", "tablepopup"]))
