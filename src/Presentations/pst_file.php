@@ -33,10 +33,13 @@ class pst_file extends Presentation
     {
         return request($this->name . '_file') ?? [];
     }
-    public function getViewFieldPath()
-    {
+    
+    public function getViewFieldPath() {
         if ($this->list) {
             return "framework::presentations.file_list";
+        }
+        if ($this->readonly) {
+            return "framework::presentations.file_readonly";
         }
         return parent::getViewFieldPath();
     }
