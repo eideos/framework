@@ -27,6 +27,24 @@
 
 @includeFirst(['sections.breadcrumb', 'framework::sections.breadcrumb'])
 
+<div class="row">
+    <div class="col-12">
+        <h4 class="pb-2 mb-2 border-bottom">
+            {{isset($title) ? $title : 'Listado'}}
+            @foreach ($data['actions'] as $action)
+            @if (isset($action["global"]) && $action["global"] && is_authorized($controller,$action["action"]))
+            <a href="{{fmw_action($controller, $action['action'])}}" class="btn btn-sm btn-primary btn-icon-split">
+              <span class="icon text-white">
+                <i class="fas fa-{{$action["icon"]}}"></i>
+              </span>
+              <span class="text">{{$action["label"]}}</span>
+            </a>
+            @endif
+            @endforeach
+        </h4>
+    </div>
+</div>
+
 @includeFirst(['searchdt', 'framework::searchdt'])
 
 @includeFirst(['filters', 'framework::filters'])
