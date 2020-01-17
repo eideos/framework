@@ -4,7 +4,7 @@
             @foreach ($listfields as $listfield)
             @if(is_array($listfield) && isset($listfield['fields']))
                 @foreach ($listfield['fields'] as $field)
-                <th>{{$listfield->getLabel()}}</th>
+                <th>{{$field->getLabel()}}</th>
                 @endforeach
             @else
             <th>{{$listfield->getLabel()}}</th>
