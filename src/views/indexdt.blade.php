@@ -41,6 +41,9 @@
             </a>
             @endif
             @endforeach
+            <a href="#collapseRowForm" class="mr-3 mt-2 h6" style="float: right;" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseRowForm">
+                Filtros<i class="fas fa-angle-down text-secondary ml-3"></i>
+            </a>
         </h4>
     </div>
 </div>

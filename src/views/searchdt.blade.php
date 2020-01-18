@@ -1,4 +1,4 @@
-<div class="row border-bottom mb-2">
+<div class="collapse" id="collapseRowForm" class="row border-bottom mb-2">
   <div class="col-lg-12">
     <!-- Filtros de Búsqueda -->
     <div class="mb-4">
