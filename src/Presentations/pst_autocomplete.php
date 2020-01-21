@@ -40,10 +40,13 @@ class pst_autocomplete extends Presentation
     }
 
     public function getJsParams()
-    {
+    {       
+        if(isset($this->params["conditions"])) {
+            $conditions = array_merge($this->params["conditions"], $this->conditions);
+        }
         return array_merge(parent::getJsParams(), [
           "active" => $this->active ?? 1,
-          "conditions" => $this->conditions ?? [],
+          "conditions" => $conditions ?? [],
           "joins" => $this->joins ?? [],
       ]);
     }
