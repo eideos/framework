@@ -9,11 +9,6 @@ class pst_googlemaps extends Presentation
     protected $view = "framework::presentations.googlemaps";
     public $js_initial = "googlemaps_init";
 
-    public function getJsParams()
-    {
-        return params;
-    }
-
     public function getJsIncludes()
     {
         return [

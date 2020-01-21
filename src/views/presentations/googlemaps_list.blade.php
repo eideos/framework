@@ -3,8 +3,6 @@
     @if (empty($value))
     Sin geolocalizar
     @else
-    <a class='btn btn-inverse btn-sm fancybox fancybox.iframe' data-toggle='tooltip' href='http://maps.google.com/?output=embed&q=loc:{{str_replace(" ", "+", $value)}}' title='Link a Mapa' target='_blank'>
-        <i class='fa fa-map-marker-alt'></i>
-    </a>
+    <a data-fancybox="" data-options="{&quot;iframe&quot; : {&quot;css&quot; : {&quot;width&quot; : &quot;80%&quot;, &quot;height&quot; : &quot;80%&quot;}}}" href="https://www.google.com/maps/search/?api=1&amp;query={{str_replace(" ", "+", $value)}}" class="btn btn-sm btn-secondary"><i class='fa fa-map-marker-alt'></i></a>
     @endif
 </div>

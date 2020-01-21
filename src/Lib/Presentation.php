@@ -22,6 +22,7 @@ class Presentation {
     protected $list = false;
     protected $tableModel;
     protected $rowNumber;
+    public $actions;
     public $isvisible = true;
     public $isvisibletable = true;
     public $js_initial;

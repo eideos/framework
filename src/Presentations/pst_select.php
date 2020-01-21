@@ -33,13 +33,19 @@ class pst_select extends Presentation {
         }
         if (!empty($this->model) && class_exists($this->model) && empty($this->data)) {
             $data = $this->model::where($this->conditions);
-            if (\Schema::connection($this->modelObj->getConnectionName())->hasColumn($this->modelObj->getTable(), $this->getDisplayField())) {
-                if (!empty($this->orderBy)) {
-                    list($field, $direction) = explode(" ", $this->orderBy);
+            if (!empty($this->orderBy)) {
+                $fields = explode(",", $this->orderBy);
+                foreach ($fields as $field) {
+                    if (strstr(trim($field), " ") === false) {
+                        $direction = "ASC";
+                    } else {
+                        list($field, $direction) = explode(" ", trim($field));
+                    }
                     $data->orderBy($field, $direction);
-                } else {
-                    $data->orderBy($this->getDisplayField());
                 }
+            } elseif (\Schema::connection($this->modelObj->getConnectionName())->hasColumn($this->modelObj->getTable(), $this->getDisplayField())) {
+
+                $data->orderBy($this->getDisplayField());
             }
             $this->data = $data->get();
         }

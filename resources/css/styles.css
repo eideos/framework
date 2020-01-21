@@ -393,3 +393,7 @@ z-index: 10000 !important;
   border-radius: 0.35rem;
   white-space: inherit;
 }
+
+.dt-buttons{
+  position: absolute;
+}

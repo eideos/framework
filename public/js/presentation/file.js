@@ -5,6 +5,10 @@ function file_init(field, params) {
   if (!empty(params.language)) {
     language = params.language;
   }
+  var filetypes = "all";
+  if (!empty(params.file_types)) {
+    filetypes = params.file_types;
+  }
   field.fileinput({
     showPreview: true,
     showDelete: true,
@@ -17,7 +21,8 @@ function file_init(field, params) {
     language: language,
     layoutTemplates: {
       main2: '{preview} {remove} {browse}'
-    }
+    },
+    allowedFileTypes: filetypes,
   });
   //seteo el valor del campo en el input original para que funcione el required de Validation
   field.on('change', function () {

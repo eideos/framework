@@ -4,33 +4,48 @@ namespace Eideos\Framework\Presentations;
 
 use Eideos\Framework\Lib\Presentation;
 
-class pst_file extends Presentation {
+class pst_file extends Presentation
+{
 
     protected $view = "framework::presentations.file";
     protected $multiple = false;
     public $language = "en";
+    public $file_types = [];
     public $js_initial = "file_init";
     public $js_tovalue = "file_tovalue";
     public $js_topopup = "file_topopup";
 
-    public function __construct($params) {
+    public function __construct($params)
+    {
         parent::__construct($params);
-        if(isset($params["params"])){
+        if (isset($params["params"])) {
             $file_params = json_decode($params["params"], true);
             $this->language = $file_params['language'] ?? 'en';
+            if (isset($file_params['file_types']) && !is_null($file_params['file_types'])) {
+                $this->file_types = explode(",", $file_params['file_types']) ?? [];
+                if (!is_array($this->file_types)) {
+                    $this->file_types = [$this->file_types];
+                }
+            }
         }
     }
-    public function loadRequestValue() {
+    public function loadRequestValue()
+    {
         return request($this->name . '_file') ?? [];
     }
+    
     public function getViewFieldPath() {
         if ($this->list) {
             return "framework::presentations.file_list";
         }
+        if ($this->readonly) {
+            return "framework::presentations.file_readonly";
+        }
         return parent::getViewFieldPath();
     }
 
-    public function getDatabaseValue() {
+    public function getDatabaseValue()
+    {
         $requestValue = $this->loadRequestValue();
         if (isset($requestValue) && !empty($requestValue)) {
             $this->value = $requestValue;
@@ -63,22 +78,25 @@ class pst_file extends Presentation {
         return null;
     }
 
-    public function getJsIncludes() {
+    public function getJsIncludes()
+    {
         return ["vendor/framework/js/presentation/file.js"];
     }
 
-    public function getJsParams() {
+    public function getJsParams()
+    {
         return array_merge(parent::getJsParams(), [
             "name" => $this->getName() . '_file' . (isset($this->multiple) && $this->multiple ? "[]" : ""),
             "multiple" => $this->multiple ?? false,
             "language" => $this->language ?? 'en',
+            "file_types" => $this->file_types
         ]);
     }
 
-    public function getViewVars() {
+    public function getViewVars()
+    {
         return array_merge(parent::getViewVars(), [
             "multiple" => $this->multiple ?? false,
         ]);
     }
-
 }

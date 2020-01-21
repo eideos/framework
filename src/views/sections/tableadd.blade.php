@@ -24,12 +24,14 @@
                     </span>
                     <span class="text">Cancelar</span>
                   </button>
+                  @if(isset($actions["add"]) && $actions["add"])
                   <button type="button" class="btn btn-success btn-icon-split" onclick="saveTableRow('{{$model}}', true);">
                     <span class="icon text-white">
                       <i class="fas fa-check-double"></i>
                     </span>
                     <span class="text">Agregar Otro</span>
                   </button>
+                  @endif
                   <button type="button" class="btn btn-success btn-icon-split" onclick="saveTableRow('{{$model}}');">
                     <span class="icon text-white">
                       <i class="fas fa-check"></i>
