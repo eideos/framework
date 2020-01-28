@@ -13,10 +13,16 @@ class pst_workflow extends Presentation
     public $js_initial = "workflow_init";
 
     public function __construct($params) {
-      parent::__construct($params);
-      if ($this->searchfield) {
-          $this->view = "framework::presentations.selectarray";
-      }
+        parent::__construct($params);
+        if(!empty($params)){
+            $dParams = json_decode($this->params, true);
+            if (isset($dParams['searchfield']) && $dParams['searchfield']) {
+                $this->searchfield = true;
+            }
+        }
+        if ($this->searchfield) {
+            $this->view = "framework::presentations.selectarray";
+        }
     }
 
     public function getJsIncludes()

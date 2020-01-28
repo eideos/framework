@@ -31,6 +31,8 @@ trait DataTable
                         ],
                         [
                                 "extend" => 'pdf',
+                                "orientation" => "landscape",
+                                "pageSize" => "LEGAL",
                                 "className" => 'btn btn-sm btn-secondary',
                                 "exportOptions"=> [
                                         "columns"=> ':not(:last-child)',
