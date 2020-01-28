@@ -19,6 +19,7 @@
                name="{{$name}}"
                value="{{old($name, $value??$initialvalue??'')}}"
                data-model="{{$model}}"
+               data-keyfield="{{$keyField ?? "id"}}"
                data-displayfield="{{$displayField ?? "id"}}"
                @if(isset($listen)) data-listen="{{$listen}}" @endif
                @if(isset($listenCallback)) data-listen-callback="{{$listenCallback}}" @endif

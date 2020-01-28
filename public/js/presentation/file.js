@@ -1,4 +1,5 @@
 function file_init(field, params) {
+  var originalField = field;
   field = $("[name='" + params.name + "']");
   var language = "en"
   if (!empty(params.language)) {
@@ -22,6 +23,10 @@ function file_init(field, params) {
       main2: '{preview} {remove} {browse}'
     },
     allowedFileTypes: filetypes,
+  });
+  //seteo el valor del campo en el input original para que funcione el required de Validation
+  field.on('change', function () {
+    originalField.val(this.value);
   });
 }
 

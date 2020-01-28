@@ -1,11 +1,12 @@
 function autocomplete_init(field, params) {
   var ac_field = $("[name='" + field.attr("name") + "_ac']");
+  var keyField = field.attr('data-keyfield');
   var displayField = field.attr("data-displayfield");
   var listen = field.attr("data-listen");
   if (listen) {
     var listen_field = $("[name='" + listen + "']");
     var listen_field_value = listen_field.val();
-    listen_field.change(function() {
+    listen_field.change(function () {
       if (listen_field_value != this.value) {
         field.val("").change();
         ac_field.val("");
@@ -14,10 +15,11 @@ function autocomplete_init(field, params) {
   }
   ac_field
     .typeahead({
-      source: function(request, response) {
+      source: function (request, response) {
         var requestParams = {
           model: field.attr("data-model"),
           str: request,
+          keyField: keyField,
           displayField: displayField,
           joins: params.joins || []
         };
@@ -30,21 +32,21 @@ function autocomplete_init(field, params) {
         if (listen) {
           requestParams.conditions[listen_field.attr("name")] = listen_field.val();
         }
-        $.getJSON(APP_URL + "autocomplete?", requestParams, function(data) {
+        $.getJSON(APP_URL + "autocomplete?", requestParams, function (data) {
           response(data);
         });
       },
-      displayText: function(item) {
+      displayText: function (item) {
         return item["displayField"];
       },
       autoSelect: true,
       minLength: 2,
-      updater: function(item) {
-        field.val(item.id).change();
+      updater: function (item) {
+        field.val(item[keyField]).change();
         return item;
       }
     })
-    .keyup(function(e) {
+    .keyup(function (e) {
       if (e.keyCode != 13 && field.val() != "") {
         field.val("").change();
       }

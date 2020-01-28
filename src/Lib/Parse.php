@@ -108,13 +108,13 @@ class Parse
         $attributes = array(
             'tab' => array('id', 'label', 'icon'),
             'importcolumn' => array('index', 'name', 'label', 'presentation'),
-            'maintfield' => array('name', 'label', 'presentation', 'params', 'class', 'isvisible', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'autocomplete', 'placeholder', 'rows', 'cols', 'model', 'displayField', 'listen', 'listenCallback', 'multiple'),
+            'maintfield' => array('name', 'label', 'presentation', 'params', 'class', 'isvisible', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'autocomplete', 'placeholder', 'rows', 'cols', 'model', 'keyField', 'displayField', 'listen', 'listenCallback', 'multiple'),
             'table' => array('id', 'paginate', 'title', 'label', 'popup', 'columns', 'blocks', 'model', 'order', 'orderby', 'assoc', 'multiple', 'total', 'directedit', 'cols', 'readonly', 'relation', 'width', 'icon', 'button'),
             'tableaction' => array('op', 'displayFunction'),
             'files' => array('id', 'paginate', 'title', 'order', 'orderby', 'blocks', 'model', 'allowedTypes', 'descEnabled', 'readonly'),
-            'tablefield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'isvisibletable', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'placeholder', 'total', 'model', 'rows', 'cols', 'displayField', 'uniqueInTable', 'listen', 'listenCallback', 'multiple', 'class'),
+            'tablefield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'isvisibletable', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'placeholder', 'total', 'model', 'rows', 'cols', 'keyField', 'displayField', 'uniqueInTable', 'listen', 'listenCallback', 'multiple', 'class'),
             'searchfield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'readonly', 'size', 'note', 'initialvalue', 'autocomplete', 'placeholder', 'rows', 'cols', 'model', 'displayField'),
-            'listfield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'directedit', 'skip-export', 'split-on-export', 'model', 'displayField', 'search', 'class'),
+            'listfield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'directedit', 'skip-export', 'split-on-export', 'model', 'keyField', 'displayField', 'search', 'class'),
             'slactions' => array('op', 'action', 'controller', 'params', 'icon', 'label', 'next', 'post', 'global', 'displayFunction', 'class', 'method', 'blank'),
             'fieldset' => array('id', 'label', 'columns', 'blocks', 'cols', 'readonly', 'icon'),
         );

@@ -41,6 +41,7 @@
             </a>
             @endif
             @endforeach
+            <a href="#collapseRowForm" class="mr-3 mt-2 h6" style="float: right;" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseRowForm">
             <a id="filtros[{{$model}}]" href="#collapseRowForm" class="mr-3 mt-2 h6" style="float: right; text-decoration: none" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseRowForm">
                 Filtros<i class="fas fa-angle-down text-secondary ml-3"></i>
             </a>
