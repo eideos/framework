@@ -8,6 +8,7 @@ class pst_autocomplete extends Presentation
 {
     protected $view = "framework::presentations.autocomplete";
     protected $model;
+    protected $keyField;
     protected $displayField;
     protected $conditions = [];
     protected $listen;
@@ -30,6 +31,7 @@ class pst_autocomplete extends Presentation
             "model" => $this->model,
             "listen" => $this->listen,
             "listenCallback" => $this->listenCallback,
+            "keyField" => $this->getKeyField(),
             "displayField" => $this->getDisplayField(),
             "addButton" => $this->hasAddButton(),
         ];
@@ -59,6 +61,11 @@ class pst_autocomplete extends Presentation
         return false;
     }
 
+    public function getKeyField()
+    {
+        return $this->keyField ?? "id";
+    }
+
     public function getDisplayField()
     {
         return $this->displayField ?? "id";
@@ -80,7 +87,8 @@ class pst_autocomplete extends Presentation
     public function getHelperValue()
     {
         $value = $this->getValue();
-        if (isset($value) && is_numeric($value)) {
+        if (isset($value)) {
+            $keyField = $this->getKeyField();
             $displayField = $this->getDisplayField();
             $class = $this->model;
             if (class_exists($class)) {
@@ -90,7 +98,7 @@ class pst_autocomplete extends Presentation
                     $displayField = $modelObj->{$methodTransform}();
                 }
             }
-            return $this->model::where(["id" => $value])->selectRaw(($displayField ?? "id") . " AS displayField")->first()['displayField'];
+            return $this->model::where([($keyField ?? "id") => $value])->selectRaw(($displayField ?? "id") . " AS displayField")->first()['displayField'];
         }
         return $value;
     }
