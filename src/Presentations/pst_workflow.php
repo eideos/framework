@@ -14,7 +14,7 @@ class pst_workflow extends Presentation
 
     public function __construct($params) {
         parent::__construct($params);
-        if(!empty($params)){
+        if(!empty($this->params)){
             $dParams = json_decode($this->params, true);
             if (isset($dParams['searchfield']) && $dParams['searchfield']) {
                 $this->searchfield = true;
