@@ -221,6 +221,9 @@ class Parse
                     }
                     $data['order'] = $aorder;
                 }
+                if (isset($sl['groupby'][0])) {
+                    $data['groupby'] = explode(', ', (string) $sl['groupby']);
+                }
                 $this->writeFile($file, $data);
             }
             if ($objPartKey === "tablemaint") {
