@@ -49,7 +49,11 @@
     </div>
 </div>
 
-@includeFirst(['searchdt', 'framework::searchdt'])
+<div class="row mt-2">
+    <div class="col-12">
+        @includeFirst(['searchdt', 'framework::searchdt'])
+    </div>
+</div>
 
 @includeFirst(['filters', 'framework::filters'])
 
