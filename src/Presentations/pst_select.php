@@ -15,7 +15,7 @@ class pst_select extends Presentation {
     protected $listen;
     protected $listenCallback;
     protected $uniqueInTable = false;
-    protected $isNumeric = true;
+    public $isNumeric = true;
     protected $active;
     protected $data = [];
     public $js_initial = "select_init";

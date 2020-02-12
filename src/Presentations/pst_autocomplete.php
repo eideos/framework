@@ -14,7 +14,7 @@ class pst_autocomplete extends Presentation
     protected $listen;
     protected $listenCallback;
     protected $active = false;
-    protected $isNumeric = true;
+    public $isNumeric = true;
     protected $params;
     protected $data = [];
     public $js_initial = "autocomplete_init";

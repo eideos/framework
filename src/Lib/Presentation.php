@@ -12,7 +12,6 @@ class Presentation {
     protected $rows = 2;
     protected $class = "";
     protected $readonly = false;
-    protected $isNumeric = false;
     protected $search = true;
     protected $searchfield = false;
     protected $initialvalue;
@@ -22,6 +21,7 @@ class Presentation {
     protected $list = false;
     protected $tableModel;
     protected $rowNumber;
+    public $isNumeric = false;
     public $actions;
     public $isvisible = true;
     public $isvisibletable = true;
