@@ -26,14 +26,14 @@
             @if(is_array($listfield) && isset($listfield['fields']))
             @foreach ($listfield['fields'] as $field)
             @if(!isset($field->isvisible) || $field->isvisible)
-            <td>
+            <td {{$field->isNumeric  ? "style=text-align:right" : ""}}>
                 {{$row[$field->getName()]->getHelperValue()}}
             </td>
             @endif            
             @endforeach
             @else
             @if(!isset($listfield->isvisible) || $listfield->isvisible)            
-            <td>
+            <td {{$listfield->isNumeric  ? "style=text-align:right" : ""}}>
                 {{$row[$listfield->getName()]->getHelperValue()}}
             </td>
             @endif
