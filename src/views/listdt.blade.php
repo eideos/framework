@@ -57,9 +57,10 @@
     </tbody>
 </table>
 <script>
-    $(document).ready(function() {
+    $(function() {
+        var dataTableOptions = {!!(json_encode($datatable['params'])??[])!!}
         $("#{{class_basename($model)}}").DataTable(
-            {!!(json_encode($datatable['params'])??[])!!}
+            dataTableOptions
         );
     } );
 </script>
