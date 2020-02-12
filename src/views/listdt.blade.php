@@ -67,7 +67,7 @@
 <script>
     $(document).ready(function() {
         $("#{{class_basename($model)}}").DataTable({
-            !!(json_encode($datatable['params']) ? ? []) !!
+            !!(json_encode($datatable['params']) ?? []) !!
         });
     });
 </script>
