@@ -7,7 +7,7 @@ use Eideos\Framework\Lib\Presentation;
 class pst_int extends Presentation {
 
     protected $view = "framework::presentations.int";
-    protected $isNumeric = true;
+    public $isNumeric = true;
 
     public function getDatabaseValue() {
         if (isset($this->value)) {
