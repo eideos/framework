@@ -29,10 +29,10 @@
             <td>
                 {{$row[$field->getName()]->getHelperValue()}}
             </td>
-            @endif
+            @endif            
             @endforeach
             @else
-            @if(!isset($listfield->isvisible) || $listfield->isvisible)
+            @if(!isset($listfield->isvisible) || $listfield->isvisible)            
             <td>
                 {{$row[$listfield->getName()]->getHelperValue()}}
             </td>
@@ -66,8 +66,8 @@
 </table>
 <script>
     $(document).ready(function() {
-        $("#{{class_basename($model)}}").DataTable({
-            !!(json_encode($datatable['params']) ?? []) !!
-        });
+        $("#{{class_basename($model)}}").DataTable(
+            {!!(json_encode($datatable['params']) ?? [])!!}
+        );
     });
 </script>
