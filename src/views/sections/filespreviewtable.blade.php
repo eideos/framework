@@ -1,12 +1,12 @@
 @if(count($attaches))
-<div class='file-preview'> 
+<div class='file-preview'>
     <table class="table table-bordered table-hover">
         <thead>
-        <th>Tipo</th>
-        <th>Nombre</th>
-        <th>Mimetype</th>
-        <th>Observaciones</th>
-        <th>Acciones</th>
+            <th>Tipo</th>
+            <th>Nombre</th>
+            <th>Mimetype</th>
+            <th>Observaciones</th>
+            <th>Acciones</th>
         </thead>
         <tbody>
             @foreach($attaches as $attach)
@@ -19,7 +19,7 @@
                     </div>
                 </td>
                 <td class="file-details-cell">
-                    <div class="explorer-caption" title="{{$attach['name']}}">{{$attach['name']}}</div>  <samp>({{implode(" ", files_get_size_formatted($attach['size']))}})</samp>
+                    <div class="explorer-caption" title="{{$attach['name']}}">{{$attach['name']}}</div> <samp>({{implode(" ", files_get_size_formatted($attach['size']))}})</samp>
                 </td>
                 <td class="file-details-cell">
                     <div class="explorer-caption" title="{{$attach['mimetype']}}">{{$attach['mimetype']}}</div>
@@ -41,7 +41,7 @@
                                 </a>
                                 <a href="javascript:void(0);" onclick="previewFile('{{$table}}','{{$attach['id']}}','{{$attach['name']}}','{{$attach['mimetype']}}')" class="btn btn-primary btn-xs">
                                     <i class="fa fa-search-plus"></i>
-                                </a> 
+                                </a>
                             </div>
                         </div>
                     </div>
