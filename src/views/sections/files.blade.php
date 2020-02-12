@@ -1,5 +1,5 @@
 <div class="col-12 {{$name or "attach"}}_increment">
-    <div class='file-preview'> 
+    <div class='file-preview'>
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -16,7 +16,9 @@
                 <tr>
                     <th>Tipo</th>
                     <th>Nombre</th>
+                    @if(isset($showMimetype)&&$showMimetype)
                     <th>Mimetype</th>
+                    @endif
                     @if(isset($descEnabled)&&$descEnabled)
                     <th>Observaciones</th>
                     @endif
@@ -35,11 +37,13 @@
                         </div>
                     </td>
                     <td class="file-details-cell">
-                        <div class="explorer-caption" title="{{$attach['name']}}">{{$attach['name']}}</div>  <samp>({{implode(" ", files_get_size_formatted($attach['size']))}})</samp>
+                        <div class="explorer-caption" title="{{$attach['name']}}">{{$attach['name']}}</div> <samp>({{implode(" ", files_get_size_formatted($attach['size']))}})</samp>
                     </td>
+                    @if(isset($showMimetype)&&$showMimetype)
                     <td class="file-details-cell">
                         <div class="explorer-caption" title="{{$attach['mimetype']}}">{{$attach['mimetype']}}</div>
                     </td>
+                    @endif
                     @if(isset($descEnabled)&&$descEnabled)
                     <td class="file-details-cell">
                         <div class="explorer-caption" title="{{$attach['observation']}}">{{$attach['observation']}}</div>
@@ -59,7 +63,7 @@
                                     </a>
                                     <a href="javascript:void(0);" onclick="previewFile('{{snake_plural_middle_case(str_replace("App__","",$model))}}','{{$attach['id']}}','{{$attach['name']}}','{{$attach['mimetype']}}')" class="btn btn-primary btn-xs">
                                         <i class="fa fa-eye"></i>
-                                    </a> 
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +76,7 @@
     </div>
 </div>
 <table style="display: none;">
-    <tbody class="{{$name or "attach"}}_clone">        
+    <tbody class="{{$name or "attach"}}_clone">
         <tr class="{{$name or "attach"}}_row" id="cloned_row_X_IDX_X">
             <td colspan="{{isset($descEnabled)&&$descEnabled?2:4}}">
                 <div class="form-group col-md-12">
@@ -103,20 +107,20 @@
 
 <script>
     var name = "{{$name or 'attach'}}";
-    $("#" + name + "_btnAdd").click(function () {
-    var html = $("." + name + "_clone").html();
-    html = html.replace(/X_IDX_X/g, ($("input[name='" + name + "[]']").length - 1));
-    $("." + name + "_increment .table").append(html);
+    $("#" + name + "_btnAdd").click(function() {
+        var html = $("." + name + "_clone").html();
+        html = html.replace(/X_IDX_X/g, ($("input[name='" + name + "[]']").length - 1));
+        $("." + name + "_increment .table").append(html);
     });
-    $("body").on("click", "." + name + "_btnRemove", function () {
-    var removeIndex = $(this).data('removeindex');
-    var lastIndex = $("input[name='" + name + "[]']").length;
-    $("#cloned_row_" + removeIndex).remove();
-    for (var i = removeIndex; i < lastIndex; i++) {
-    $("#cloned_row_" + (i + 1)).attr('id', "cloned_row_" + i);
-    $("#" + name + "_btnRemove_" + (i + 1)).attr('data-removeindex', i);
-    $("#" + name + "_btnRemove_" + (i + 1)).attr('id', "#" + name + "_btnRemove_" + i);
-    $("textarea[name='" + name + "_" + (i + 1) + "_desc']").attr("name", name + "_" + i + "_desc");
-    }
+    $("body").on("click", "." + name + "_btnRemove", function() {
+        var removeIndex = $(this).data('removeindex');
+        var lastIndex = $("input[name='" + name + "[]']").length;
+        $("#cloned_row_" + removeIndex).remove();
+        for (var i = removeIndex; i < lastIndex; i++) {
+            $("#cloned_row_" + (i + 1)).attr('id', "cloned_row_" + i);
+            $("#" + name + "_btnRemove_" + (i + 1)).attr('data-removeindex', i);
+            $("#" + name + "_btnRemove_" + (i + 1)).attr('id', "#" + name + "_btnRemove_" + i);
+            $("textarea[name='" + name + "_" + (i + 1) + "_desc']").attr("name", name + "_" + i + "_desc");
+        }
     });
 </script>

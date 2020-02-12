@@ -3,11 +3,15 @@
         <tr>
             @foreach ($listfields as $listfield)
             @if(is_array($listfield) && isset($listfield['fields']))
-                @foreach ($listfield['fields'] as $field)
-                <th>{{$field->getLabel()}}</th>
-                @endforeach
+            @foreach ($listfield['fields'] as $field)
+            @if(!isset($field->isvisible) || $field->isvisible)
+            <th>{{$field->getLabel()}}</th>
+            @endif
+            @endforeach
             @else
+            @if(!isset($listfield->isvisible) || $listfield->isvisible)
             <th>{{$listfield->getLabel()}}</th>
+            @endif
             @endif
             @endforeach
             @if (isset($data["actions"]) && count($data["actions"]))
@@ -20,15 +24,19 @@
         <tr>
             @foreach ($listfields as $listfield)
             @if(is_array($listfield) && isset($listfield['fields']))
-                @foreach ($listfield['fields'] as $field)
-                <td>
-                    {{$row[$field->getName()]->getHelperValue()}}
-                </td>                
-                @endforeach
+            @foreach ($listfield['fields'] as $field)
+            @if(!isset($field->isvisible) || $field->isvisible)
+            <td>
+                {{$row[$field->getName()]->getHelperValue()}}
+            </td>
+            @endif
+            @endforeach
             @else
+            @if(!isset($listfield->isvisible) || $listfield->isvisible)
             <td>
                 {{$row[$listfield->getName()]->getHelperValue()}}
             </td>
+            @endif
             @endif
             @endforeach
             @if (isset($data["actions"]) && count($data["actions"]))
@@ -58,8 +66,8 @@
 </table>
 <script>
     $(document).ready(function() {
-        $("#{{class_basename($model)}}").DataTable(
-            {!!(json_encode($datatable['params'])??[])!!}
-        );
-    } );
+        $("#{{class_basename($model)}}").DataTable({
+            !!(json_encode($datatable['params']) ? ? []) !!
+        });
+    });
 </script>
