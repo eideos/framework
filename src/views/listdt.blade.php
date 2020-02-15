@@ -63,6 +63,26 @@
         </tr>
         @endforeach
     </tbody>
+    <tfoot style="background-color: var(--secondary);">
+        <tr>
+            @foreach ($listfields as $listfield)
+            @if(is_array($listfield) && isset($listfield['fields']))
+            @foreach ($listfield['fields'] as $field)
+            @if(!isset($field->isvisible) || $field->isvisible)
+            <th id='tfoot_{{str_replace(".", "_", $field->name)}}'></th>
+            @endif
+            @endforeach
+            @else
+            @if(!isset($listfield->isvisible) || $listfield->isvisible)
+            <th id='tfoot_{{str_replace(".", "_", $listfield->name)}}'></th>
+            @endif
+            @endif
+            @endforeach
+            @if (isset($data["actions"]) && count($data["actions"]))
+            <th id='tfoot_actions'></th>
+            @endif
+        </tr>
+    </tfoot>
 </table>
 <script>
     var dataTableSettings = {!!(json_encode($datatable['params'])??[])!!}
