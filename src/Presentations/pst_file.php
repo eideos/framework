@@ -14,13 +14,16 @@ class pst_file extends Presentation
     public $js_initial = "file_init";
     public $js_tovalue = "file_tovalue";
     public $js_topopup = "file_topopup";
-
+    public $max_file_size = "1500";
     public function __construct($params)
     {
         parent::__construct($params);
         if (isset($params["params"])) {
             $file_params = json_decode($params["params"], true);
             $this->language = $file_params['language'] ?? 'en';
+            if (isset($file_params['max_file_size']) && !is_null($file_params['max_file_size'])) {
+                $this->max_file_size = $file_params['max_file_size'];
+            }
             if (isset($file_params['file_types']) && !is_null($file_params['file_types'])) {
                 $this->file_types = explode(",", $file_params['file_types']) ?? [];
                 if (!is_array($this->file_types)) {
@@ -33,8 +36,9 @@ class pst_file extends Presentation
     {
         return request($this->name . '_file') ?? [];
     }
-    
-    public function getViewFieldPath() {
+
+    public function getViewFieldPath()
+    {
         if ($this->list) {
             return "framework::presentations.file_list";
         }
@@ -89,7 +93,8 @@ class pst_file extends Presentation
             "name" => $this->getName() . '_file' . (isset($this->multiple) && $this->multiple ? "[]" : ""),
             "multiple" => $this->multiple ?? false,
             "language" => $this->language ?? 'en',
-            "file_types" => $this->file_types
+            "file_types" => $this->file_types,
+            "max_file_size" => $this->max_file_size ?? "1500"
         ]);
     }
 

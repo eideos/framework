@@ -9,6 +9,10 @@ function file_init(field, params) {
   if (!empty(params.file_types)) {
     filetypes = params.file_types;
   }
+  var max_file_size = "1500";
+  if (!empty(params.max_file_size)) {
+    max_file_size = params.max_file_size;
+  }
   field.fileinput({
     showPreview: true,
     showDelete: true,
@@ -19,6 +23,7 @@ function file_init(field, params) {
     browseLabel: '',
     removeLabel: '',
     language: language,
+    maxFileSize: max_file_size,
     layoutTemplates: {
       main2: '{preview} {remove} {browse}'
     },
