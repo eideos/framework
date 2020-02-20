@@ -102,6 +102,7 @@ class pst_file extends Presentation
     {
         return array_merge(parent::getViewVars(), [
             "multiple" => $this->multiple ?? false,
+            "maxFileSize" => $this->max_file_size ?? "1500"
         ]);
     }
 }
