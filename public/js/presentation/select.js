@@ -38,7 +38,7 @@ function select_init(field, params) {
                 }
             } else {
                 $.getJSON(APP_URL + "select?", requestParams, function (data) {
-                    field.append('<option value="" />');
+                    field.html('<option value="" />');
                     for (var i in data) {
                         var selected = "";
                         if (field_value == data[i].id) {
