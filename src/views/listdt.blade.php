@@ -63,6 +63,7 @@
         </tr>
         @endforeach
     </tbody>
+    @if(isset($datatable['params']['footer']) && !$datatable['params']['footer'])
     <tfoot style="background-color: var(--secondary);">
         <tr>
             @foreach ($listfields as $listfield)
@@ -83,6 +84,7 @@
             @endif
         </tr>
     </tfoot>
+    @endif
 </table>
 <script>
     var dataTableSettings = {!!(json_encode($datatable['params'])??[])!!}
