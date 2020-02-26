@@ -7,10 +7,10 @@ function workflow_init(field, params) {
 function WorkflowButtons(fieldName, callbackName, params) {
     // attributes
     var self = this,
-            options = [],
-            field,
-            callback,
-            globalParams;
+        options = [],
+        field,
+        callback,
+        globalParams;
     // private
     var setField = function () {
         field = $("[name='" + fieldName + "']");
@@ -35,21 +35,33 @@ function WorkflowButtons(fieldName, callbackName, params) {
         }).get();
     };
     var generateButtons = function () {
-        for (var i in options) {
-            var colorClass = options[i].order == 0 ? "primary" : (options[i].order > 0 ? "success" : "danger");
-            var iconClass = options[i].order == 0 ? "check" : (options[i].order > 0 ? "arrow-right" : "arrow-left");
-            var button = $("<button/>")
-                    .attr("data-step", options[i].step)
-                    .addClass("btn btn-" + colorClass + " btn-icon-split ml-2")
-                    .append($('<span />').addClass('icon text-white').html('<i class="fas fa-' + iconClass + '"></i>'))
-                    .append($('<span />').addClass('text').html(options[i].label))
-                    .click(function () {
-                        self.submit($(this).attr("data-step"));
-                        return false;
-                    });
-            $(".maint-actions").append(button);
+        if (!empty(globalParams.callbackOptions)) {
+            if (isFunction(globalParams.callbackOptions)) {
+                setTimeout(function () {
+                    var fnCallbackOptions = eval(globalParams.callbackOptions);
+                    drawOptions(fnCallbackOptions(field, params, options));
+                }, 1);
+            }
+        } else {
+            drawOptions(options);
         }
     };
+    var drawOptions = function (opt) {
+        for (var i in opt) {
+            var colorClass = opt[i].order == 0 ? "primary" : (opt[i].order > 0 ? "success" : "danger");
+            var iconClass = opt[i].order == 0 ? "check" : (opt[i].order > 0 ? "arrow-right" : "arrow-left");
+            var button = $("<button/>")
+                .attr("data-step", opt[i].step)
+                .addClass("btn btn-" + colorClass + " btn-icon-split ml-2")
+                .append($('<span />').addClass('icon text-white').html('<i class="fas fa-' + iconClass + '"></i>'))
+                .append($('<span />').addClass('text').html(opt[i].label))
+                .click(function () {
+                    self.submit($(this).attr("data-step"));
+                    return false;
+                });
+            $(".maint-actions").append(button);
+        }
+    }
     // public
     this.submit = function (step) {
         if (!empty(callback)) {
