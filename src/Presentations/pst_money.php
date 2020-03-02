@@ -22,7 +22,7 @@ class pst_money extends Presentation {
             return "framework::presentations.hidden";
         }
         if ($this->list) {
-            return "framework::presentations.list";
+            return $this->view . "_list";
         }
         if ($this->readonly) {
             return $this->view . "_readonly";
