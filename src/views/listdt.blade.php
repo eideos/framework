@@ -1,4 +1,4 @@
-<table id="{{class_basename($model)}}" class="table table-striped table-bordered" style="width:100%">
+<table id="{{class_basename($model)}}" class="table table-striped table-bordered compact" style="width:100%">
     <thead style="background-color: var(--secondary);">
         <tr>
             @foreach ($listfields as $listfield)
@@ -63,7 +63,7 @@
         </tr>
         @endforeach
     </tbody>
-    @if(isset($datatable['params']['footer']) && !$datatable['params']['footer'])
+    @if(!isset($datatable['params']['footer']) || $datatable['params']['footer'])
     <tfoot style="background-color: var(--secondary);">
         <tr>
             @foreach ($listfields as $listfield)
