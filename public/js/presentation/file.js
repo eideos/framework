@@ -44,6 +44,7 @@ function file_init(field, params) {
   }
 
   $("#" + originalField.attr('name') + "_delete").on("click", function () {
+    originalField.val("");
     field.fileinput('destroy');
     field.fileinput('refresh', fileinput_options);
     $(this).hide();
