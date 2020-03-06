@@ -13,7 +13,8 @@ function file_init(field, params) {
   if (!empty(params.max_file_size)) {
     max_file_size = params.max_file_size;
   }
-  field.fileinput({
+
+  var fileinput_options = {
     showPreview: true,
     showDelete: true,
     showRemove: true,
@@ -25,13 +26,27 @@ function file_init(field, params) {
     language: language,
     maxFileSize: max_file_size,
     layoutTemplates: {
-      main2: '{preview} {remove} {browse}'
+      main2: '{preview} {remove} {browse}',
     },
     allowedFileTypes: filetypes,
-  });
+  };
+  field.fileinput(fileinput_options);
+
   //seteo el valor del campo en el input original para que funcione el required de Validation
   field.on('change', function () {
     originalField.val(this.value);
+  });
+
+  if (OP == "E" && params.force_delete) {
+    if (!empty(field.attr('data-default-preview-content'))) {
+      $("#" + originalField.attr('name') + "_delete").show();
+    }
+  }
+
+  $("#" + originalField.attr('name') + "_delete").on("click", function () {
+    field.fileinput('destroy');
+    field.fileinput('refresh', fileinput_options);
+    $(this).hide();
   });
 }
 
