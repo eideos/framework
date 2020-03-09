@@ -70,9 +70,9 @@ class pst_file extends Presentation
                     if (is_object($file)) {
                         $params =  $this->getJsParams();
                         if (isset($params["public"]) && $params["public"]) {
-                            $array[] = $file->storeAs(snake_case(str_plural($this->name)), $file->getClientOriginalName(), 'public');
+                            $array[] = $file->storeAs(snake_case(str_plural($this->name)), getMD5FileName($file), 'public');
                         } else {
-                            $array[] = $file->storeAs(snake_case(str_plural($this->name)), $file->getClientOriginalName());
+                            $array[] = $file->storeAs(snake_case(str_plural($this->name)), getMD5FileName($file));
                         }
                     } else {
                         $array[] = $file;
