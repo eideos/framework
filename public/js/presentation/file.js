@@ -37,6 +37,10 @@ function file_init(field, params) {
     originalField.val(this.value);
   });
 
+  field.on('fileloaded', function () {
+    originalField.val(this.value);
+  });
+  
   if (OP == "E" && params.force_delete) {
     if (!empty(field.attr('data-default-preview-content'))) {
       $("#" + originalField.attr('name') + "_delete").show();
