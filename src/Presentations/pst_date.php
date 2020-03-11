@@ -3,6 +3,7 @@
 namespace Eideos\Framework\Presentations;
 
 use Eideos\Framework\Lib\Presentation;
+use Carbon\Carbon;
 
 class pst_date extends Presentation {
 
@@ -31,9 +32,17 @@ class pst_date extends Presentation {
 
     public function loadDatabaseValue() {
         if (!empty($this->value)) {
+            //validacion para que ande el search
+            if (strpos($this->value, "/") !== false) {
+                return $this->value;
+            }
             return date("d/m/Y", strtotime($this->value));
         }
         return "";
+    }
+
+    public function getDatabaseWhere($queryField = null) {
+        return $queryField . " = '" . $this->getDatabaseValue() . "'";
     }
 
     public static function transformValue($value) {
