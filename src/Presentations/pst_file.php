@@ -15,6 +15,7 @@ class pst_file extends Presentation
     public $js_tovalue = "file_tovalue";
     public $js_topopup = "file_topopup";
     public $max_file_size = "1500";
+    public $force_delete = false;
     public function __construct($params)
     {
         parent::__construct($params);
@@ -30,6 +31,7 @@ class pst_file extends Presentation
                     $this->file_types = [$this->file_types];
                 }
             }
+            $this->force_delete = $file_params['force_delete'] ?? false;
         }
     }
     public function loadRequestValue()
@@ -68,9 +70,9 @@ class pst_file extends Presentation
                     if (is_object($file)) {
                         $params =  $this->getJsParams();
                         if (isset($params["public"]) && $params["public"]) {
-                            $array[] = $file->storeAs(snake_case(str_plural($this->name)), $file->getClientOriginalName(), 'public');
+                            $array[] = $file->storeAs(snake_case(str_plural($this->name)), getMD5FileName($file), 'public');
                         } else {
-                            $array[] = $file->storeAs(snake_case(str_plural($this->name)), $file->getClientOriginalName());
+                            $array[] = $file->storeAs(snake_case(str_plural($this->name)), getMD5FileName($file));
                         }
                     } else {
                         $array[] = $file;
@@ -94,7 +96,8 @@ class pst_file extends Presentation
             "multiple" => $this->multiple ?? false,
             "language" => $this->language ?? 'en',
             "file_types" => $this->file_types,
-            "max_file_size" => $this->max_file_size ?? "1500"
+            "max_file_size" => $this->max_file_size ?? "1500",
+            "force_delete" => $this->force_delete ?? false,
         ]);
     }
 
@@ -102,7 +105,8 @@ class pst_file extends Presentation
     {
         return array_merge(parent::getViewVars(), [
             "multiple" => $this->multiple ?? false,
-            "maxFileSize" => $this->max_file_size ?? "1500"
+            "maxFileSize" => $this->max_file_size ?? "1500",
+            "force_delete" => $this->force_delete ?? false,
         ]);
     }
 }

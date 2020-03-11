@@ -13,6 +13,7 @@
            data-max-file-size="{{$maxFileSize or "1500"}}"
            {{$multiple?"multiple":""}}
            />
+           @if(!empty($force_delete) && $force_delete)<button id="{{$name}}_delete" type="button" tabindex="500" title="Quitar archivos seleccionados" class="btn btn-default btn-secondary fileinput-remove fileinput-remove-button fileinput-initial-delete" style="display:none; position: relative; top: -37px; left: 50px;"><i class="fas fa-trash-alt"></i></button>@endif
            @if($errors->has($name))
            <div class="invalid-feedback">
                @foreach($errors->get($name) as $error)

@@ -62,8 +62,15 @@
                     @endif
                 </div>
             </div>
-            <div class="col-4 float-right input-group d-none d-md-flex">
-                <input type="text" class="form-control form-control-sm" id="search" name="search" placeholder="Buscar..." aria-label="Buscar..." value="@if(!empty($search)){{$search}}@endif" />
+            <div class="float-right limit mr-3">
+                <select class="form-control form-control-sm" id="limit" name="limit">
+                    <option value="25" {{!isset($limit) || $limit=="25"?'selected="selected"':''}}>25</option>
+                    <option value="50" {{isset($limit) && $limit=="50"?'selected="selected"':''}}>50</option>
+                    <option value="100" {{isset($limit) && $limit=="100"?'selected="selected"':''}}>100</option>
+                </select>
+            </div>
+            <div class="col-5 float-right input-group d-none d-md-flex">
+                <input type="text" class="form-control form-control-sm" id="search" name="search" placeholder="Buscar..." aria-label="Buscar..." value="{{$search??''}}" />
                 <div class="input-group-append">
                     <button class="btn btn-primary btn-sm float-right" type="button" onclick="searchBarClick()"><i class="fas fa fa-search"></i></button>
                 </div>

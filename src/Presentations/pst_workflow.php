@@ -47,10 +47,11 @@ class pst_workflow extends Presentation
 
     public function getHelperValue()
     {
-        if (isset($this->value) && isset($this->values[$this->value])) {
-            return $this->values[$this->value];
+        $val = $this->getValue();
+        if (isset($val) && isset($this->values[$val])) {
+            return $this->values[$val];
         }
-        return $this->value;
+        return $val;
     }
 
     public function getOptions()
