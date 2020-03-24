@@ -257,10 +257,6 @@ table.asociada:not(.directedit) .form-group {
   padding-right: 0;
 }
 
-table:not(.directedit) th:last-child {
-  width: 170px;
-}
-
 .input-group .form-control.is-invalid {
   border-right: #ced4da !important;
 }
@@ -350,7 +346,7 @@ iframe {
   font-size: 14px;
 }
 
-.container-fluid table tbody tr td:last-child{
+table tbody tr td.acciones, table tbody tr th.acciones {
     min-width: 125px;
 }
 
@@ -396,4 +392,12 @@ z-index: 10000 !important;
 
 .dt-buttons{
   position: absolute;
+}
+
+.file-preview-thumbnails {
+  overflow: auto;
+}
+
+.file-caption-info, .file-size-info, .kv-file-upload, .file-drag-handle {
+  display: none !important;
 }

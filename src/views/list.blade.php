@@ -9,7 +9,7 @@
             @endif
             @endforeach
             @if (isset($data["actions"]) && count($data["actions"]))
-            <th>Acciones</th>
+            <th class="acciones">Acciones</th>
             @endif
         </tr>
     </thead>
@@ -33,7 +33,7 @@
             @endif
             @endforeach
             @if (isset($data["actions"]) && count($data["actions"]))
-            <td>
+            <td class="acciones">
                 @foreach ($data['actions'] as $action)
                 @if ((!isset($action["global"]) || !$action["global"]) && is_authorized($action['controller'] ?? $controller,$action["action"]) && (!isset($action["displayFunction"]) || !function_exists($action["displayFunction"]) || $action["displayFunction"]($row)))
                 @if (!isset($action["post"]) || !$action["post"])
