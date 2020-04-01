@@ -8,7 +8,7 @@
             <th>{{$listfield->getLabel()}}</th>
             @endif
             @endforeach
-            @if (isset($data["actions"]) && count($data["actions"]))
+            @if (isset($data["actions"]) && count(get_not_global_actions($data["actions"])))
             <th class="acciones">Acciones</th>
             @endif
         </tr>
@@ -32,10 +32,10 @@
             </td>
             @endif
             @endforeach
-            @if (isset($data["actions"]) && count($data["actions"]))
+            @if (isset($data["actions"]) && count(get_not_global_actions($data["actions"])))
             <td class="acciones">
-                @foreach ($data['actions'] as $action)
-                @if ((!isset($action["global"]) || !$action["global"]) && is_authorized($action['controller'] ?? $controller,$action["action"]) && (!isset($action["displayFunction"]) || !function_exists($action["displayFunction"]) || $action["displayFunction"]($row)))
+                @foreach (get_not_global_actions($data["actions"]) as $action)
+                @if (is_authorized($action['controller'] ?? $controller,$action["action"]) && (!isset($action["displayFunction"]) || !function_exists($action["displayFunction"]) || $action["displayFunction"]($row)))
                 @if (!isset($action["post"]) || !$action["post"])
                 <a href="{{fmw_action($action['controller'] ?? $controller, $action['action'], $row['__id'])}}" data-toggle="tooltip" data-placement="top" title="{{$action['label']}}" class="btn btn-circle btn-sm {{$action['class']??'btn-secondary'}} float-left mr-1" {{(isset($action['blank']) && $action['blank']=="true" ? 'target="blank"' : '')}}>
                     <i class="fa fa-{{$action['icon']}}"></i>
