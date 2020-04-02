@@ -8,7 +8,6 @@ function date_init(field, params) {
     if(params.datepicker){
       paramsdp = params.datepicker;
       if(paramsdp.minDate){
-        console.log(paramsdp.minDate);
         paramsdp.minDate = eval(paramsdp.minDate);
       }
       if(paramsdp.maxDate){
