@@ -20,7 +20,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($rows as $row)
+        <!-- @foreach($rows as $row)
         <tr>
             @foreach ($listfields as $listfield)
             @if(is_array($listfield) && isset($listfield['fields']))
@@ -61,7 +61,7 @@
             </td>
             @endif
         </tr>
-        @endforeach
+        @endforeach -->
     </tbody>
     @if(!isset($datatable['params']['footer']) || $datatable['params']['footer'])
     <tfoot style="background-color: var(--secondary);">
