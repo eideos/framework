@@ -2,14 +2,16 @@
 
 namespace Eideos\Framework;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class User extends Authenticatable implements Auditable
 {
-
+    
     use Notifiable;
+    use HasApiTokens;
     use \OwenIt\Auditing\Auditable;
 
     /**
