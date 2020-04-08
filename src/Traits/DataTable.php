@@ -6,6 +6,7 @@ trait DataTable
 {
     protected $datatableDefaultParams =[
         "dom"=> 'Bftip',
+        "responsive"=> true,
         "buttons"=> [
                 "buttons"=> [
                         [

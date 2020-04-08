@@ -1,4 +1,4 @@
-<table id="{{class_basename($model)}}" class="table table-striped table-bordered compact" style="width:100%">
+<table id="{{class_basename($model)}}" class="table table-striped table-bordered table-condensed display compact nowrap" style="width:100%">
     <thead style="background-color: var(--secondary);">
         <tr>
             @foreach ($listfields as $listfield)
@@ -20,7 +20,7 @@
         </tr>
     </thead>
     <tbody>
-        <!-- @foreach($rows as $row)
+        @foreach($rows as $row)
         <tr>
             @foreach ($listfields as $listfield)
             @if(is_array($listfield) && isset($listfield['fields']))
@@ -61,7 +61,7 @@
             </td>
             @endif
         </tr>
-        @endforeach -->
+        @endforeach
     </tbody>
     @if(!isset($datatable['params']['footer']) || $datatable['params']['footer'])
     <tfoot style="background-color: var(--secondary);">
@@ -86,11 +86,3 @@
     </tfoot>
     @endif
 </table>
-<script>
-    var dataTableSettings = {!!(json_encode($datatable['params'])??[])!!}
-    $(function() {
-        $("#{{class_basename($model)}}").DataTable(
-            dataTableSettings
-        );
-    } );
-</script>

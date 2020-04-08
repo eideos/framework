@@ -63,6 +63,14 @@
     </div>
 </div>
 
+<script>
+    var dataTableSettings = {!!(json_encode($datatable['params'])??[])!!}
+    $(function() {
+        $("#{{class_basename($model)}}").DataTable(
+            dataTableSettings
+        );
+    } );
+</script>
 
 <script type="text/javascript">
     var deleteMessage = '{{$deleteMessage??"¿Está seguro que desea eliminar el registro?"}}';
