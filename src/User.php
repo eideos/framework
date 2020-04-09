@@ -77,4 +77,13 @@ class User extends Authenticatable implements Auditable
     {
         return $this->belongsToMany('Eideos\Framework\Role', 'roles_users', 'user_id');
     }
+
+    public static function boot()
+    {
+        parent::boot();
+        self::deleting(function(User $user){
+            $user->roles()->detach();
+            $user->blocks()->delete();
+        });
+    }
 }
