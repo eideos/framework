@@ -46,7 +46,7 @@
                     <a href="javascript:void(0);" class="btn btn-light btn-sm" data-toggle="modal" data-target="#filtros">
                         <i class="fa fa-{{$filterIcon??"search"}}" data-toggle="tooltip" data-placement="top" title="Filtrar"></i>
                     </a>
-                    @if(class_exists(str_replace(["Controller","\\Http"],["Export", ""],$controller)))
+                    @if(url_route_exists(Request::url() . "/export/xls"))
                     <div id="export" style="display: none;"></div>
                     <a href="javascript:void(0);" class="btn btn-light btn-sm" onclick="exportClick('xlsx')">
                         <i class="fa fa-file-excel" data-toggle="tooltip" data-placement="top" title="Descargar Excel" ></i>
