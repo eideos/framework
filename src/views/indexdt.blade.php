@@ -73,6 +73,11 @@
 </script>
 
 <script type="text/javascript">
+    var deleteTitle = '{{$deleteTitle??"Confirmar eliminar Registro"}}';
     var deleteMessage = '{{$deleteMessage??"¿Está seguro que desea eliminar el registro?"}}';
+    var deleteConfirmClass = '{{$deleteConfirmClass??"btn btn-danger btn-icon-split ml-2"}}';
+    var deleteCancelClass = '{{$deleteCancelClass??"btn btn-secondary btn-icon-split"}}';
+    var deleteCancelText = '{{$deleteCancelText??"Cancelar"}}';
+    var deleteConfirmText = '{{$deleteConfirmText??"¡Si, eliminar!"}}';
 </script>
 @endsection
