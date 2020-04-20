@@ -90,6 +90,11 @@
 @includeFirst(['search', 'framework::search'])
 
 <script type="text/javascript">
+    var deleteTitle = '{{$deleteMessage??"Confirmar eliminar Registro"}}';
     var deleteMessage = '{{$deleteMessage??"¿Está seguro que desea eliminar el registro?"}}';
+    var deleteCancelClass = '{{$deleteMessage??"btn btn-danger btn-icon-split ml-2"}}';
+    var deleteConfirmClass = '{{$deleteMessage??"btn btn-secondary btn-icon-split"}}';
+    var deleteCancelText = '{{$deleteMessage??"<span class="icon text-white"><i class="fas fa-chevron-left"></i></span><span class="text">Cancelar</span>"}}';
+    var deleteConfirmText = '{{$deleteMessage??"<span class="icon text-white"><i class="fas fa-trash"></i></span><span class="text">¡Si, eliminar!</span>"}}';
 </script>
 @endsection
