@@ -188,7 +188,7 @@ class AbstractMenu
         $html .= '<div class="bg-white py-2 collapse-inner rounded">';
         foreach ($menuItems as $menuItem) {
             if (!$this->isAuthorizedItem($menuItem)) {
-                return $html;
+                continue;
             }
             if (!empty($menuItem['header'])) {
                 $html .= '<h6 class="collapse-header">' . $menuItem['header'] . '</h6>';
