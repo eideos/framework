@@ -15,7 +15,7 @@
             @endif
             @endforeach
             @if (isset($data["actions"]) && count($data["actions"]))
-            <th>Acciones de {{str_plural(class_basename($model))}}</th>
+            <th>{{isset($data["actions_label"]) ? $data["actions_label"] : "Acciones"}}</th>
             @endif
         </tr>
     </thead>
