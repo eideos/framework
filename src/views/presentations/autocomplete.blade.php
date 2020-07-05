@@ -29,7 +29,7 @@
             <div class="input-group-text"><i class="fas fa-list-ul"></i></div>
             @if($addButton)
             <div class="input-group-text">
-                <a href='{{fmw_action($controller , 'create')}}' target="_blank">
+                <a href='{{fmw_action($addController ?? $controller , 'create')}}' target="_blank">
                     <i class="fas fa-plus"></i>
                 </a>
             </div>

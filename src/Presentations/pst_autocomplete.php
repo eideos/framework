@@ -34,6 +34,7 @@ class pst_autocomplete extends Presentation
             "keyField" => $this->getKeyField(),
             "displayField" => $this->getDisplayField(),
             "addButton" => $this->hasAddButton(),
+            "addController" => $this->hasAddController(),
         ];
         if ($this->hasActiveSetted()) {
             $vars['active'] = $this->active;
@@ -61,6 +62,17 @@ class pst_autocomplete extends Presentation
         return false;
     }
 
+    public function hasAddController()
+    {
+        if (isset($this->params)) {
+            $arr_params = json_decode($this->params, true);
+            if (isset($arr_params["addController"]) && !empty($arr_params["addController"])) {
+                return $arr_params["addController"];
+            }
+        }
+        return null;
+    }
+    
     public function getKeyField()
     {
         return $this->keyField ?? "id";
