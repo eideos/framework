@@ -5,7 +5,7 @@
                 <h4 class="modal-title"><label id="{{$name??"files"}}_preview_filename"></label></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div id="{{$name??"files"}}_preview_body" class="modal-body">
+            <div id="{{$name??"files"}}_preview_body" class="modal-body" data-preview-height="{{$previewHeight or "400px"}}">
                 <embed id="{{$name??"files"}}_preview_embed" src="/files/download/{{$table??"files"}}/{{$attach['id'] or "-1"}}" type="{{$attach['mimetype'] or ""}}" width="100%" height="{{$previewHeight or "400px"}}">
             </div>
             <div class="modal-footer">
@@ -18,8 +18,15 @@
 <script type="text/javascript">
     function previewFile(tabla, id, name, mimetype) {
         var url = '/files/display/' + tabla + '/' + id;
+        $('#{{ $name or "files" }}_preview_filename').html("");
         $('#{{ $name or "files" }}_preview_filename').html(name);
-        $('#{{ $name or "files" }}_preview_body > embed').attr('type', mimetype).attr('src', url);
+        var preview_height = $('#{{ $name or "files" }}_preview_body').attr("data-preview-height");
+        if(strstr(mimetype, "officedocument")){
+            var preview = $("<iframe>").attr("id", '{{ $name or "files" }}_preview_embed').attr('type', mimetype).attr("width", "100%").attr("height", preview_height).attr("src", "https://view.officeapps.live.com/op/embed.aspx?src=" + APP_URL + url);
+        } else{
+            var preview = $("<iframe>").attr("id", '{{ $name or "files" }}_preview_embed').attr('type', mimetype).attr("width", "100%").attr("height", preview_height).attr("src", url);
+        }
+        $('#{{ $name or "files" }}_preview_body').html(preview);
         $('#{{ $name or "files" }}_preview').modal({'show': true});
     }
 
