@@ -61,7 +61,7 @@
                                     <a href="/files/download/{{snake_plural_middle_case(str_replace("App__","",$model))}}/{{$attach['id']}}" class="btn btn-primary btn-xs">
                                         <i class="fa fa-download"></i>
                                     </a>
-                                    <a href="javascript:void(0);" onclick="previewFile('{{snake_plural_middle_case(str_replace("App__","",$model))}}','{{$attach['id']}}','{{$attach['name']}}','{{$attach['mimetype']}}')" class="btn btn-primary btn-xs">
+                                    <a href="javascript:void(0);" onclick="previewFile('{{snake_plural_middle_case(str_replace("App__","",$model))}}','{{$attach['id']}}','{{$attach['name']}}','{{$attach['mimetype'], '{{$attach['storage']}}')" class="btn btn-primary btn-xs">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                 </div>

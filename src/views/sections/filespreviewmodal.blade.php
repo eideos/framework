@@ -16,13 +16,15 @@
 </div>    
 
 <script type="text/javascript">
-    function previewFile(tabla, id, name, mimetype) {
+    function previewFile(tabla, id, name, mimetype, storage) {
         var url = '/files/display/' + tabla + '/' + id;
         $('#{{ $name or "files" }}_preview_filename').html("");
         $('#{{ $name or "files" }}_preview_filename').html(name);
         var preview_height = $('#{{ $name or "files" }}_preview_body').attr("data-preview-height");
         if(strstr(mimetype, "officedocument")){
-            var preview = $("<iframe>").attr("id", '{{ $name or "files" }}_preview_embed').attr('type', mimetype).attr("width", "100%").attr("height", preview_height).attr("src", "https://view.officeapps.live.com/op/embed.aspx?src=" + APP_URL + url);
+            var url = APP_URL + storage.replace("public", "storage");
+            console.log(url);
+            var preview = $("<iframe>").attr("id", '{{ $name or "files" }}_preview_embed').attr('type', mimetype).attr("width", "100%").attr("height", preview_height).attr("src", "https://view.officeapps.live.com/op/embed.aspx?src=" + url);
         } else{
             var preview = $("<iframe>").attr("id", '{{ $name or "files" }}_preview_embed').attr('type', mimetype).attr("width", "100%").attr("height", preview_height).attr("src", url);
         }

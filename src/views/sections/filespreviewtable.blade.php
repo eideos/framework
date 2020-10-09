@@ -39,7 +39,7 @@
                                 <a href="/files/download/{{$table}}/{{$attach['id']}}" class="btn btn-primary btn-xs">
                                     <i class="fa fa-download"></i>
                                 </a>
-                                <a href="javascript:void(0);" onclick="previewFile('{{$table}}','{{$attach['id']}}','{{$attach['name']}}','{{$attach['mimetype']}}')" class="btn btn-primary btn-xs">
+                                <a href="javascript:void(0);" onclick="previewFile('{{$table}}','{{$attach['id']}}','{{$attach['name']}}','{{$attach['mimetype']}}','{{$attach['storage']}}')" class="btn btn-primary btn-xs">
                                     <i class="fa fa-search-plus"></i>
                                 </a>
                             </div>
