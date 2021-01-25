@@ -15,8 +15,8 @@ class pst_daterange extends Presentation {
 
     public function getViewVars() {
         return array_merge(parent::getViewVars(), [
-            "value_from" => $this->value["from"],
-            "value_to" => $this->value["to"],
+            "value_from" => $this->value["from"] ?? null,
+            "value_to" => $this->value["to"] ?? null,
         ]);
     }
 

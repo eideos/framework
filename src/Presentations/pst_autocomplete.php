@@ -110,7 +110,7 @@ class pst_autocomplete extends Presentation
                     $displayField = $modelObj->{$methodTransform}();
                 }
             }
-            return $this->model::where([($keyField ?? "id") => $value])->selectRaw(($displayField ?? "id") . " AS displayField")->first()['displayField'];
+            return $this->model::where([($keyField ?? "id") => $value])->selectRaw(($displayField ?? "id") . " AS displayField")->first()['displayField'] ?? null;
         }
         return $value;
     }
