@@ -20,6 +20,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     // FILES
     Route::get('files/download/{table}/{id}', 'Eideos\Framework\Controllers\FileController@download')->name('files.download');
     Route::get('files/download_file/{file}', 'Eideos\Framework\Controllers\FileController@download_file')->name('files.downloadfile');
+    Route::get('files/image/{file}/{thumbnail?}', 'Eideos\Framework\Controllers\FileController@image')->name('files.displayfile');
     Route::get('files/display/{table}/{id}', 'Eideos\Framework\Controllers\FileController@display')->name('files.display');
     Route::post('files/delete', 'Eideos\Framework\Controllers\FileController@destroy')->name('files.delete');
 });
