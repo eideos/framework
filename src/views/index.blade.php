@@ -33,7 +33,7 @@
             {{isset($title) ? $title : 'Listado'}}
             @foreach ($data['actions'] as $action)
             @if (isset($action["global"]) && $action["global"] && is_authorized($controller,$action["action"]))
-            <a href="{{fmw_action($controller, $action['action'])}}" class="btn btn-sm btn-primary btn-icon-split">
+            <a href="{{fmw_action($controller, $action['action'])}}" class="btn btn-sm {{$action["class"]??"btn-primary"}} btn-icon-split">
               <span class="icon text-white">
                 <i class="fas fa-{{$action["icon"]}}"></i>
               </span>

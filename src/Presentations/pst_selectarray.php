@@ -39,6 +39,12 @@ class pst_selectarray extends Presentation {
         return "";
     }
 
+    public function getDatabaseWhere($queryField = null) {
+        $queryField = $queryField ?? $this->getOriginalName();
+        $value = $this->getValue();
+        return $queryField . " = '" . $value . "'";
+    }
+
     public function getSearchBarValue($search = "") {
         $values = [];
         foreach ($this->values as $value => $display) {

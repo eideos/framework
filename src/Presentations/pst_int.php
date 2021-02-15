@@ -8,6 +8,13 @@ class pst_int extends Presentation {
 
     protected $view = "framework::presentations.int";
     public $isNumeric = true;
+    public $prepend = "123";
+
+    public function getViewVars() {
+        return array_merge(parent::getViewVars(), [
+            "prepend" => $this->prepend,
+        ]);
+    }
 
     public function getDatabaseValue() {
         if (isset($this->value)) {

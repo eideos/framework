@@ -7,7 +7,7 @@
     @endif
     <div class="input-group mb-2">
         <div class="input-group-prepend">
-            <span class="input-group-text" id="{{$name}}-salary-addon"><small>123</small></span>
+            <span class="input-group-text" id="{{$name}}-salary-addon"><small>{{$prepend}}</small></span>
         </div>
     <input type="number"
            name="{{$name}}"
