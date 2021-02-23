@@ -1,4 +1,4 @@
-<table id="{{class_basename($model)}}" class="table table-striped table-bordered table-condensed display compact nowrap" style="width:100%">
+<table id="{{class_basename($model)}}" class="table {{$datatable['class'] ?? ''}}" style="width:100%">
     <thead style="background-color: var(--secondary);">
         <tr>
             @foreach ($listfields as $listfield)
