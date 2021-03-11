@@ -37,10 +37,13 @@ class FileController extends Controller {
         return response()->download($download_path);
     }
 
-    public function image($storagePath, $thumbnail = null)
+    public function image($storagePath, $thumbnail = null, $relativePath = null)
     {
         if (!empty($storagePath)) {
             $download_path = storage_path('app' . DIRECTORY_SEPARATOR . base64_decode($storagePath));
+            if (empty($relativePath)) {
+                $download_path = base64_decode($storagePath);
+            }
             if (!empty($thumbnail)) {
                 $name = \File::name($download_path);
                 $thumbPath = str_replace($name, $name . "_thumb", $download_path);
