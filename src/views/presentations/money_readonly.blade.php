@@ -17,7 +17,7 @@
                style="text-align: right;"
                readonly aria-invalid="false"
                data-validation-name="{{get_validation_field_name($name)}}"
-               value="{{old($name, $value??$initialvalue??'')}}"
+               value="{{old($name, $helperValue??$initialvalue??'')}}"
                @if(isset($readonly)&&$readonly) disabled @endif
                class="form-control {{isset($table)&&$table?'form-control-sm':''}} {{$errors->has(get_validation_field_name($name))?'is-invalid':''}} {{$class??''}}"
                />

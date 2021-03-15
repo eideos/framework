@@ -17,6 +17,10 @@ class pst_money extends Presentation {
         return ["vendor/framework/js/presentation/money.js"];
     }
 
+    public function getHelperValue() {
+        return number_format((float)$this->getValue(), 2, ",", ".");
+    }
+
     public function getViewFieldPath() {
         if (!$this->isvisible) {
             return "framework::presentations.hidden";
