@@ -1,7 +1,7 @@
 @extends('framework::layouts.presentation')
 
 @section($name)
-<div class="form-group col-md-{{$cols or "12"}}">
+<div class="form-group col-md-{{$cols ?? "12"}}">
     @if((!isset($table)||!$table)&&(!isset($list)||!$list))
     <label for="{{$name}}">{{$label}}</label>
     @endif

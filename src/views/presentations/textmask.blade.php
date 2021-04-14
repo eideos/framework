@@ -1,13 +1,13 @@
 @extends('framework::layouts.presentation')
 
 @section($name)
-<div class="form-group col-md-{{$cols or "12"}}">
+<div class="form-group col-md-{{$cols ?? "12"}}">
     @if(!isset($table)||!$table)
     <label for="{{$name}}">{{$label}}</label>
     @endif
     <input type="text"
            name="{{$name}}"
-           id="{{$name or "mask"}}"
+           id="{{$name ?? "mask"}}"
            value="{{old($name, $value??$initialvalue??'')}}"
            @if(isset($readonly)&&$readonly) disabled @endif
            class="form-control {{isset($table)&&$table?'form-control-sm':''}} {{is_required_field($name,$required_fields??[])?'required':''}} {{$errors->has($name)?'is-invalid':''}}"
@@ -26,7 +26,7 @@
 @section('js_' . $name)
 <script type="text/javascript">
     $(function () {
-        $('#{{$name or "mask"}}').mask("{{$mask}}", {reverse: true});
+        $('#{{$name ?? "mask"}}').mask("{{$mask}}", {reverse: true});
     });
 </script>
 @endsection

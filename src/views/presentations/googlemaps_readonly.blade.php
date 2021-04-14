@@ -1,4 +1,4 @@
-<div class="form-group col-md-{{$cols or "12"}}">
+<div class="form-group col-md-{{$cols ?? "12"}}">
     <input type="hidden" name="{{$name}}" value="{{old($name, $value??$initialvalue??'')}}" />
     <label for="{{$name}}">{{$label}}</label>
     @if (!empty($value))
