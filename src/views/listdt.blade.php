@@ -14,7 +14,7 @@
             @endif
             @endif
             @endforeach
-            @if (isset($data["actions"]) && count($data["actions"]))
+            @if (isset($data["actions"]) && count(get_not_global_actions($data["actions"])))
             <th>{{isset($data["actions_label"]) ? $data["actions_label"] : "Acciones"}}</th>
             @endif
         </tr>
@@ -29,17 +29,17 @@
             <td class="dt-tbody-td {{isset($field->isNumeric) && $field->isNumeric  ? 'td-numeric' : 'td-text'}}">
                 {!! $row[$field->getName()]->getHelperValue() !!}
             </td>
-            @endif            
+            @endif
             @endforeach
             @else
-            @if(!isset($listfield->isvisible) || $listfield->isvisible)            
+            @if(!isset($listfield->isvisible) || $listfield->isvisible)
             <td class="dt-tbody-td {{isset($listfield->isNumeric) && $listfield->isNumeric  ? 'td-numeric' : 'td-text'}}">
-            {!! $row[$listfield->getName()]->getHelperValue() !!}
+                {!! $row[$listfield->getName()]->getHelperValue() !!}
             </td>
             @endif
             @endif
             @endforeach
-            @if (isset($data["actions"]) && count($data["actions"]))
+            @if (isset($data["actions"]) && count(get_not_global_actions($data["actions"])))
             <td>
                 @foreach ($data['actions'] as $action)
                 @if ((!isset($action["global"]) || !$action["global"]) && is_authorized($action['controller'] ?? $controller,$action["action"]) && (!isset($action["displayFunction"]) || !function_exists($action["displayFunction"]) || $action["displayFunction"]($row)))
@@ -79,7 +79,7 @@
             @endif
             @endif
             @endforeach
-            @if (isset($data["actions"]) && count($data["actions"]))
+            @if (isset($data["actions"]) && count(get_not_global_actions($data["actions"])))
             <th id='tfoot_actions'></th>
             @endif
         </tr>
