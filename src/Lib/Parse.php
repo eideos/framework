@@ -109,7 +109,7 @@ class Parse
             'tab' => array('id', 'label', 'icon'),
             'importcolumn' => array('index', 'name', 'label', 'presentation'),
             'maintfield' => array('name', 'label', 'presentation', 'params', 'class', 'isvisible', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'autocomplete', 'placeholder', 'rows', 'cols', 'model', 'keyField', 'displayField', 'listen', 'listenCallback', 'multiple'),
-            'table' => array('id', 'paginate', 'title', 'label', 'popup', 'columns', 'blocks', 'model', 'order', 'orderby', 'assoc', 'multiple', 'total', 'directedit', 'cols', 'readonly', 'relation', 'width', 'icon', 'button'),
+            'table' => array('id', 'paginate', 'title', 'label', 'popup', 'columns', 'blocks', 'model', 'order', 'orderby', 'assoc', 'multiple', 'total', 'directedit', 'cols', 'readonly', 'relation', 'width', 'icon', 'button', 'pk'),
             'tableaction' => array('op', 'displayFunction'),
             'files' => array('id', 'paginate', 'title', 'order', 'orderby', 'blocks', 'model', 'allowedTypes', 'descEnabled', 'readonly', 'showMimetype'),
             'tablefield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'isvisibletable', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'placeholder', 'total', 'model', 'rows', 'cols', 'keyField', 'displayField', 'uniqueInTable', 'listen', 'listenCallback', 'multiple', 'class'),
