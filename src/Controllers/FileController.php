@@ -27,6 +27,9 @@ class FileController extends Controller {
         $className = "App\\" . singular_studly_from_snake_plural_case($table);
         $fileData = (new $className())->find($id);
         $download_path = storage_path('app' . DIRECTORY_SEPARATOR . $fileData->storage);
+        if (ob_get_contents()) {
+            ob_end_clean();
+        }
         return response()->file($download_path);
     }
 
@@ -34,6 +37,9 @@ class FileController extends Controller {
         $className = "App\\" . singular_studly_from_snake_plural_case($table);
         $fileData = (new $className())->find($id);
         $download_path = storage_path('app' . DIRECTORY_SEPARATOR . $fileData->storage);
+        if (ob_get_contents()) {
+            ob_end_clean();
+        }
         return response()->download($download_path);
     }
 
@@ -52,6 +58,9 @@ class FileController extends Controller {
                 }
             }
             if (file_exists($download_path)) {
+                if (ob_get_contents()) {
+                    ob_end_clean();
+                }
                 return response()->file($download_path);
             }
         }
@@ -66,6 +75,9 @@ class FileController extends Controller {
                 $download_path = storage_path('app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . base64_decode($storagePath));
             }
             if (file_exists($download_path)) {
+                if (ob_get_contents()) {
+                    ob_end_clean();
+                }
                 return response()->download($download_path);
             }
         }
