@@ -84,4 +84,21 @@ class FileController extends Controller {
         return back();
     }
 
+    public function display_file($storagePath)
+    {
+        if (!empty($storagePath)) {
+            $download_path = storage_path('app' . DIRECTORY_SEPARATOR . base64_decode($storagePath));
+            if (!file_exists($download_path)) {
+                $download_path = storage_path('app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . base64_decode($storagePath));
+            }
+            if (file_exists($download_path)) {
+                if (ob_get_contents()) {
+                    ob_end_clean();
+                }
+                return response()->file($download_path);
+            }
+        }
+        return back();
+    }
+
 }

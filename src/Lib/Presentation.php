@@ -100,7 +100,7 @@ class Presentation {
         $queryField = $queryField ?? $this->getOriginalName();
         $value = $this->getValue();
         if ($this->isNumeric) {
-            return $queryField . " = " . $value;
+            return $queryField . " = '" . $value . "'";
         }
         return $queryField . " LIKE '%" . $value . "%'";
     }
