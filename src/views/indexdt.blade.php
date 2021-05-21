@@ -32,9 +32,9 @@
         <h4 class="pb-2 mb-2 border-bottom">
             {{isset($title) ? $title : 'Listado'}}
             @foreach ($data['actions'] as $action)
-            @php $controller = $action['controller'] ?? $controller @endphp
-            @if (isset($action["global"]) && $action["global"] && is_authorized($controller,$action["action"]))
-            <a href="{{fmw_action($controller, $action['action'])}}" class="btn btn-sm {{$action['class']??'btn-primary'}} btn-icon-split">
+            @php $controllerAction = $action['controller'] ?? $controller @endphp
+            @if (isset($action["global"]) && $action["global"] && is_authorized($controllerAction, $action["action"]))
+            <a href="{{fmw_action($controllerAction, $action['action'])}}" class="btn btn-sm {{$action['class']??'btn-primary'}} btn-icon-split">
               <span class="icon text-white">
                 <i class="fas fa-{{$action["icon"]}}"></i>
               </span>
