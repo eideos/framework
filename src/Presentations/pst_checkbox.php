@@ -54,14 +54,33 @@ class pst_checkbox extends Presentation
         return ["vendor/framework/js/presentation/checkbox.js"];
     }
     
+    public function getValue() {
+        $databaseValue = $this->loadDatabaseValue();
+        if (isset($databaseValue) && $databaseValue !== "" && !empty($databaseValue)) {
+            return $databaseValue;
+        }
+        $initialValue = $this->getInitialValue();
+        if (isset($initialValue) && $initialValue !== "") {
+            return $initialValue;
+        }
+        return [];
+    }
+
     public function getViewVars()
     {
-        return array_merge(parent::getViewVars(), [
+        return array_merge([
             "options" => $this->getJsParams()['options'] ?? $this->options ?? [],
             "values" => $this->getValue(),
             "value" => implode(",", $this->getValue()),
             "helperValue" => implode(", ", $this->getHelperValue()),
-        ]);
+        ], parent::getViewVars());
+    }
+
+    public function getInitialValue() {
+        if (isset($this->initialvalue)) {
+            return explode(",", $this->initialvalue);
+        }
+        return [];
     }
 
     public function loadDatabaseValue()
