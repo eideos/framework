@@ -31,6 +31,9 @@ function select_init(field, params) {
             if (params.active) {
                 requestParams.conditions.active = params.active;
             }
+            if (listen) {
+                requestParams.conditions[listen_field.attr("name")] = listen_field.val();
+            }
             if (typeof listenCallback !== "undefined") {
                 if (typeof window[listenCallback] !== "undefined") {
                     window[listenCallback](field, requestParams, field_value, field_desc);
