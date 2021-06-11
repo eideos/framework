@@ -10,10 +10,6 @@ class pst_time extends Presentation
     protected $view = "framework::presentations.time";
     public $js_initial = "time_init";
     public $format = "H:i";
-    public function getSearchBarValue($search = "")
-    {
-        return "LIKE '%" . self::transformValue($search) . "%'";
-    }
 
     public function getInitialValue()
     {
