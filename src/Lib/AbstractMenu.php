@@ -142,7 +142,7 @@ class AbstractMenu
         }
 
         $active = $this->isActiveItem($menuItem);
-        $html .= '<li class="nav-item ' . ($active ? 'active' : '') . '">';
+        $html .= '<li class="nav-item ' . ($active ? 'active' : '') . (!empty($menuItem["class"]) ? ' ' . $menuItem["class"] : '') . '">';
         $html .= '<a class="nav-link ' . ($active ? '' : 'collapsed') . '"';
         if (isset($menuItem["items"])) {
             $html .= ' href="#" data-toggle="collapse" data-target="#' . $menuId . '" ' . ($active ? 'aria-expanded="true"' : '') . ' aria-controls="' . $menuId . '">';
