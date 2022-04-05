@@ -233,7 +233,7 @@ class AbstractMenu
     protected function isAuthorizedItem($item)
     {
         if (isset($item["controller"]) && isset($item["action"])) {
-            if (is_authorized($item["controller"], $item["action"])) {
+            if (is_authorized($item["controller"], $item["action"])&& (!isset($item["displayFunction"]) || !function_exists($item["displayFunction"]) || $item["displayFunction"]($item))) {
                 return true;
             } else {
                 return false;
