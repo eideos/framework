@@ -83,7 +83,7 @@
 @includeFirst(['filters', 'framework::filters'])
 
 <div class="row">
-    <div class="col-12" style="overflow: auto;">
+    <div class="col-12" style="overflow: auto; min-height:150px;">
         @includeFirst(['list', 'framework::list'])
     </div>
 </div>
