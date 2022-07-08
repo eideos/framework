@@ -14,7 +14,7 @@ class Parse
     {
         $this->path = $path;
         $this->dataPath = self::getDataPath();
-        list($this->model, $this->file) = explode(".", $path);
+        list($this->model, $this->file) = explode_deep(".", $path);
         $this->parseXML();
     }
 
@@ -25,10 +25,10 @@ class Parse
 
     public static function getData($path)
     {
-        list($xmlfilename, $className) = explode(".", $path);
+        list($xmlfilename, $className) = explode_deep(".", $path);
         $parse = new Parse($path);
         include_once(self::getDataPath() . $xmlfilename . DIRECTORY_SEPARATOR . $className . ".php");
-        $className = "\\App\\Data\\" . $xmlfilename . "\\" . $className;
+        $className = "\\App\\Data\\" . str_replace(DIRECTORY_SEPARATOR, "\\", $xmlfilename) . "\\" . $className;
         $obj = new $className;
         $data = $obj->getData();
         if (isset($data['data'])) {
@@ -451,7 +451,7 @@ class Parse
         $php .= "/* GENERADO AUTOMATICAMENTE */\n";
         //$php.= "/* " . date("d/m/Y H:i:s") . " */\n";
         $php .= "\n";
-        $php .= "namespace App\Data\\" . $this->model . ";\n";
+        $php .= "namespace App\Data\\" . str_replace(DIRECTORY_SEPARATOR, "\\", $this->model) . ";\n";
         $php .= "\n";
         $php .= "use Eideos\Framework\Lib\AbstractData;\n";
         $php .= "\n";
