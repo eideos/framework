@@ -1,8 +1,18 @@
 @include('framework::sections.alert')
+@php $grouptabs = []; @endphp
 
+@foreach ($maint as $item => $itemData)
+@if($itemData['type']=="block")
+@php $tabData = $itemData; @endphp
+@includeFirst(['block', 'framework::block'])
+@endif
+
+@if($itemData['type']=="tab" && !in_array($itemData['group'], $grouptabs))
+@php $grouptabs[] = $itemData['group']; @endphp
 <ul class="nav nav-tabs mb-4 {{count($maint)==1?'d-none':''}}" role="tablist">
     @php $first=true; @endphp
     @foreach ($maint as $tab => $tabData)
+    @if($tabData['type']=="tab" && $itemData['group'] == $tabData['group'])
     <li class="nav-item">
         <a class="nav-link{{$first?" active":""}}" id="{{$tab}}-tab" data-toggle="tab" href="#{{$tab}}" role="tab" aria-controls="home" aria-selected={{$first}}>
             @if(isset($tabData['icon']))
@@ -13,58 +23,30 @@
         </a>
     </li>
     @php $first = false; @endphp
+    @endif
+
     @endforeach
 </ul>
 
 <div class="tab-content">
     @php $first=true; @endphp
     @foreach ($maint as $tab => $tabData)
+    @if($tabData['type']=="tab" && $itemData['group'] == $tabData['group'])
     <div class="tab-pane fade{{$first?" show active":""}}" id="{{$tab}}" role="tabpanel" aria-labelledby="{{$tab}}-tab">
-        <div class="row">
-            @foreach ($tabData["blocks"] as $keyBlock => $block)
-            @if (isset($block["label"])&&!in_array($block["type"], ["table", "tablepopup", "files"]))
-            @endif
-            <div class="col-md-{{$block["cols"]??12}} mb-3" id="block[{{$block['id']??$keyBlock}}]">
-                @if ($block["type"] == "fieldset")
-                @if (!empty($block["label"]))
-                <h5 class="mb-3 font-weight-bold">{{$block["label"]}}</h5>
-                @endif
-                <div class="row">
-                    @foreach ($block["fields"] as $maintfield)
-                        @if(is_null($maintfield->actions) || in_array($op, explode("|", $maintfield->actions))) 
-                            @include($maintfield->getViewFieldPath(), ((isset($block["readonly"]) && $block["readonly"]) ?  array_merge($maintfield->getViewVars(), ["readonly" => true]) : $maintfield->getViewVars()))
-                        @endif
-                    @endforeach
-                </div>
-                @elseif (in_array($block["type"], ["table", "tablepopup"]))
-                <div class="row">
-                    @include('framework::sections.' . $block["type"], array_merge($block, [
-                    'readonly' => $readonly ?? false,
-                    'actions' => $block["actions"] ?? ["add"=>true, "update"=>true, "delete"=>true],
-                    ]))
-                </div>
-                @endif
-                @if ($block["type"] == "files")
-                <div class="row">
-                    @include('framework::sections.' . $block["type"], array_merge($block, [
-                    'readonly' => $readonly ?? $block["readonly"] ?? false,
-                    'labels' => ['add' => 'Agregar', 'delete' => 'Borrar'],
-                    'actions' => $block["actions"] ?? ["add"=>true, "update"=>true, "delete"=>true],
-                    ]))
-                </div>
-                @endif
-            </div>
-            @php $first = false; @endphp
-            @endforeach
-        </div>
+        @includeFirst(['block', 'framework::block'])
     </div>
+    @endif
     @endforeach
 </div>
+@endif
+
+@endforeach
+
 
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         var formInits = @json($form_inits['form'] ?? []);
-                for (var i in formInits) {
+        for (var i in formInits) {
             eval(formInits[i]);
         }
     });
