@@ -251,12 +251,18 @@ class Parse
             $data['next'] = (string) $maint['next'];
         }
         foreach ($maint->children() as $key => $item) {
-            if ($key == "cssincludes") {
+            if ($key == "cssinclude" || $key == "cssincludes") {
+                if(!is_array($item)) {
+                    $item = (array) $item;
+                }
                 foreach ($item as $cssinclude) {
                     $data['cssincludes'][] = (string) $cssinclude['file'];
                 }
             }
-            if ($key == "jsincludes") {
+            if ($key == "jsinclude" || $key == "jsincludes") {
+                if(!is_array($item)) {
+                    $item = (array) $item;
+                }
                 foreach ($item as $jsincludes) {
                     $data['jsincludes'][] = (string) $jsincludes['file'];
                 }
