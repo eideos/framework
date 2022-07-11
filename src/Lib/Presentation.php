@@ -32,7 +32,11 @@ class Presentation {
 
     public function __construct($params) {
         foreach ($params as $key => $value) {
-            $this->{$key} = str_replace("__", "\\", $value);
+            if($key == "listen") {
+                $this->{$key} = $value;
+            } else {
+                $this->{$key} = str_replace("__", "\\", $value);
+            }
         }
     }
 
