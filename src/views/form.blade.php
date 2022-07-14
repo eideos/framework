@@ -36,6 +36,7 @@
         @includeFirst(['block', 'framework::block'])
     </div>
     @endif
+    @php $first = false; @endphp
     @endforeach
 </div>
 @endif
