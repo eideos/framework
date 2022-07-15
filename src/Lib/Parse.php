@@ -12,7 +12,7 @@ class Parse
     private $attributes = [
         'tab' => array('id', 'label', 'icon', 'group'),
         'importcolumn' => array('index', 'name', 'label', 'presentation'),
-        'maintfield' => array('name', 'label', 'presentation', 'params', 'class', 'isvisible', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'autocomplete', 'placeholder', 'rows', 'cols', 'model', 'keyField', 'displayField', 'listen', 'listenCallback', 'multiple'),
+        'maintfield' => array('name', 'label', 'presentation', 'params', 'class', 'isvisible', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'autocomplete', 'placeholder', 'rows', 'cols', 'model', 'keyField', 'displayField', 'listen', 'listenCallback', 'multiple', 'isvisibletable'),
         'table' => array('id', 'paginate', 'title', 'label', 'popup', 'columns', 'blocks', 'model', 'order', 'orderby', 'assoc', 'multiple', 'total', 'directedit', 'cols', 'readonly', 'relation', 'width', 'icon', 'button', 'pk', 'header'),
         'tableaction' => array('op', 'displayFunction'),
         'files' => array('id', 'paginate', 'title', 'order', 'orderby', 'blocks', 'model', 'allowedTypes', 'descEnabled', 'readonly', 'showMimetype'),
