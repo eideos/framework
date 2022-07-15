@@ -13,13 +13,14 @@ class Parse
         'tab' => array('id', 'label', 'icon', 'group'),
         'importcolumn' => array('index', 'name', 'label', 'presentation'),
         'maintfield' => array('name', 'label', 'presentation', 'params', 'class', 'isvisible', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'autocomplete', 'placeholder', 'rows', 'cols', 'model', 'keyField', 'displayField', 'listen', 'listenCallback', 'multiple'),
-        'table' => array('id', 'paginate', 'title', 'label', 'popup', 'columns', 'blocks', 'model', 'order', 'orderby', 'assoc', 'multiple', 'total', 'directedit', 'cols', 'readonly', 'relation', 'width', 'icon', 'button', 'pk'),
+        'table' => array('id', 'paginate', 'title', 'label', 'popup', 'columns', 'blocks', 'model', 'order', 'orderby', 'assoc', 'multiple', 'total', 'directedit', 'cols', 'readonly', 'relation', 'width', 'icon', 'button', 'pk', 'header'),
         'tableaction' => array('op', 'displayFunction'),
         'files' => array('id', 'paginate', 'title', 'order', 'orderby', 'blocks', 'model', 'allowedTypes', 'descEnabled', 'readonly', 'showMimetype'),
         'tablefield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'isvisibletable', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'placeholder', 'total', 'model', 'rows', 'cols', 'keyField', 'displayField', 'uniqueInTable', 'listen', 'listenCallback', 'multiple', 'class'),
         'searchfield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'readonly', 'size', 'note', 'initialvalue', 'autocomplete', 'placeholder', 'rows', 'cols', 'model', 'displayField', 'keyField'),
         'listfield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'directedit', 'skip-export', 'split-on-export', 'model', 'keyField', 'displayField', 'search', 'class'),
         'slactions' => array('op', 'action', 'controller', 'params', 'icon', 'label', 'next', 'post', 'global', 'displayFunction', 'class', 'method', 'blank'),
+        'tablefieldset' => array('id', 'label', 'columns', 'blocks', 'cols', 'readonly', 'icon'),
         'fieldset' => array('id', 'label', 'columns', 'blocks', 'cols', 'readonly', 'icon'),
     ];
 
@@ -252,7 +253,7 @@ class Parse
         }
         foreach ($maint->children() as $key => $item) {
             if ($key == "cssinclude" || $key == "cssincludes") {
-                if(!is_array($item)) {
+                if (!is_array($item)) {
                     $item = (array) $item;
                 }
                 foreach ($item as $cssinclude) {
@@ -260,7 +261,7 @@ class Parse
                 }
             }
             if ($key == "jsinclude" || $key == "jsincludes") {
-                if(!is_array($item)) {
+                if (!is_array($item)) {
                     $item = (array) $item;
                 }
                 foreach ($item as $jsincludes) {
@@ -299,7 +300,6 @@ class Parse
                         $atab['blocks'][] = $this->addFieldSet($tabObj);
                     }
                     if ($tabObjKey === "table") {
-
                         $atab['blocks'][] = $this->addTable($tabObj);
                     }
                     if ($tabObjKey === "files") {
@@ -343,7 +343,8 @@ class Parse
     private function addTable($table)
     {
         $atable = array(
-            'fields' => []
+            'fields' => [],
+            'tablefieldsets' => []
         );
         foreach ($this->attributes['table'] as $attribute) {
             if (isset($table[$attribute])) {
@@ -375,6 +376,13 @@ class Parse
                     }
                 }
                 $atable['fields'][] = $afield;
+            }
+        }
+        if (isset($table->tablefieldset)) {
+            foreach ($table->tablefieldset as $tablefieldset) {
+                $tablefieldset = $this->addFieldSet($tablefieldset, 'tablefieldset');
+                $tablefieldset['model'] = str_replace("\\", "__", (string) $table['model']);
+                $atable['tablefieldsets'][] = $tablefieldset;
             }
         }
         if (isset($table->actions)) {
@@ -427,10 +435,10 @@ class Parse
         return $atable;
     }
 
-    private function addFieldSet($fieldset)
+    private function addFieldSet($fieldset, $type = "fieldset")
     {
         $afieldset = array(
-            'type' => 'fieldset',
+            'type' => $type,
             'fields' => [],
         );
         foreach ($this->attributes['fieldset'] as $attribute) {

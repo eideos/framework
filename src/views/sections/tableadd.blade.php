@@ -1,10 +1,11 @@
 @if (!$readonly || isset($actions["add"]) && $actions["add"])
+@php $tableFields = $fields; @endphp
 <form method="post" onsubmit="return false;" data-type="table" data-model="{{$model}}">
   <div id="tablePopup{{$model}}" data-model="{{$model}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document" @if(isset($width) && !empty($width)) style="max-width: {{$width}} !important;" @endif>
           <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title">Agregar Nueva Fila</h5>
+                  <h5 class="modal-title">{{$header ?? "Agregar Nueva Fila"}}</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar" onclick="closeTablePopup('{{$model}}');">
                       <span aria-hidden="true">×</span>
                   </button>
@@ -14,6 +15,21 @@
                       @foreach($fields as $field)
                       @php $field->setList(false); @endphp
                       @include($field->getViewFieldPath(), $field->getViewVars())
+                      @endforeach
+                      
+                      @foreach($tablefieldsets as $keyFieldset => $fieldset)
+                      <div class="col-md-{{$fieldset["cols"]??12}} mb-3" id="tablePopupBlock[{{$fieldset['id']??$keyFieldset}}]">
+                      @if (!empty($fieldset["label"]))
+                      <h5 class="mb-3 font-weight-bold">{{$fieldset["label"]}}</h5>
+                      @endif
+                      <div class="row">
+                      @foreach($fieldset['fields'] as $field)
+                      @php $tableFields[] = $field @endphp
+                      @php $field->setList(false); @endphp
+                      @include($field->getViewFieldPath(), $field->getViewVars())
+                      @endforeach
+                      </div>
+                      </div>
                       @endforeach
                   </div>
               </div>
@@ -59,7 +75,7 @@
       if (typeof tableActions == "undefined") {
         tableActions = [];
       }
-      tableFields['{{$model}}'] = @json($fields);
+      tableFields['{{$model}}'] = @json($tableFields);
       tableRules['{{$model}}'] = @json(isset($tables_rules[$model])?$tables_rules[$model]["validator"]->toArray():[]);
       tableInits['{{$model}}'] = @json($form_inits['tables'][$model] ?? []);
       tableActions['{{$model}}'] = @json($actions ?? []);
