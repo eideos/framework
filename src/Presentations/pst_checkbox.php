@@ -68,12 +68,12 @@ class pst_checkbox extends Presentation
 
     public function getViewVars()
     {
-        return array_merge([
+        return array_merge(parent::getViewVars(), [
             "options" => $this->getJsParams()['options'] ?? $this->options ?? [],
             "values" => $this->getValue(),
             "value" => implode(",", $this->getValue()),
             "helperValue" => implode(", ", $this->getHelperValue()),
-        ], parent::getViewVars());
+        ]);
     }
 
     public function getInitialValue() {
