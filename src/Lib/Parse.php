@@ -397,7 +397,7 @@ class Parse
                         if (isset($action['url']) && !empty($action['url'])) {
                             unset($atable['actions']['add']);
                             $atable['actions']["add_iframe"] = [
-                                'url' => $action['url']
+                                'url' => (string) $action['url']
                             ];
                         } else {
                             $atable['actions']["add"] = [
@@ -409,7 +409,7 @@ class Parse
                         if (isset($action['url']) && !empty($action['url'])) {
                             unset($atable['actions']['update']);
                             $atable['actions']["update_iframe"] = [
-                                'url' => $action['url']
+                                'url' =>  (string) $action['url']
                             ];
                         } else {
                             $atable['actions']["update"] = true;
