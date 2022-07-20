@@ -23,7 +23,6 @@
         var preview_height = $('#{{ $name ?? "files" }}_preview_body').attr("data-preview-height");
         if(strstr(mimetype, "officedocument")){
             var url = APP_URL + storage.replace("public", "storage");
-            console.log(url);
             var preview = $("<iframe>").attr("id", '{{ $name ?? "files" }}_preview_embed').attr('type', mimetype).attr("width", "100%").attr("height", preview_height).attr("src", "https://view.officeapps.live.com/op/embed.aspx?src=" + url);
         } else{
             var preview = $("<iframe>").attr("id", '{{ $name ?? "files" }}_preview_embed').attr('type', mimetype).attr("width", "100%").attr("height", preview_height).attr("src", url);
