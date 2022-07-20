@@ -1,7 +1,4 @@
 <script type="text/javascript">
-    parent.jQuery("#modal-content").attr("src", "");
-    parent.jQuery("#modal").modal('hide');
-    parent.loadingAjaxStart("Cargando");
-    parent.location.reload();
-    parent.loadingAjaxEnd();
+    parent.closeTablePopupIframe('{{session()->get("model")}}');
+    parent.addTableRowIframeManual('{{session()->get("model")}}', '{{json_encode(session()->get("data"),true)}}');
 </script>
