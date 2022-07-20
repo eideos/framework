@@ -34,7 +34,7 @@
                 @endforeach
                 @endforeach
 
-                @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["update_iframe"]) || !empty($actions["update_iframe"]) || !isset($actions["delete"]) || $actions["delete"]))
+                @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["delete"]) || $actions["delete"] || (isset($actions["update_iframe"]) && !empty($actions["update_iframe"]))))
                 <th class="delete">Acciones</th>
                 @endif
             </tr>
@@ -55,12 +55,12 @@
                 </td>
                 @endif
                 @endforeach
-                @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["delete"]) || $actions["delete"]))
+                @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["delete"]) || $actions["delete"] || (isset($actions["update_iframe"]) && !empty($actions["update_iframe"]))))
                 <td>
                     @if (!isset($actions["update"]) || $actions["update"])
                     <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="editTableRow('{{$model}}', {{($key+1)}});"><i class="fa fa-pencil-alt"></i></a>
                     @endif
-                    @if (!isset($actions["update_iframe"]) || !empty($actions["update_iframe"]))
+                    @if (isset($actions["update_iframe"]) && !empty($actions["update_iframe"]))
                     <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="editTableRowIframe('{{$model}}', {{($key+1)}});"><i class="fa fa-pencil-alt"></i></a>
                     @endif
                     @if (!isset($actions["delete"]) || $actions["delete"])
