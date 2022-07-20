@@ -25,7 +25,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('files/display/{table}/{id}', 'Eideos\Framework\Controllers\FileController@display')->name('files.display');
     Route::post('files/delete', 'Eideos\Framework\Controllers\FileController@destroy')->name('files.delete');
     //POPUPS
-    Route::view('/save_popup', 'sections.savepopup');
+    Route::view('/save_popup', 'framework::sections.savepopup');
 });
 
 Route::group(['middleware' => ['web', 'auth', 'acl']], function () {
