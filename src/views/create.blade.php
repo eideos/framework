@@ -36,6 +36,7 @@
             @csrf
             <input name="_maint" type="hidden" value="{{$maintfile}}">
             <input name="_url" type="hidden" value="{{$url}}">
+            <input name="_popup" type="hidden" value="{{$popup}}">
 
             @includeFirst(['form', 'framework::form'])
 
