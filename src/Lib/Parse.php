@@ -394,10 +394,26 @@ class Parse
             foreach ($table->actions->action as $action) {
                 switch (strtoupper($action['op'])) {
                     case "A":
-                        $atable['actions']["add"] = true;
+                        if (isset($action['url']) && !empty($action['url'])) {
+                            unset($atable['actions']['add']);
+                            $atable['actions']["add_iframe"] = [
+                                'url' => $action['url']
+                            ];
+                        } else {
+                            $atable['actions']["add"] = [
+                                'url' => ''
+                            ];
+                        }
                         break;
                     case "M":
-                        $atable['actions']["update"] = true;
+                        if (isset($action['url']) && !empty($action['url'])) {
+                            unset($atable['actions']['update']);
+                            $atable['actions']["update_iframe"] = [
+                                'url' => $action['url']
+                            ];
+                        } else {
+                            $atable['actions']["update"] = true;
+                        }
                         break;
                     case "D":
                         $atable['actions']["delete"] = true;

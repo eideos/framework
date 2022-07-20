@@ -1,13 +1,24 @@
 <div class="col-12">
     <h5 class="pb-2 mb-2 border-bottom mt-10 font-weight-bold">
         {{$label}}
-        @if ((!isset($readonly) || !$readonly) && isset($actions["add"]) && $actions["add"])
+        @if ((!isset($readonly) || !$readonly))
+        @if(isset($actions["add"]) && $actions["add"])
         <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-icon-split" onclick="addTableRow('{{$model}}');">
             <span class="icon text-white">
                 <i class="fas fa-plus"></i>
             </span>
             <span class="text">{{$block["button"]??env('LABEL_TABLEPOPUP_ADD', 'Agregar Fila')}}</span>
         </a>
+        @endif
+        @if(isset($actions["add_iframe"]) && !empty($actions["add_iframe"]))
+        @php $iframeParams = json_encode($actions["add_iframe"],true); @endphp
+        <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-icon-split" onclick="addTableRowIframe('{{$model}}', '{{$iframeParams}}');">
+            <span class="icon text-white">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">{{$block["button"]??env('LABEL_TABLEPOPUP_ADD', 'Agregar Fila')}}</span>
+        </a>
+        @endif
         @endif
     </h5>
     <table class="table table-sm table-striped asociada" data-model="{{$model}}" data-assoc="{{$assoc??0}}">
@@ -23,7 +34,7 @@
                 @endforeach
                 @endforeach
 
-                @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["delete"]) || $actions["delete"]))
+                @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["update_iframe"]) || !empty($actions["update_iframe"]) || !isset($actions["delete"]) || $actions["delete"]))
                 <th class="delete">Acciones</th>
                 @endif
             </tr>
@@ -48,6 +59,9 @@
                 <td>
                     @if (!isset($actions["update"]) || $actions["update"])
                     <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="editTableRow('{{$model}}', {{($key+1)}});"><i class="fa fa-pencil-alt"></i></a>
+                    @endif
+                    @if (!isset($actions["update_iframe"]) || !empty($actions["update_iframe"]))
+                    <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="editTableRowIframe('{{$model}}', {{($key+1)}});"><i class="fa fa-pencil-alt"></i></a>
                     @endif
                     @if (!isset($actions["delete"]) || $actions["delete"])
                     @if(!isset($assoc) || !$assoc)
