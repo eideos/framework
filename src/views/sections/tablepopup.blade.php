@@ -61,7 +61,8 @@
                     <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="editTableRow('{{$model}}', {{($key+1)}});"><i class="fa fa-pencil-alt"></i></a>
                     @endif
                     @if (isset($actions["update_iframe"]) && !empty($actions["update_iframe"]))
-                    <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="editTableRowIframe('{{$model}}', {{($key+1)}});"><i class="fa fa-pencil-alt"></i></a>
+                    @php $iframeParams = json_encode($actions["update_iframe"],true); @endphp
+                    <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="editTableRowIframe('{{$model}}', {{($key+1)}}, '{{$iframeParams}}');"><i class="fa fa-pencil-alt"></i></a>
                     @endif
                     @if (!isset($actions["delete"]) || $actions["delete"])
                     @if(!isset($assoc) || !$assoc)
