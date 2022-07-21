@@ -135,54 +135,67 @@
     }
 
 
+    function editTableRowIframeManual(model, jsondata) {
+      var data = JSON.parse(jsondata);
+      var number = getRowNumberFromId(model, data["id"].value);
+      updateTableIframeRow(model, number, data);
+    }
+
+    function getRowNumberFromId(model, id) {
+      let row_number;
+      $("[name^='table[App__EventoViolencia]['][name$='][id]']").each(function() {
+        if ($(this).val() == id) {
+          row_number = $(this).parent().attr('data-number');
+        }
+      });
+      return row_number;
+    }
+
     function addTableRowIframeManual(model, jsondata) {
       var data = JSON.parse(jsondata);
-      if (tablesClones[model] === undefined) {
-        tablesClones[model] = $("[id='tablePopup" + model + "']").html();
-      }
-      for (var i in tableFields[model]) {
-        var fieldName = tableFields[model][i].name;
-        var value = data[fieldName] === null ? "" : data[fieldName];
-        $("[name='tablepopup[" + model + "][" + fieldName + "]']").val(value).change();
-        $("[name='tablepopup[" + model + "][" + fieldName + "]_ro']").val(value);
-      }
-
-      var number = createTableIframeRow(model);
-
+      var number = createTableIframeRow(model, data);
       if (data.id) {
         var hidden = $("<input />")
           .attr("type", "hidden")
           .attr("name", "table[" + model + "][" + number + "][id]")
-          .val(data.id)
+          .val(data["id"].value)
           .prependTo($("table[data-model='" + model + "'] tbody tr[data-number='" + number + "']"));
       }
     }
 
-    function updateTableIframeRow(model, number) {
+    function updateTableIframeRow(model, number, data) {
       for (var i in tableFields[model] || []) {
-        var name = "table[" + model + "][" + number + "][" + tableFields[model][i].name + "]";
-        var js_totext = eval(tableFields[model][i].js_totext);
-        var js_tovalue = eval(tableFields[model][i].js_tovalue);
-        var value = js_tovalue(model, tableFields[model][i]);
-        var text = js_totext(model, tableFields[model][i]);
+        var fieldName = tableFields[model][i].name;
+        var name = "table[" + model + "][" + number + "][" + fieldName + "]";
+        var value = '';
+        var text = '';
+        if (data[fieldName] !== undefined) {
+          value = data[fieldName].value || '';
+          text = data[fieldName].helper_value || '';
+        }
         $("[name='" + name + "']").val(value).siblings("div").html(text);
       }
     }
 
-    function createTableIframeRow(model) {
+    function createTableIframeRow(model, data) {
       var number = tablesNextNumber[model] || 1;
       var row = $('<tr/>').attr("data-number", number);
       for (var i in tableFields[model] || []) {
         if (tableFields[model][i]["column"] !== false) {
-          var name = "table[" + model + "][" + number + "][" + tableFields[model][i].name + "]";
-          var js_totext = eval(tableFields[model][i].js_totext);
-          var js_tovalue = eval(tableFields[model][i].js_tovalue);
+          var fieldName = tableFields[model][i].name;
+          var name = "table[" + model + "][" + number + "][" + fieldName + "]";
           var isvisible = tableFields[model][i].isvisible;
           var isvisibletable = tableFields[model][i].isvisibletable;
-          var value = js_tovalue(model, tableFields[model][i]);
-          var text = $('<div/>').addClass("mt-1").html(js_totext(model, tableFields[model][i]));
+          var value = '';
+          var text = '';
+          if (data[fieldName] !== undefined) {
+            value = data[fieldName].value || '';
+            text = data[fieldName].helper_value || '';
+          }
+          var textDiv = $('<div/>').addClass("mt-1").html(text);
           var hidden = $('<input/>').attr("name", name).attr("type", "hidden").val(value);
-          var td = $('<td/>').append(text).append(hidden);
+          var td = $('<td/>').append(textDiv).append(hidden);
+          console.log(textDiv);
           if (!isvisible || !isvisibletable) {
             td.attr("style", "display:none");
           }
