@@ -395,6 +395,7 @@ class Parse
                 switch (strtoupper($action['op'])) {
                     case "A":
                         if (isset($action['url']) && !empty($action['url'])) {
+                            unset($atable['actions']['add']);
                             $atable['actions']["add_iframe"] = [
                                 'url' => (string) $action['url']
                             ];
@@ -406,6 +407,7 @@ class Parse
                         break;
                     case "M":
                         if (isset($action['url']) && !empty($action['url'])) {
+                            unset($atable['actions']['update']);
                             $atable['actions']["update_iframe"] = [
                                 'url' =>  (string) $action['url']
                             ];
