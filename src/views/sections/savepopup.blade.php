@@ -8,6 +8,6 @@
 @if(session()->get("action") == 'update')
 <script type="text/javascript">
     parent.closeTablePopupIframe('{{session()->get("model")}}');
-    parent.addTableRowIframeManual('{{session()->get("model")}}', @json($jsondata));
+    parent.editTableRowIframeManual('{{session()->get("model")}}', @json($jsondata));
 </script>
 @endif
