@@ -35,8 +35,8 @@
     <div class="tab-pane fade{{$first?" show active":""}}" id="{{$tab}}" role="tabpanel" aria-labelledby="{{$tab}}-tab">
         @includeFirst(['block', 'framework::block'])
     </div>
-    @endif
     @php $first = false; @endphp
+    @endif
     @endforeach
 </div>
 @endif
