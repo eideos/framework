@@ -1,6 +1,6 @@
 @if(count($attaches))
 <div class='file-preview'>
-    <table class="table table-bordered table-hover">
+    <table class="table table-hover">
         <thead>
             <th>Tipo</th>
             <th>Nombre</th>
@@ -32,14 +32,14 @@
                         <div class="file-footer-buttons">
                             <div class="btn-group" role="group">
                                 @if(!isset($readonly)||!$readonly)
-                                <a href="javascript:void(0);" onclick="deleteFile('{{$table}}','{{$attach['id']}}')" class="btn btn-danger btn-xs">
+                                <a href="javascript:void(0);" onclick="deleteFile('{{$table}}','{{$attach['id']}}')" class="btn btn-danger btn-md">
                                     <i class="fa fa-trash"></i>
                                 </a>
                                 @endif
-                                <a href="/files/download/{{$table}}/{{$attach['id']}}" class="btn btn-primary btn-xs">
+                                <a href="/files/download/{{$table}}/{{$attach['id']}}" class="btn btn-primary btn-md">
                                     <i class="fa fa-download"></i>
                                 </a>
-                                <a href="javascript:void(0);" onclick="previewFile('{{$table}}','{{$attach['id']}}','{{$attach['name']}}','{{$attach['mimetype']}}','{{$attach['storage']}}')" class="btn btn-primary btn-xs">
+                                <a href="javascript:void(0);" onclick="previewFile('{{$table}}','{{$attach['id']}}','{{$attach['name']}}','{{$attach['mimetype']}}','{{$attach['storage']}}')" class="btn btn-primary btn-md">
                                     <i class="fa fa-search-plus"></i>
                                 </a>
                             </div>
