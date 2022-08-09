@@ -111,7 +111,8 @@ class pst_autocomplete extends Presentation
                 }
             }
             $value = !empty($value) ? $value : null;
-            return $this->model::where([($keyField ?? "id") => $value])->selectRaw(($displayField ?? "id") . " AS displayField")->first()['displayField'] ?? null;
+            $objValue = $this->model::where([($keyField ?? "id") => $value])->selectRaw(($displayField ?? "id") . " AS displayField")->first();
+            return $objValue['displayField'] ?? $objValue['displayfield'] ?? null;
         }
         return $value;
     }
