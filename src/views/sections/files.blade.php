@@ -52,7 +52,7 @@
                     <div class="file-actions">
                         <div class="file-footer-buttons">
                             <div class="btn-group" role="group">
-                                @if(!isset($readonly)||!$readonly)
+                                @if ((!isset($readonly) || !$readonly) && isset($actions["delete"]) && $actions["delete"])
                                 <a href="javascript:void(0);" onclick="deleteFile('{{snake_plural_middle_case(str_replace("App__","",$model))}}','{{$attach['id']}}')" class="btn btn-danger btm-sm">
                                     <i class="fa fa-trash"></i>
                                 </a>
