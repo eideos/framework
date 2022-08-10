@@ -1,5 +1,5 @@
 <div class="modal fade" id="{{$name??"files"}}_preview" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><label id="{{$name??"files"}}_preview_filename"></label></h4>
@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-</div>    
+</div>
 
 <script type="text/javascript">
     function previewFile(tabla, id, name, mimetype, storage) {
@@ -21,14 +21,16 @@
         $('#{{ $name ?? "files" }}_preview_filename').html("");
         $('#{{ $name ?? "files" }}_preview_filename').html(name);
         var preview_height = $('#{{ $name ?? "files" }}_preview_body').attr("data-preview-height");
-        if(strstr(mimetype, "officedocument")){
+        if (strstr(mimetype, "officedocument")) {
             var url = APP_URL + storage.replace("public", "storage");
-            var preview = $("<iframe>").attr("id", '{{ $name ?? "files" }}_preview_embed').attr('type', mimetype).attr("width", "100%").attr("height", preview_height).attr("src", "https://view.officeapps.live.com/op/embed.aspx?src=" + url);
-        } else{
-            var preview = $("<iframe>").attr("id", '{{ $name ?? "files" }}_preview_embed').attr('type', mimetype).attr("width", "100%").attr("height", preview_height).attr("src", url);
+            var preview = $("<iframe>").attr("id", '{{ $name ?? "files" }}_preview_embed').attr('type', mimetype).attr('toolbar', 'true').attr("width", "100%").attr("height", preview_height).attr("src", "https://view.officeapps.live.com/op/embed.aspx?src=" + url);
+        } else {
+            var preview = $("<iframe>").attr("id", '{{ $name ?? "files" }}_preview_embed').attr('type', mimetype).attr('toolbar', 'true').attr("width", "100%").attr("height", preview_height).attr("src", url);
         }
         $('#{{ $name ?? "files" }}_preview_body').html(preview);
-        $('#{{ $name ?? "files" }}_preview').modal({'show': true});
+        $('#{{ $name ?? "files" }}_preview').modal({
+            'show': true
+        });
     }
 
     function deleteFile(table, id) {
@@ -42,14 +44,18 @@
                 cancelButtonColor: '#d33',
                 cancelButtonText: "Cancelar",
                 confirmButtonText: 'Si, eliminar!'
-            }).then(function (res) {
+            }).then(function(res) {
                 if (res.value) {
                     $.ajax({
                         url: '/files/delete',
                         dataType: "json",
                         method: 'POST',
-                        data: {table: table, id: id, _token: '{{csrf_token()}}'}
-                    }).then(function (resdelete) {
+                        data: {
+                            table: table,
+                            id: id,
+                            _token: '{{csrf_token()}}'
+                        }
+                    }).then(function(resdelete) {
                         if (resdelete.status === "OK") {
                             $("#preview_" + id).remove();
                             swal('¡Archivo Eliminado!', 'El archivo se eliminó correctamente.', 'success');
@@ -66,8 +72,12 @@
                     url: '/files/delete',
                     dataType: "json",
                     method: 'POST',
-                    data: {table: table, id: id, _token: '{{csrf_token()}}'}
-                }).then(function (resdelete) {
+                    data: {
+                        table: table,
+                        id: id,
+                        _token: '{{csrf_token()}}'
+                    }
+                }).then(function(resdelete) {
                     if (resdelete.status === "OK") {
                         $("#preview_" + id).remove();
                         alert('¡Archivo eliminado correctamente!');
