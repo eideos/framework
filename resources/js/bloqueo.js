@@ -15,14 +15,6 @@ function bloqueoRegistroActualizar(time) {
         if (jdata.status == 'expired') {
             $("#cancelButton").click();
             return;
-            $.ajax({
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                url: "/blocks/ajax_free/" + MODEL + "/" + MODEL_ID,
-                method: "delete",
-                success: function () {
-                    window.location = $("#cancelButton").attr("href");
-                }
-            });
         } else if (jdata.status == 'alert') {
             swal("Alerta Bloqueo", "¡En " + jdata.time + " minutos se va a vencer el tiempo disponible para modificar el registro!", "warning");
             setTimeout("swal.close();", time / 2);

@@ -38,7 +38,7 @@ class BlockController extends AppController
 
     public function check($model, $model_id)
     {
-        $minutes = 15;
+        $minutes = env("FMW_MINUTES_MAX_BLOCK", 15);
         if (empty($model) || empty($model_id)) {
             return response()->json(["status" => "error"]);
         }
@@ -48,7 +48,7 @@ class BlockController extends AppController
             if ($time > ($minutes * 60)) {
                 return response()->json(["status" => "expired"]);
             }
-            return response()->json(["status" => "alert", "time" => gmdate("i:s", ($minutes * 60 - $time))]);            
+            return response()->json(["status" => "alert", "time" => gmdate("i:s", ($minutes * 60 - $time))]);
         }
         return response()->json(["status" => "error"]);
     }
