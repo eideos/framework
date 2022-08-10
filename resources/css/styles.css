@@ -401,3 +401,7 @@ z-index: 10000 !important;
 .file-caption-info, .file-size-info, .kv-file-upload, .file-drag-handle {
   display: none !important;
 }
+
+.custom-file-input ~ .custom-file-label::after {
+  content: "Seleccionar";
+}

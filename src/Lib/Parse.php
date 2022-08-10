@@ -15,7 +15,7 @@ class Parse
         'maintfield' => array('name', 'label', 'presentation', 'params', 'class', 'isvisible', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'autocomplete', 'placeholder', 'rows', 'cols', 'model', 'keyField', 'displayField', 'listen', 'listenCallback', 'multiple', 'isvisibletable'),
         'table' => array('id', 'paginate', 'title', 'label', 'popup', 'columns', 'blocks', 'model', 'order', 'orderby', 'assoc', 'multiple', 'total', 'directedit', 'cols', 'readonly', 'relation', 'width', 'icon', 'button', 'pk', 'header'),
         'tableaction' => array('op', 'displayFunction'),
-        'files' => array('id', 'paginate', 'title', 'order', 'orderby', 'blocks', 'model', 'allowedTypes', 'descEnabled', 'readonly', 'showMimetype'),
+        'files' => array('id', 'label', 'paginate', 'title', 'order', 'orderby', 'blocks', 'model', 'allowedTypes', 'descEnabled', 'readonly', 'showMimetype'),
         'tablefield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'isvisibletable', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'placeholder', 'total', 'model', 'rows', 'cols', 'keyField', 'displayField', 'uniqueInTable', 'listen', 'listenCallback', 'multiple', 'class'),
         'searchfield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'readonly', 'size', 'note', 'initialvalue', 'autocomplete', 'placeholder', 'rows', 'cols', 'model', 'displayField', 'keyField'),
         'listfield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'directedit', 'skip-export', 'split-on-export', 'model', 'keyField', 'displayField', 'search', 'class'),
@@ -303,16 +303,7 @@ class Parse
                         $atab['blocks'][] = $this->addTable($tabObj);
                     }
                     if ($tabObjKey === "files") {
-                        $files = $tabObj;
-                        $afiles = array(
-                            'type' => 'files',
-                        );
-                        foreach ($this->attributes['files'] as $attribute) {
-                            if (isset($files[$attribute])) {
-                                $afiles[$attribute] = $this->getCastedValue($files[$attribute]);
-                            }
-                        }
-                        $atab['blocks'][] = $afiles;
+                        $atab['blocks'][] = $this->addFiles($tabObj);
                     }
                 }
                 if (isset($atab['id'])) {
@@ -340,6 +331,36 @@ class Parse
         $this->writeFile($file, $data, $import ?? null);
     }
 
+    private function addFiles($files)
+    {
+        $afiles = array(
+            'type' => 'files',
+        );
+        foreach ($this->attributes['files'] as $attribute) {
+            if (isset($files[$attribute])) {
+                $afiles[$attribute] = $this->getCastedValue($files[$attribute]);
+            }
+        }
+
+        if (isset($files->actions)) {
+            $atable['actions'] = [
+                "add" => false,
+                "delete" => false,
+            ];
+            foreach ($files->actions->action as $action) {
+                switch (strtoupper($action['op'])) {
+                    case "A":
+                        $atable['actions']["add"] = true;
+                        break;
+                    case "D":
+                        $atable['actions']["delete"] = true;
+                        break;
+                }
+            }
+        }
+
+        return $afiles;
+    }
     private function addTable($table)
     {
         $atable = array(
