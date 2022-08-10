@@ -10,6 +10,17 @@
         </a>
         @endif
     </h5>
+    @if (!empty($warning))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong><i class="fas fa-exclamation-triangle"></i> Advertencia:</strong> {{$warning}}
+    </div>
+    @endif
+
+    @if (!empty($info))
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <strong><i class="fas fa-info-circle"></i> Información:</strong> {{$info}}
+    </div>
+    @endif
     <table class="table table-sm table-striped">
         <thead>
             <tr>

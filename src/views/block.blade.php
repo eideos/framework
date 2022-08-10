@@ -7,6 +7,17 @@
         @if (!empty($block["label"]))
         <h5 class="mb-3 font-weight-bold">{{$block["label"]}}</h5>
         @endif
+        @if (!empty($block['warning']))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong><i class="fas fa-exclamation-triangle"></i> Advertencia:</strong> {{$block['warning']}}
+        </div>
+        @endif
+
+        @if (!empty($block['info']))
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong><i class="fas fa-info-circle"></i> Información:</strong> {{$block['info']}}
+        </div>
+        @endif
         <div class="row">
             @foreach ($block["fields"] as $maintfield)
             @if(is_null($maintfield->actions) || in_array($op, explode("|", $maintfield->actions)))
