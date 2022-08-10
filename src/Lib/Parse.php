@@ -343,22 +343,21 @@ class Parse
         }
 
         if (isset($files->actions)) {
-            $atable['actions'] = [
+            $afiles['actions'] = [
                 "add" => false,
                 "delete" => false,
             ];
             foreach ($files->actions->action as $action) {
                 switch (strtoupper($action['op'])) {
                     case "A":
-                        $atable['actions']["add"] = true;
+                        $afiles['actions']["add"] = true;
                         break;
                     case "D":
-                        $atable['actions']["delete"] = true;
+                        $afiles['actions']["delete"] = true;
                         break;
                 }
             }
         }
-
         return $afiles;
     }
     private function addTable($table)
