@@ -334,7 +334,9 @@ class Parse
     private function addFiles($files)
     {
         $afiles = array(
-            'type' => 'files'
+            'type' => 'files',
+            'info' => '',
+            'warning' => ''
         );
         foreach ($this->attributes['files'] as $attribute) {
             if (isset($files[$attribute])) {
@@ -365,6 +367,8 @@ class Parse
         $atable = array(
             'fields' => [],
             'tablefieldsets' => [],
+            'info' => '',
+            'warning' => ''
         );
         foreach ($this->attributes['table'] as $attribute) {
             if (isset($table[$attribute])) {
@@ -474,6 +478,8 @@ class Parse
         $afieldset = array(
             'type' => $type,
             'fields' => [],
+            'info' => '',
+            'warning' => ''
         );
         foreach ($this->attributes['fieldset'] as $attribute) {
             if (isset($fieldset[$attribute])) {
