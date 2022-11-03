@@ -46,7 +46,7 @@ class pst_autocomplete extends Presentation
     {
         return array_merge([
             "active" => $this->active ?? 1,
-            "conditions" => $conditions ?? [],
+            "conditions" => $this->conditions ?? [],
             "joins" => $this->joins ?? [],
         ], parent::getJsParams());
     }

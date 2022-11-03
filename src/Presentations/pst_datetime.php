@@ -40,7 +40,7 @@ class pst_datetime extends Presentation
                 return $array2[2] . "-" . $array2[1] . "-" . $array2[0] . " " . $array1[1];
             }
         }
-        return $this->value;
+        return !empty($this->value) ? $this->value : null;
     }
 
     public function loadDatabaseValue()
