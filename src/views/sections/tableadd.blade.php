@@ -1,5 +1,5 @@
-@if (!$readonly || (isset($actions["add"]) && $actions["add"]))
 @php $tableFields = $fields; @endphp
+@if (!$readonly || (isset($actions["add"]) && $actions["add"]))
 <form method="post" onsubmit="return false;" data-type="table" data-model="{{$model}}">
   <div id="tablePopup{{$model}}" data-model="{{$model}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document" @if(isset($width) && !empty($width)) style="max-width: {{$width}} !important;" @endif>

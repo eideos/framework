@@ -35,6 +35,9 @@
         @endforeach
         @if (!isset($readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["delete"]) || $actions["delete"]) || isset($readonly) && !$readonly)
         <td>
+            @if (isset($actions["show"]) && $actions["show"])
+            <a class="btn btn-sm btn-dark mr-1" href="javascript:void(0);" onclick="showTableRow('{{$model}}', {{($key+1)}});"><i class="fa fa-eye"></i></a>
+            @endif
             @if (isset($actions["update"]) && $actions["update"])
             <a class="btn btn-sm btn-dark mr-1" href="javascript:void(0);" onclick="editTableRow('{{$model}}', {{($key+1)}});"><i class="fa fa-edit"></i></a>
             @endif

@@ -49,6 +49,18 @@
     </div>
 </div>
 
+@foreach ($maint as $tab => $tabData)
+  @foreach ($tabData["blocks"] as $keyBlock => $block)
+    @if (in_array($block["type"], ["table", "tablepopup"]))
+      @includeFirst(['sections.tableshow', 'framework::sections.tableshow'], array_merge($block, [
+      'readonly' => $readonly ?? true,
+      'actions' => $block["actions"] ?? ["add"=>false, "update"=>false, "delete"=>false, "show" => true],
+      ]))
+    @endif
+    @php $first = false; @endphp
+  @endforeach
+@endforeach
+
 @foreach($jsincludes as $jsfile)
 <script type="text/javascript" src="{{ URL::asset($jsfile) }}"></script>
 @endforeach

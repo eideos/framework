@@ -29,7 +29,7 @@
         <div class="row">
             @include('framework::sections.' . $block["type"], array_merge($block, [
             'readonly' => $readonly ?? false,
-            'actions' => $block["actions"] ?? ["add"=>true, "update"=>true, "delete"=>true],
+            'actions' => $block["actions"] ?? ["add"=>true, "update"=>true, "delete"=>true, "show" => true],
             ]))
         </div>
         @endif
