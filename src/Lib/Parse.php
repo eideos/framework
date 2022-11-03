@@ -414,6 +414,7 @@ class Parse
                 "add" => false,
                 "update" => false,
                 "delete" => false,
+                "show" => false,
             ];
             foreach ($table->actions->action as $action) {
                 switch (strtoupper($action['op'])) {
@@ -439,6 +440,10 @@ class Parse
                         break;
                     case "D":
                         $atable['actions']["delete"] = true;
+                        break;
+                    case "V":
+                        $atable['readonly'] = true;
+                        $atable['actions']["show"] = true;
                         break;
                 }
             }
