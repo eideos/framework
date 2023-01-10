@@ -71,18 +71,10 @@
 @foreach ($maint as $tab => $tabData)
   @foreach ($tabData["blocks"] as $keyBlock => $block)
     @if (in_array($block["type"], ["table", "tablepopup"]))
-      @if ($op == "A")
         @includeFirst(['sections.tableadd', 'framework::sections.tableadd'], array_merge($block, [
         'readonly' => $readonly ?? false,
         'actions' => $block["actions"] ?? ["add"=>true, "update"=>true, "delete"=>true, "show" => false],
         ]))
-      @endif
-      @if ($op == "V")
-        @includeFirst(['sections.tableshow', 'framework::sections.tableshow'], array_merge($block, [
-        'readonly' => $readonly ?? true,
-        'actions' => $block["actions"] ?? ["add"=>false, "update"=>false, "delete"=>false, "show" => true],
-        ]))
-      @endif
     @endif
     @php $first = false; @endphp
   @endforeach
