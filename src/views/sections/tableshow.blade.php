@@ -18,7 +18,7 @@
             @endforeach
 
             @foreach($tablefieldsets as $keyFieldset => $fieldset)
-            <div class="col-md-{{$fieldset["cols"]??12}} mb-3" id="tablePopupShowBlock[{{$fieldset['id']??$keyFieldset}}]">
+            <div class="col-md-{{$fieldset['cols']??12}} mb-3" id="tablePopupShowBlock[{{$fieldset['id']??$keyFieldset}}]">
               @if (!empty($fieldset["label"]))
               <h5 class="mb-3 font-weight-bold">{{$fieldset["label"]}}</h5>
               @endif
@@ -62,7 +62,6 @@
         tableActions = [];
       }
       tableFields['{{$model}}'] = @json($tableFields);
-      tableRules['{{$model}}'] = @json(isset($tables_rules[$model]) ? $tables_rules[$model]["validator"]->toArray() : []);
       tableInits['{{$model}}'] = @json($form_inits['tables'][$model] ?? []);
       tableActions['{{$model}}'] = @json($actions ?? []);
     });

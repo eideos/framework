@@ -52,10 +52,12 @@
 @foreach ($maint as $tab => $tabData)
   @foreach ($tabData["blocks"] as $keyBlock => $block)
     @if (in_array($block["type"], ["table", "tablepopup"]))
-      @includeFirst(['sections.tableshow', 'framework::sections.tableshow'], array_merge($block, [
-      'readonly' => $readonly ?? true,
-      'actions' => $block["actions"] ?? ["add"=>false, "update"=>false, "delete"=>false, "show" => true],
-      ]))
+      @if (!isset($block["actions"]['show']) || $block["actions"]['show'])
+        @includeFirst(['sections.tableshow', 'framework::sections.tableshow'], array_merge($block, [
+        'readonly' => $readonly ?? true,
+        'actions' => $block["actions"] ?? ["add"=>false, "update"=>false, "delete"=>false, "show" => true],
+        ]))
+      @endif
     @endif
     @php $first = false; @endphp
   @endforeach
