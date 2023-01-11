@@ -83,7 +83,7 @@
   </script>
 </form>
 @endif
-@if (!$readonly || (isset($actions["add_iframe"]) && !empty($actions["add_iframe"])))
+@if (!$readonly && isset($actions["add_iframe"]) && !empty($actions["add_iframe"]))
 <form method="post" onsubmit="return false;" data-type="table" data-model="{{$model}}">
   <div id="tablePopupIframe{{$model}}" data-model="{{$model}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document" @if(isset($width) && !empty($width)) style="max-width: {{$width}} !important;" @endif>

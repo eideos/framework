@@ -442,8 +442,14 @@ class Parse
                         $atable['actions']["delete"] = true;
                         break;
                     case "V":
-                        $atable['readonly'] = true;
-                        $atable['actions']["show"] = true;
+                        if (isset($action['url']) && !empty($action['url'])) {
+                            $atable['actions']["show_iframe"] = [
+                                'url' =>  (string) $action['url']
+                            ];
+                        } else {
+                            $atable['readonly'] = true;
+                            $atable['actions']["show"] = true;
+                        }
                         break;
                 }
             }

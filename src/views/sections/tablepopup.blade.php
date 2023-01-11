@@ -45,11 +45,11 @@
                 @endforeach
                 @endforeach
 
-                @if ($readonly && (!isset($actions["show"]) || $actions["show"]))
+                @if ($readonly && (!isset($actions["show"]) || $actions["show"] || !isset($actions["show_iframe"]) || !empty($actions["show_iframe"])))
                 <th class="delete">Acciones</th>
                 @endif
 
-                @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["delete"]) || $actions["delete"] || !isset($actions["show"]) || $actions["show"] || (isset($actions["update_iframe"]) && !empty($actions["update_iframe"]))))
+                @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["delete"]) || $actions["delete"] || !isset($actions["show_iframe"]) || $actions["show_iframe"] || !isset($actions["show"]) || $actions["show"] || (isset($actions["update_iframe"]) && !empty($actions["update_iframe"]))))
                 <th class="delete">Acciones</th>
                 @endif
             </tr>
@@ -71,18 +71,26 @@
                 @endif
                 @endforeach
 
-                @if ($readonly && (!isset($actions["show"]) || $actions["show"]))
+                @if ($readonly && (!isset($actions["show"]) || $actions["show"] || !isset($actions["show_iframe"]) || !empty($actions["show_iframe"])))
                 <td>
                     @if ((isset($actions["show"]) && $actions["show"]))
                     <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="showTableRow('{{$model}}', {{($key+1)}});"><i class="fa fa-eye"></i></a>
                     @endif
+                    @if (isset($actions["show_iframe"]) && !empty($actions["show_iframe"]))
+                    @php $iframeParams = json_encode($actions["show_iframe"],true); @endphp
+                    <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="showTableRowIframe('{{$model}}', {{($key+1)}}, '{{$iframeParams}}');"><i class="fa fa-eye"></i></a>
+                    @endif
                 </td>
                 @endif
 
-                @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["delete"]) || $actions["delete"] || !isset($actions["show"]) || $actions["show"] || (isset($actions["update_iframe"]) && !empty($actions["update_iframe"]))))
+                @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["delete"]) || $actions["delete"] || !isset($actions["show_iframe"]) || $actions["show_iframe"] || !isset($actions["show"]) || $actions["show"] || (isset($actions["update_iframe"]) && !empty($actions["update_iframe"]))))
                 <td>
                     @if ((isset($actions["show"]) && $actions["show"]) && !(!isset($actions["update"]) || $actions["update"]))
                     <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="showTableRow('{{$model}}', {{($key+1)}});"><i class="fa fa-eye"></i></a>
+                    @endif
+                    @if (isset($actions["show_iframe"]) && !empty($actions["show_iframe"]) && !(isset($actions["update_iframe"]) && !empty($actions["update_iframe"])))
+                    @php $iframeParams = json_encode($actions["show_iframe"],true); @endphp
+                    <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="showTableRowIframe('{{$model}}', {{($key+1)}}, '{{$iframeParams}}');"><i class="fa fa-eye"></i></a>
                     @endif
                     @if (!isset($actions["update"]) || $actions["update"])
                     <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="editTableRow('{{$model}}', {{($key+1)}});"><i class="fa fa-pencil-alt"></i></a>
