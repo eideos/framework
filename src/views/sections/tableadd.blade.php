@@ -1,5 +1,5 @@
 @php $tableFields = $fields; @endphp
-@if (!$readonly || (isset($actions["add"]) && $actions["add"]))
+@if ((isset($actions["update"]) && $actions["update"])|| (isset($actions["add"]) && $actions["add"]))
 <form method="post" onsubmit="return false;" data-type="table" data-model="{{$model}}">
   <div id="tablePopup{{$model}}" data-model="{{$model}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document" @if(isset($width) && !empty($width)) style="max-width: {{$width}} !important;" @endif>
@@ -76,14 +76,14 @@
         tableActions = [];
       }
       tableFields['{{$model}}'] = @json($tableFields);
-      tableRules['{{$model}}'] = @json(isset($tables_rules[$model]) ? $tables_rules[$model]["validator"]->toArray() : []);
+      tableRules['{{$model}}'] = @json(isset($tables_rules[$model]) ? $tables_rules[$model]["validator"] - > toArray() : []);
       tableInits['{{$model}}'] = @json($form_inits['tables'][$model] ?? []);
       tableActions['{{$model}}'] = @json($actions ?? []);
     });
   </script>
 </form>
 @endif
-@if (!$readonly && isset($actions["add_iframe"]) && !empty($actions["add_iframe"]))
+@if ((isset($actions["update_iframe"]) && !empty($actions["update_iframe"]))|| (isset($actions["add_iframe"]) && !empty($actions["add_iframe"])))
 <form method="post" onsubmit="return false;" data-type="table" data-model="{{$model}}">
   <div id="tablePopupIframe{{$model}}" data-model="{{$model}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document" @if(isset($width) && !empty($width)) style="max-width: {{$width}} !important;" @endif>
@@ -109,7 +109,6 @@
       tableFields['{{$model}}'] = @json($tableFields);
       tableActions['{{$model}}'] = @json($actions ?? []);
     });
-
   </script>
 </form>
 @endif

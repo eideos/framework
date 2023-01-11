@@ -1,5 +1,5 @@
 @php $tableFields = $fields; @endphp
-@if ($readonly || (isset($actions["show"]) && $actions["show"]))
+@if (isset($actions["show"]) && $actions["show"])
 <form method="post" onsubmit="return false;" data-type="table" data-model="{{$model}}">
   <div id="tablePopupShow{{$model}}" data-model="{{$model}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document" @if(isset($width) && !empty($width)) style="max-width: {{$width}} !important;" @endif>
@@ -63,6 +63,35 @@
       }
       tableFields['{{$model}}'] = @json($tableFields);
       tableInits['{{$model}}'] = @json($form_inits['tables'][$model] ?? []);
+      tableActions['{{$model}}'] = @json($actions ?? []);
+    });
+  </script>
+</form>
+@endif
+@if (isset($actions["show_iframe"]) && !empty($actions["show_iframe"]))
+<form method="post" onsubmit="return false;" data-type="table" data-model="{{$model}}">
+  <div id="tablePopupShowIframe{{$model}}" data-model="{{$model}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document" @if(isset($width) && !empty($width)) style="max-width: {{$width}} !important;" @endif>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{$header ?? "Agregar Nueva Fila"}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar" onclick="closeTablePopupShowIframe('{{$model}}');">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <iframe id="tablePopupShowIframe{{$model}}" width="100%" height="750px" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(function() {
+      if (typeof tableFields == "undefined") {
+        tableFields = [];
+      }
+      tableFields['{{$model}}'] = @json($tableFields);
       tableActions['{{$model}}'] = @json($actions ?? []);
     });
   </script>

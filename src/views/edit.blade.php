@@ -75,18 +75,16 @@
 @foreach ($maint as $tab => $tabData)
       @foreach ($tabData["blocks"] as $keyBlock => $block)
             @if (in_array($block["type"], ["table", "tablepopup"]))
-                @if (!isset($block["actions"]['update']) || $block["actions"]['update'])
+                @if (!isset($block["actions"]['add']) || $block["actions"]['add'] || !isset($block["actions"]['update']) || $block["actions"]['update'] || !isset($block["actions"]['update_iframe']) || !empty($block["actions"]['update_iframe']) )
                   @includeFirst(['sections.tableadd', 'framework::sections.tableadd'], array_merge($block, [
                   'readonly' => $readonly ?? false,
                   'actions' => $block["actions"] ?? ["add"=>true, "update"=>true, "delete"=>true, "show" => false],
                   ]))
                 @else
-                @if (!isset($block["actions"]['show']) || $block["actions"]['show'])
                   @includeFirst(['sections.tableshow', 'framework::sections.tableshow'], array_merge($block, [
                   'readonly' => $readonly ?? true,
                   'actions' => $block["actions"] ?? ["add"=>false, "update"=>false, "delete"=>false, "show" => true],
                   ]))
-                @endif
                 @endif
             @endif
             @php $first = false; @endphp
