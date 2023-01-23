@@ -14,7 +14,6 @@
           <div class="row">
             @foreach($fields as $field)
             @php
-            $field->setInitialValue($field->getValue());
             $field->setReadonly(true);
             $field->setTableModel('Show'.$field->getTableModel());
             @endphp
@@ -29,7 +28,6 @@
               <div class="row">
                 @foreach($fieldset['fields'] as $field)
                 @php
-                $field->setInitialValue($field->getValue());
                 $field->setReadonly(true);
                 $field->setTableModel('Show'.$field->getTableModel());
                 @endphp
