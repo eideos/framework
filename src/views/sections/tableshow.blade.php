@@ -1,7 +1,7 @@
 @php $tableFields = $fields; @endphp
 @if (isset($actions["show"]) && $actions["show"])
-<form method="post" onsubmit="return false;" data-type="table" data-model="{{$model}}">
-  <div id="tablePopupShow{{$model}}" data-model="{{$model}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<form method="post" onsubmit="return false;" data-type="table" data-model="Show{{$model}}">
+  <div id="tablePopupShowShow{{$model}}" data-model="Show{{$model}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document" @if(isset($width) && !empty($width)) style="max-width: {{$width}} !important;" @endif>
       <div class="modal-content">
         <div class="modal-header">
@@ -13,7 +13,11 @@
         <div class="modal-body">
           <div class="row">
             @foreach($fields as $field)
-            @php $field->setReadonly(true); @endphp
+            @php
+            $field->setInitialValue($field->getValue());
+            $field->setReadonly(true);
+            $field->setTableModel('Show'.$field->getTableModel());
+            @endphp
             @include($field->getViewFieldPath(), $field->getViewVars())
             @endforeach
 
@@ -24,7 +28,11 @@
               @endif
               <div class="row">
                 @foreach($fieldset['fields'] as $field)
-                @php $field->setReadonly(true); @endphp
+                @php
+                $field->setInitialValue($field->getValue());
+                $field->setReadonly(true);
+                $field->setTableModel('Show'.$field->getTableModel());
+                @endphp
                 @php $tableFields[] = $field; @endphp
                 @include($field->getViewFieldPath(), $field->getViewVars())
                 @endforeach
@@ -34,7 +42,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-light btn-icon-split" onclick="$('#tablePopupShow{{$model}}').modal('hide');">
+          <button type="button" class="btn btn-light btn-icon-split" onclick="$('#tablePopupShowShow{{$model}}').modal('hide');">
             <span class="icon text-white">
               <i class="fas fa-times"></i>
             </span>
@@ -61,16 +69,15 @@
       if (typeof tableActions == "undefined") {
         tableActions = [];
       }
-      tableFields['{{$model}}'] = @json($tableFields);
-      tableInits['{{$model}}'] = @json($form_inits['tables'][$model] ?? []);
-      tableActions['{{$model}}'] = @json($actions ?? []);
+      tableFields['Show{{$model}}'] = @json($tableFields);
+      tableInits['Show{{$model}}'] = @json($form_inits['tables']['Show'.$model] ?? []);
     });
   </script>
 </form>
 @endif
 @if (isset($actions["show_iframe"]) && !empty($actions["show_iframe"]))
-<form method="post" onsubmit="return false;" data-type="table" data-model="{{$model}}">
-  <div id="tablePopupShowIframe{{$model}}" data-model="{{$model}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<form method="post" onsubmit="return false;" data-type="table"="{{$model}}">
+  <div id="tablePopupShowIframe{{$model}}"="{{$model}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document" @if(isset($width) && !empty($width)) style="max-width: {{$width}} !important;" @endif>
       <div class="modal-content">
         <div class="modal-header">
