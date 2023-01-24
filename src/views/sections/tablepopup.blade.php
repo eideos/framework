@@ -45,11 +45,11 @@
                 @endforeach
                 @endforeach
 
-                @if ($readonly && (!isset($actions["show"]) || $actions["show"] || !isset($actions["show_iframe"]) || !empty($actions["show_iframe"])))
+                @if ($readonly && (!isset($actions["show"]) || $actions["show"] || (isset($actions["show_iframe"]) && !empty($actions["show_iframe"]))))
                 <th class="delete">Acciones</th>
                 @endif
 
-                @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["delete"]) || $actions["delete"] || !isset($actions["show_iframe"]) || $actions["show_iframe"] || !isset($actions["show"]) || $actions["show"] || (isset($actions["update_iframe"]) && !empty($actions["update_iframe"]))))
+                @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["delete"]) || $actions["delete"] || !isset($actions["show"]) ||  !empty($actions["show"]) || (isset($actions["show_iframe"]) && !empty($actions["show_iframe"])) || (isset($actions["update_iframe"]) && !empty($actions["update_iframe"]))))
                 <th class="delete">Acciones</th>
                 @endif
             </tr>
