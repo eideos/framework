@@ -10,18 +10,18 @@ class Parse
     private $file;
     private $dataPath;
     private $attributes = [
-        'tab' => array('id', 'label', 'icon', 'group', 'displayFunction'),
+        'tab' => array('id', 'label', 'icon', 'group', 'displayFunction', 'displayFunctionParams'),
         'importcolumn' => array('index', 'name', 'label', 'presentation'),
         'maintfield' => array('name', 'label', 'presentation', 'params', 'class', 'isvisible', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'autocomplete', 'placeholder', 'rows', 'cols', 'model', 'keyField', 'displayField', 'listen', 'listenCallback', 'multiple', 'isvisibletable'),
         'table' => array('id', 'paginate', 'title', 'label', 'popup', 'columns', 'blocks', 'model', 'order', 'orderby', 'assoc', 'multiple', 'total', 'directedit', 'cols', 'readonly', 'relation', 'width', 'icon', 'button', 'pk', 'header', 'info', 'warning', 'displayFunction'),
-        'tableaction' => array('op', 'displayFunction'),
-        'files' => array('id', 'label', 'paginate', 'title', 'order', 'orderby', 'blocks', 'model', 'allowedTypes', 'descEnabled', 'readonly', 'showMimetype', 'info', 'warning', 'displayFunction'),
+        'tableaction' => array('op', 'displayFunction', 'displayFunctionParams'),
+        'files' => array('id', 'label', 'paginate', 'title', 'order', 'orderby', 'blocks', 'model', 'allowedTypes', 'descEnabled', 'readonly', 'showMimetype', 'info', 'warning', 'displayFunction', 'displayFunctionParams'),
         'tablefield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'isvisibletable', 'readonly', 'size', 'actions', 'note', 'initialvalue', 'placeholder', 'total', 'model', 'rows', 'cols', 'keyField', 'displayField', 'uniqueInTable', 'listen', 'listenCallback', 'multiple', 'class'),
         'searchfield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'readonly', 'size', 'note', 'initialvalue', 'autocomplete', 'placeholder', 'rows', 'cols', 'model', 'displayField', 'keyField'),
         'listfield' => array('name', 'label', 'presentation', 'params', 'isvisible', 'directedit', 'skip-export', 'split-on-export', 'model', 'keyField', 'displayField', 'search', 'class'),
         'slactions' => array('op', 'action', 'controller', 'params', 'icon', 'label', 'next', 'post', 'global', 'displayFunction', 'class', 'method', 'blank'),
-        'tablefieldset' => array('id', 'label', 'columns', 'blocks', 'cols', 'readonly', 'icon', 'info', 'warning', 'displayFunction'),
-        'fieldset' => array('id', 'label', 'columns', 'blocks', 'cols', 'readonly', 'icon', 'info', 'warning', 'displayFunction'),
+        'tablefieldset' => array('id', 'label', 'columns', 'blocks', 'cols', 'readonly', 'icon', 'info', 'warning', 'displayFunction', 'displayFunctionParams'),
+        'fieldset' => array('id', 'label', 'columns', 'blocks', 'cols', 'readonly', 'icon', 'info', 'warning', 'displayFunction', 'displayFunctionParams'),
     ];
 
     public function __construct($path)
