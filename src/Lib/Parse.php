@@ -497,27 +497,20 @@ class Parse
             case "A":
                 if (isset($action['url']) && !empty($action['url'])) {
                     return "add_iframe";
-                } else {
-                    return "add";
                 }
-                break;
+                return "add";
             case "M":
                 if (isset($action['url']) && !empty($action['url'])) {
                     return "update_iframe";
-                } else {
-                    return "update";
                 }
-                break;
+                return "update";
             case "D":
                 return "delete";
-                break;
             case "V":
                 if (isset($action['url']) && !empty($action['url'])) {
                     return "show_iframe";
-                } else {
-                    return "show";
                 }
-                break;
+                return "show";
         }
     }
 
