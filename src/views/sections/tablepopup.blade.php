@@ -2,7 +2,7 @@
     <h5 class="pb-2 mb-2 border-bottom mt-10 font-weight-bold">
         {{$label}}
         @if ((!isset($readonly) || !$readonly))
-        @if(isset($actions["add"]) && $actions["add"])
+        @if(isset($actions["add"]) && $actions["add"] && tablepopup_has_permission($actions, ['add']))
         <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-icon-split" onclick="addTableRow('{{$model}}');">
             <span class="icon text-white">
                 <i class="fas fa-plus"></i>
@@ -10,7 +10,7 @@
             <span class="text">{{$block["button"]??env('LABEL_TABLEPOPUP_ADD', 'Agregar Fila')}}</span>
         </a>
         @endif
-        @if(isset($actions["add_iframe"]) && !empty($actions["add_iframe"]))
+        @if(isset($actions["add_iframe"]) && !empty($actions["add_iframe"]) && tablepopup_has_permission($actions, ['add_iframe']))
         @php $iframeParams = json_encode($actions["add_iframe"],true); @endphp
         <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-icon-split" onclick="addTableRowIframe('{{$model}}', '{{$iframeParams}}');">
             <span class="icon text-white">
@@ -45,11 +45,11 @@
                 @endforeach
                 @endforeach
 
-                @if ($readonly && (!isset($actions["show"]) || $actions["show"] || (isset($actions["show_iframe"]) && !empty($actions["show_iframe"]))))
+                @if ($readonly && tablepopup_has_actions($actions, ['show', 'show_iframe']) && tablepopup_has_permission($actions, ['show', 'show_iframe']))
                 <th class="delete">Acciones</th>
                 @endif
 
-                @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["delete"]) || $actions["delete"] || !isset($actions["show"]) ||  !empty($actions["show"]) || (isset($actions["show_iframe"]) && !empty($actions["show_iframe"])) || (isset($actions["update_iframe"]) && !empty($actions["update_iframe"]))))
+                @if ((!isset($readonly) || !$readonly) && tablepopup_has_actions($actions, ['show', 'update','delete', 'show_iframe', 'update_iframe']) && tablepopup_has_permission($actions, ['show', 'update','delete', 'show_iframe', 'update_iframe']))
                 <th class="delete">Acciones</th>
                 @endif
             </tr>
@@ -71,35 +71,35 @@
                 @endif
                 @endforeach
 
-                @if ($readonly && (!isset($actions["show"]) || $actions["show"] || !isset($actions["show_iframe"]) || !empty($actions["show_iframe"])))
+                @if ($readonly && tablepopup_has_actions($actions, ['show', 'show_iframe']) && tablepopup_has_permission($actions, ['show', 'show_iframe']))
                 <td>
-                    @if ((isset($actions["show"]) && $actions["show"]))
+                    @if ((isset($actions["show"]) && $actions["show"]) && tablepopup_has_permission($actions, ['show']))
                     <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="showTableRow('{{$model}}', {{($key+1)}});"><i class="fa fa-eye"></i></a>
                     @endif
-                    @if (isset($actions["show_iframe"]) && !empty($actions["show_iframe"]))
+                    @if (isset($actions["show_iframe"]) && !empty($actions["show_iframe"]) && tablepopup_has_permission($actions, ['show_iframe']))
                     @php $iframeParams = json_encode($actions["show_iframe"],true); @endphp
                     <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="showTableRowIframe('{{$model}}', {{($key+1)}}, '{{$iframeParams}}');"><i class="fa fa-eye"></i></a>
                     @endif
                 </td>
                 @endif
 
-                @if ((!isset($readonly) || !$readonly) && (!isset($actions["update"]) || $actions["update"] || !isset($actions["delete"]) || $actions["delete"] || !isset($actions["show_iframe"]) || $actions["show_iframe"] || !isset($actions["show"]) || $actions["show"] || (isset($actions["update_iframe"]) && !empty($actions["update_iframe"]))))
+                @if ((!isset($readonly) || !$readonly) && tablepopup_has_actions($actions, ['show', 'update','delete', 'show_iframe', 'update_iframe']) && tablepopup_has_permission($actions, ['show', 'update','delete', 'show_iframe', 'update_iframe']))
                 <td>
-                    @if ((isset($actions["show"]) && $actions["show"]))
+                    @if ((!isset($actions["show"]) || $actions["show"]) && tablepopup_has_permission($actions, ['show']))
                     <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="showTableRow('{{$model}}', {{($key+1)}});"><i class="fa fa-eye"></i></a>
                     @endif
-                    @if (isset($actions["show_iframe"]) && !empty($actions["show_iframe"]) && !(isset($actions["update_iframe"]) && !empty($actions["update_iframe"])))
+                    @if (isset($actions["show_iframe"]) && !empty($actions["show_iframe"]) && tablepopup_has_permission($actions, ['show_iframe']))
                     @php $iframeParams = json_encode($actions["show_iframe"],true); @endphp
                     <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="showTableRowIframe('{{$model}}', {{($key+1)}}, '{{$iframeParams}}');"><i class="fa fa-eye"></i></a>
                     @endif
-                    @if (!isset($actions["update"]) || $actions["update"])
+                    @if ((!isset($actions["update"]) || $actions["update"]) && tablepopup_has_permission($actions, ['update']))
                     <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="editTableRow('{{$model}}', {{($key+1)}});"><i class="fa fa-pencil-alt"></i></a>
                     @endif
-                    @if (isset($actions["update_iframe"]) && !empty($actions["update_iframe"]))
+                    @if (isset($actions["update_iframe"]) && !empty($actions["update_iframe"]) && tablepopup_has_permission($actions, ['update_iframe']))
                     @php $iframeParams = json_encode($actions["update_iframe"],true); @endphp
                     <a class="btn btn-circle btn-sm btn-secondary" href="javascript:void(0);" onclick="editTableRowIframe('{{$model}}', {{($key+1)}}, '{{$iframeParams}}');"><i class="fa fa-pencil-alt"></i></a>
                     @endif
-                    @if (!isset($actions["delete"]) || $actions["delete"])
+                    @if ((!isset($actions["delete"]) || $actions["delete"]) && tablepopup_has_permission($actions, ['delete']))
                     @if(!isset($assoc) || !$assoc)
                     <input type="hidden" name="table[{{$model}}][{{($key+1)}}][_delete]" value="0" />
                     @endif

@@ -415,8 +415,15 @@ class Parse
                 "update" => false,
                 "delete" => false,
                 "show" => false,
+                "displayFunctions" => [],
             ];
             foreach ($table->actions->action as $action) {
+                if (isset($action['displayFunction']) && !empty($action['displayFunction'])) {
+                    $atable['actions']["displayFunctions"][$this->getTablePopUpAction($action)] = [
+                        "displayFunction" => (string) $action['displayFunction'],
+                        "displayFunctionParams" => (string) $action['displayFunctionParams'] ?? '',
+                    ];
+                }
                 switch (strtoupper($action['op'])) {
                     case "A":
                         if (isset($action['url']) && !empty($action['url'])) {
@@ -482,6 +489,36 @@ class Parse
             $atable['filters'] = $afilters;
         }
         return $atable;
+    }
+
+    private function getTablePopUpAction($action)
+    {
+        switch (strtoupper($action['op'])) {
+            case "A":
+                if (isset($action['url']) && !empty($action['url'])) {
+                    return "add_iframe";
+                } else {
+                    return "add";
+                }
+                break;
+            case "M":
+                if (isset($action['url']) && !empty($action['url'])) {
+                    return "update_iframe";
+                } else {
+                    return "update";
+                }
+                break;
+            case "D":
+                return "delete";
+                break;
+            case "V":
+                if (isset($action['url']) && !empty($action['url'])) {
+                    return "show_iframe";
+                } else {
+                    return "show";
+                }
+                break;
+        }
     }
 
     private function addFieldSet($fieldset, $type = "fieldset")
